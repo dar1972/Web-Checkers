@@ -7,7 +7,7 @@ a web micro-framework.
 ## Team
 
 - Marcus Kapoor
-- MEMBER2
+- Dhruv Rajpurohit
 - MEMBER3
 - MEMBER4
 
