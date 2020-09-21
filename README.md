@@ -8,7 +8,7 @@ a web micro-framework.
 
 - Marcus Kapoor
 - Dhruv Rajpurohit
-- MEMBER3
+- Beck Anderson
 - MEMBER4
 
 
