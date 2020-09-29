@@ -11,13 +11,11 @@ import spark.Response;
 import spark.Route;
 import spark.TemplateEngine;
 
+import com.webcheckers.appl.PlayerLobby;
+import com.webcheckers.model.Player;
 import com.webcheckers.util.Message;
 
-/**
- * The UI Controller to GET the Home page.
- *
- * @author <a href='mailto:bdbvse@rit.edu'>Bryan Basham</a>
- */
+
 public class PostSignInRoute implements Route {
   private static final Logger LOG = Logger.getLogger(PostSignInRoute.class.getName());
 
@@ -26,6 +24,7 @@ public class PostSignInRoute implements Route {
   static final String USER_PARAM = "userName";
 
   private final TemplateEngine templateEngine;
+  private final PlayerLobby playerLobby;
 
   /**
    * Create the Spark Route (UI controller) to handle all {@code GET /} HTTP
@@ -33,8 +32,9 @@ public class PostSignInRoute implements Route {
    *
    * @param templateEngine the HTML template rendering engine
    */
-  public PostSignInRoute(final TemplateEngine templateEngine) {
+  public PostSignInRoute(final TemplateEngine templateEngine, final PlayerLobby playerLobby) {
     this.templateEngine = Objects.requireNonNull(templateEngine, "templateEngine is required");
+    this.playerLobby = Objects.requireNonNull(playerLobby, "playerLobby is required");
     //
     LOG.config("PostSignInRoute is initialized.");
   }
@@ -62,7 +62,11 @@ public class PostSignInRoute implements Route {
 
     final String userName = request.queryParams(USER_PARAM);
 
+    Player test = new Player(userName);
+
     //so pass username to playerlobby?
+
+    playerLobby.addToLobby(test);
 
     // render the View
     return templateEngine.render(new ModelAndView(vm , "signin.ftl"));

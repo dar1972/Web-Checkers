@@ -6,6 +6,7 @@ import java.util.Objects;
 import java.util.logging.Logger;
 
 import com.google.gson.Gson;
+import com.webcheckers.appl.PlayerLobby;
 
 import spark.TemplateEngine;
 
@@ -61,6 +62,7 @@ public class WebServer {
 
   private final TemplateEngine templateEngine;
   private final Gson gson;
+  private final PlayerLobby playerLobby; //added by Marcus
 
   //
   // Constructor
@@ -77,13 +79,15 @@ public class WebServer {
    * @throws NullPointerException
    *    If any of the parameters are {@code null}.
    */
-  public WebServer(final TemplateEngine templateEngine, final Gson gson) {
+  public WebServer(final TemplateEngine templateEngine, final Gson gson, final PlayerLobby playerLobby){
     // validation
     Objects.requireNonNull(templateEngine, "templateEngine must not be null");
     Objects.requireNonNull(gson, "gson must not be null");
+    Objects.requireNonNull(playerLobby, "playerLobby must not be Null"); //added by Marcus
     //
     this.templateEngine = templateEngine;
     this.gson = gson;
+    this.playerLobby = playerLobby;
   }
 
   //
@@ -142,7 +146,7 @@ public class WebServer {
 
     get(SIGNIN_URL, new GetSignInRoute(templateEngine)); //added by Marcus
 
-    post(SIGNIN_URL, new PostSignInRoute(templateEngine)); //added by Marcus
+    post(SIGNIN_URL, new PostSignInRoute(templateEngine, playerLobby)); //added by Marcus
     //
     LOG.config("WebServer is initialized.");
   }
