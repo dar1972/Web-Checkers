@@ -141,6 +141,8 @@ public class WebServer {
     get(HOME_URL, new GetHomeRoute(templateEngine));
 
     get(SIGNIN_URL, new GetSignInRoute(templateEngine)); //added by Marcus
+
+    post(SIGNIN_URL, new PostSignInRoute(templateEngine)); //added by Marcus
     //
     LOG.config("WebServer is initialized.");
   }

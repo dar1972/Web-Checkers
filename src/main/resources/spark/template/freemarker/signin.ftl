@@ -2,7 +2,7 @@
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
-  <meta http-equiv="refresh" content="10">
+  <meta http-equiv="refresh" content="10"> <!-- Should probably remove this. I think it causes the page to refresh every 10 seconds -->
   <title>Web Checkers | ${title}</title>
   <link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
@@ -21,10 +21,10 @@
     <!-- Provide a message to the user, if supplied. -->
     <#include "message.ftl" />
 
-    <form action="./guess <- OLD REPLACE WITH ACCURATE ONE" method="POST">
+    <form action="./signin" method="POST">
         Username:
         <br/>
-        <input name="myGuess" />
+        <input name="userName" />
         <br/><br/>
         <button type="submit">Ok</button>
       </form>
