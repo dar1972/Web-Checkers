@@ -21,7 +21,7 @@ import com.webcheckers.util.Message;
 public class GetSignInRoute implements Route {
   private static final Logger LOG = Logger.getLogger(GetSignInRoute.class.getName());
 
-  private static final Message WELCOME_MSG = Message.info("Please log in using an existing username or a new one.");
+  private static final Message SIGNIN_INFO_MSG = Message.info("Please log in using an existing username or a new one.");
 
   private final TemplateEngine templateEngine;
 
@@ -50,15 +50,15 @@ public class GetSignInRoute implements Route {
    */
   @Override
   public Object handle(Request request, Response response) {
-    LOG.finer("GetHomeRoute is invoked.");
+    LOG.finer("GetSignInRoute is invoked.");
     //
     Map<String, Object> vm = new HashMap<>();
-    vm.put("title", "Welcome!");
+    vm.put("title", "Sign In!");
 
     // display a user message in the Home page
-    vm.put("message", WELCOME_MSG);
+    vm.put("message", SIGNIN_INFO_MSG);
 
     // render the View
-    return templateEngine.render(new ModelAndView(vm , "home.ftl"));
+    return templateEngine.render(new ModelAndView(vm , "signin.ftl"));
   }
 }

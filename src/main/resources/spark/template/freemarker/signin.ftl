@@ -13,18 +13,21 @@
   <h1>Web Checkers | ${title}</h1>
 
   <!-- Provide a navigation bar -->
-  <#include "nav-bar.ftl" />
+  <!-- <#include "nav-bar.ftl" /> Not sure if the nav bar is needed, possibly for a back/home button in case you don't want to sign in. -->
 
   <div class="body">
 
+    
     <!-- Provide a message to the user, if supplied. -->
     <#include "message.ftl" />
 
-    <!-- TODO: future content on the Home:
-            to start games,
-            spectating active games,
-            or replay archived games
-    -->
+    <form action="./guess <- OLD REPLACE WITH ACCURATE ONE" method="POST">
+        Username:
+        <br/>
+        <input name="myGuess" />
+        <br/><br/>
+        <button type="submit">Ok</button>
+      </form>
 
   </div>
 
