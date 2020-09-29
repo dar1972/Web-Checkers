@@ -8,7 +8,7 @@ public class PlayerLobby {
     //created by Marcus
     //this should handle sign in requests?
 
-    HashMap<Integer, Player> players;
+    HashMap<Integer, Player> players = new HashMap<>();
 
     public PlayerLobby() {
 
@@ -20,6 +20,7 @@ public class PlayerLobby {
             //fuck em up fam
             return false;
         }
+
         else {
             players.put(userName.hashCode(), userName);
             return true;

@@ -62,13 +62,21 @@ public class PostSignInRoute implements Route {
 
     final String userName = request.queryParams(USER_PARAM);
 
-    Player test = new Player(userName);
+    Player player = new Player(userName);
 
     //so pass username to playerlobby?
 
-    playerLobby.addToLobby(test);
+    boolean success = playerLobby.addToLobby(player);
 
-    // render the View
-    return templateEngine.render(new ModelAndView(vm , "signin.ftl"));
+    if (success) {
+      response.redirect(WebServer.HOME_URL); //go back to home page, I think.
+      return templateEngine.render(new ModelAndView(vm, "home.ftl"));
+    }
+    else {
+      // render the View
+      return templateEngine.render(new ModelAndView(vm , "signin.ftl"));
+    }
+
+
   }
 }
