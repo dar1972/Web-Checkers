@@ -9,7 +9,7 @@ a web micro-framework.
 - Marcus Kapoor
 - Dhruv Rajpurohit
 - Beck Anderson
-- MEMBER4
+- Kelly Xiong Chen
 
 
 ## Prerequisites
