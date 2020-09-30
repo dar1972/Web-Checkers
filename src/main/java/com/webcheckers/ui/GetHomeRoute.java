@@ -12,6 +12,7 @@ import spark.Route;
 import spark.TemplateEngine;
 
 import com.webcheckers.appl.PlayerLobby;
+import com.webcheckers.model.Player;
 import com.webcheckers.util.Message;
 
 /**
@@ -23,6 +24,8 @@ public class GetHomeRoute implements Route {
   private static final Logger LOG = Logger.getLogger(GetHomeRoute.class.getName());
 
   private static final Message WELCOME_MSG = Message.info("Welcome to the world of online Checkers.");
+  static final String USER_PARAM = "userName";
+
 
   private final TemplateEngine templateEngine;
 
@@ -59,7 +62,14 @@ public class GetHomeRoute implements Route {
     // display a user message in the Home page
     vm.put("message", WELCOME_MSG);
 
-    
+    String userName = request.session().attribute(USER_PARAM);
+    Player player = new Player(userName);
+
+      if (userName != null) {
+        vm.put("currentUser", player);
+        //vm.put("currentUser.name");
+        vm.put("message", Message.info("PLEASE FOR THE LOVE OF GOD WORK"));
+      }
     // render the View
     return templateEngine.render(new ModelAndView(vm , "home.ftl"));
   }

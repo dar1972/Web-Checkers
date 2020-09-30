@@ -29,9 +29,15 @@ public class PlayerLobby {
     
     public synchronized boolean isValid(String userName) {
         //do checks here
-        boolean hasNonAlpha = !userName.matches("^.*[^a-zA-Z0-9 ].*$");
+        //System.out.println(userName + "OVERHERE SDGSDGSDGSDGSDFGSDFGSDG");
+        boolean isAlpha = !userName.matches("^.*[^a-zA-Z0-9].*$");
 
-        return hasNonAlpha;
+        if (userName.equals("")) {
+            //System.out.println("OVERHERE AGAIN");
+            isAlpha = false;
+        }
+
+        return isAlpha;
     }
 
 

@@ -9,6 +9,7 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 import spark.Route;
+import spark.Session;
 import spark.TemplateEngine;
 import spark.http.matching.Halt;
 
@@ -83,14 +84,14 @@ public class PostSignInRoute implements Route {
     boolean success = playerLobby.addToLobby(player);
 
     if (success) {
-      vm.put("currentUser??", true);
-      vm.put("currentUser.name", player.getName());
-      //vm.put("message", Message.info("PLEASE FOR THE LOVE OF GOD WORK"));
+
       
-      response.redirect(WebServer.HOME_URL); //go back to home page, I think.
+      final Session session = request.session(); 
+      session.attribute( USER_PARAM, userName );
+      response.redirect(WebServer.HOME_URL);
       halt();
       return null;
-      //return templateEngine.render(new ModelAndView(vm, "home.ftl")); //panakes
+      //return templateEngine.render(new ModelAndView(vm, "home.ftl")); 
     }
     else {
       vm.put("message", NAME_TAKEN_MSG);
