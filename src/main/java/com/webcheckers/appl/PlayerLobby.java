@@ -18,12 +18,12 @@ public class PlayerLobby {
 	public synchronized boolean addToLobby(Player user) {
         if (players.containsKey(user.hashCode())) {
             
-            return true;
+            return false;
         }
 
         else {
             players.put(user.hashCode(), user);
-            return false;
+            return true;
         }
     }
     
