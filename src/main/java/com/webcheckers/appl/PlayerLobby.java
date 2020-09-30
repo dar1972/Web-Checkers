@@ -8,7 +8,7 @@ public class PlayerLobby {
     //created by Marcus
     //this should handle sign in requests?
 
-    HashMap<Integer, Player> players = new HashMap<>();
+    HashMap<String, Player> players = new HashMap<>();
 
     public PlayerLobby() {
 
@@ -16,13 +16,13 @@ public class PlayerLobby {
     }
 
 	public synchronized boolean addToLobby(Player user) {
-        if (players.containsKey(user.hashCode())) {
+        if (players.containsKey(user.getName())) { //I would have used hashcodes, but freemarker doesn't like iterating over non-string keys.
             
             return false;
         }
 
         else {
-            players.put(user.hashCode(), user);
+            players.put(user.getName(), user);
             return true;
         }
     }
@@ -40,6 +40,8 @@ public class PlayerLobby {
         return isAlpha;
     }
 
-
+    public HashMap<String, Player> getPlayers() {
+        return players;
+    }
     
 }

@@ -17,14 +17,28 @@
   
   <div class="body">
 
+    
     <!-- Provide a message to the user, if supplied. -->
     <#include "message.ftl" />
 
+    <h2> Players Online </h2>
     <!-- TODO: future content on the Home:
             to start games,
             spectating active games,
             or replay archived games
     -->
+    <#if currentUser??>
+      
+      <#list userList?keys as key>
+        <li>${key}</li>
+      </#list>
+    <#else>
+      <#if lobbySize != 0>
+          There is/are ${lobbySize} players available.
+      <#else>
+          There are no other players available to play at this time.
+      </#if>
+    </#if>
 
   </div>
 

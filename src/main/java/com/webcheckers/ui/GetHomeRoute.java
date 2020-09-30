@@ -15,6 +15,8 @@ import com.webcheckers.appl.PlayerLobby;
 import com.webcheckers.model.Player;
 import com.webcheckers.util.Message;
 
+import freemarker.core.Environment;
+
 /**
  * The UI Controller to GET the Home page.
  *
@@ -28,7 +30,7 @@ public class GetHomeRoute implements Route {
 
 
   private final TemplateEngine templateEngine;
-
+  private final PlayerLobby playerLobby;
   /**
    * Create the Spark Route (UI controller) to handle all {@code GET /} HTTP requests.
    *
@@ -38,6 +40,7 @@ public class GetHomeRoute implements Route {
   public GetHomeRoute(final TemplateEngine templateEngine, final PlayerLobby playerLobby) {
     this.templateEngine = Objects.requireNonNull(templateEngine, "templateEngine is required");
     //
+    this.playerLobby = playerLobby;
     LOG.config("GetHomeRoute is initialized.");
   }
 
@@ -55,7 +58,7 @@ public class GetHomeRoute implements Route {
   @Override
   public Object handle(Request request, Response response) {
     LOG.finer("GetHomeRoute is invoked.");
-    //
+    //    
     Map<String, Object> vm = new HashMap<>();
     vm.put("title", "Welcome!");
 
@@ -64,11 +67,15 @@ public class GetHomeRoute implements Route {
 
     String userName = request.session().attribute(USER_PARAM);
     Player player = new Player(userName);
+    HashMap<String, Player> processedHashMap = (HashMap<String, Player>) playerLobby.getPlayers().clone();
+    processedHashMap.remove(userName);
 
       if (userName != null) {
         vm.put("currentUser", player);
-        //vm.put("currentUser.name");
-        vm.put("message", Message.info("PLEASE FOR THE LOVE OF GOD WORK"));
+        vm.put("userList",processedHashMap);
+      }
+      else {
+        vm.put("lobbySize", playerLobby.getPlayers().size());
       }
     // render the View
     return templateEngine.render(new ModelAndView(vm , "home.ftl"));
