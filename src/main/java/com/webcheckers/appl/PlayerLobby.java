@@ -15,7 +15,7 @@ public class PlayerLobby {
         //do I even need this constructor?
     }
 
-	public boolean addToLobby(Player user) {
+	public synchronized boolean addToLobby(Player user) {
         if (players.containsKey(user.hashCode())) {
             
             return false;
@@ -27,7 +27,7 @@ public class PlayerLobby {
         }
     }
     
-    public boolean isValid(String userName) {
+    public synchronized boolean isValid(String userName) {
         //do checks here
         boolean hasNonAlpha = !userName.matches("^.*[^a-zA-Z0-9 ].*$");
 

@@ -10,10 +10,13 @@ import spark.Request;
 import spark.Response;
 import spark.Route;
 import spark.TemplateEngine;
+import spark.http.matching.Halt;
 
 import com.webcheckers.appl.PlayerLobby;
 import com.webcheckers.model.Player;
 import com.webcheckers.util.Message;
+
+import static spark.Spark.halt;
 
 
 public class PostSignInRoute implements Route {
@@ -82,11 +85,12 @@ public class PostSignInRoute implements Route {
     if (success) {
       vm.put("currentUser??", true);
       vm.put("currentUser.name", player.getName());
-      vm.put("message", Message.info("PLEASE FOR THE LOVE OF GOD WORK"));
+      //vm.put("message", Message.info("PLEASE FOR THE LOVE OF GOD WORK"));
       
       response.redirect(WebServer.HOME_URL); //go back to home page, I think.
-      
-      return templateEngine.render(new ModelAndView(vm, "home.ftl"));
+      halt();
+      return null;
+      //return templateEngine.render(new ModelAndView(vm, "home.ftl"));
     }
     else {
       vm.put("message", NAME_TAKEN_MSG);
