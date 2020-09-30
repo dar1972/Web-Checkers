@@ -20,8 +20,15 @@ public class PostSignInRoute implements Route {
   private static final Logger LOG = Logger.getLogger(PostSignInRoute.class.getName());
 
   private static final Message SIGNIN_INFO_MSG = Message.info("Please log in using an existing username or a new one.");
+  private static final Message NAME_TAKEN_MSG = Message.error("Someone is already logged in with that username. Please try a different one");
+  private static final Message INVALID_NAME_MSG = Message.error("The username you entered is not valid. Please try a different one.");
+
+
 
   static final String USER_PARAM = "userName";
+
+  static final String USER_IN_ATTR = "currentUser??"; //used by nav-bar.ftl to decide if to display username or not.
+  static final String USER_NAME_ATTR = "currentUser.name"; //use by nav-bar.ftl to display the username.
 
   private final TemplateEngine templateEngine;
   private final PlayerLobby playerLobby;
@@ -62,6 +69,10 @@ public class PostSignInRoute implements Route {
 
     final String userName = request.queryParams(USER_PARAM);
 
+    if (!playerLobby.isValid(userName)) {
+      vm.put("message", INVALID_NAME_MSG);
+      return templateEngine.render(new ModelAndView(vm , "signin.ftl"));
+    }
     Player player = new Player(userName);
 
     //so pass username to playerlobby?
@@ -69,10 +80,16 @@ public class PostSignInRoute implements Route {
     boolean success = playerLobby.addToLobby(player);
 
     if (success) {
+      vm.put("currentUser??", true);
+      vm.put("currentUser.name", player.getName());
+      vm.put("message", Message.info("PLEASE FOR THE LOVE OF GOD WORK"));
+      
       response.redirect(WebServer.HOME_URL); //go back to home page, I think.
+      
       return templateEngine.render(new ModelAndView(vm, "home.ftl"));
     }
     else {
+      vm.put("message", NAME_TAKEN_MSG);
       // render the View
       return templateEngine.render(new ModelAndView(vm , "signin.ftl"));
     }

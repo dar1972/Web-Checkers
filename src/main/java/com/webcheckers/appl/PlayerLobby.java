@@ -15,17 +15,24 @@ public class PlayerLobby {
         //do I even need this constructor?
     }
 
-	public boolean addToLobby(Player userName) {
-        if (players.containsKey(userName.hashCode())) {
-            //fuck em up fam
+	public boolean addToLobby(Player user) {
+        if (players.containsKey(user.hashCode())) {
+            
             return false;
         }
 
         else {
-            players.put(userName.hashCode(), userName);
+            players.put(user.hashCode(), user);
             return true;
         }
-	}
+    }
+    
+    public boolean isValid(String userName) {
+        //do checks here
+        boolean hasNonAlpha = !userName.matches("^.*[^a-zA-Z0-9 ].*$");
+
+        return hasNonAlpha;
+    }
 
 
     
