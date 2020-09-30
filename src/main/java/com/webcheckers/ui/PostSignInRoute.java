@@ -90,7 +90,7 @@ public class PostSignInRoute implements Route {
       response.redirect(WebServer.HOME_URL); //go back to home page, I think.
       halt();
       return null;
-      //return templateEngine.render(new ModelAndView(vm, "home.ftl"));
+      //return templateEngine.render(new ModelAndView(vm, "home.ftl")); //panakes
     }
     else {
       vm.put("message", NAME_TAKEN_MSG);
