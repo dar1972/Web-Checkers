@@ -1,5 +1,13 @@
 package com.webcheckers.boardComponents;
 
-public class BoardView {
+import java.util.Iterator;
+
+public class BoardView implements Iterable{
     //Created by Beck Anderson
+
+    @Override
+    public Iterator iterator() {
+        return null;
+    }
+
 }

@@ -1,5 +1,18 @@
 package com.webcheckers.boardComponents;
 
-public class Row {
+import java.util.Iterator;
+
+public class Row implements Iterable {
     //Created by Beck Anderson
+
+    private int index;
+
+    @Override
+    public Iterator iterator() {
+        return null;
+    }
+
+    public int getIndex(){
+        return index;
+    }
 }
