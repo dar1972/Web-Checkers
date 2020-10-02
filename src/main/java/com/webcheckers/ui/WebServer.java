@@ -6,6 +6,7 @@ import java.util.Objects;
 import java.util.logging.Logger;
 
 import com.google.gson.Gson;
+import com.webcheckers.appl.GameCenter;
 import com.webcheckers.appl.PlayerLobby;
 
 import spark.TemplateEngine;
@@ -55,6 +56,7 @@ public class WebServer {
    */
   public static final String HOME_URL = "/";
   public static final String SIGNIN_URL = "/signin"; //added by Marcus
+  public static final String GAME_URL = "/game"; //added by Kelly
 
   //
   // Attributes
@@ -63,6 +65,7 @@ public class WebServer {
   private final TemplateEngine templateEngine;
   private final Gson gson;
   private final PlayerLobby playerLobby; //added by Marcus
+  private final GameCenter gameLobby; //added by Marcus
 
   //
   // Constructor
@@ -79,7 +82,7 @@ public class WebServer {
    * @throws NullPointerException
    *    If any of the parameters are {@code null}.
    */
-  public WebServer(final TemplateEngine templateEngine, final Gson gson, final PlayerLobby playerLobby){
+  public WebServer(final TemplateEngine templateEngine, final Gson gson, final PlayerLobby playerLobby, final GameLobby gameLobby){
     // validation
     Objects.requireNonNull(templateEngine, "templateEngine must not be null");
     Objects.requireNonNull(gson, "gson must not be null");
@@ -88,6 +91,7 @@ public class WebServer {
     this.templateEngine = templateEngine;
     this.gson = gson;
     this.playerLobby = playerLobby;
+    this.gameLobby = gameLobby;
   }
 
   //
@@ -149,6 +153,10 @@ public class WebServer {
     post(SIGNIN_URL, new PostSignInRoute(templateEngine, playerLobby)); //added by Marcus
     //
     LOG.config("WebServer is initialized.");
+
+    get(GAME_URL, new GetSignInRoute(templateEngine)); //added by Kelly
+
+    post(GAME_URL, new PostSignInRoute(templateEngine, gameLobby)); // added by Kelly
   }
 
 }

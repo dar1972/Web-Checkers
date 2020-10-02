@@ -84,14 +84,12 @@ public class PostSignInRoute implements Route {
     boolean success = playerLobby.addToLobby(player);
 
     if (success) {
-
-      
       final Session session = request.session(); 
       session.attribute( USER_PARAM, userName );
       response.redirect(WebServer.HOME_URL);
       halt();
-      return null;
-      //return templateEngine.render(new ModelAndView(vm, "home.ftl")); 
+      //return null;
+      return templateEngine.render(new ModelAndView(vm, "game.ftl")); // created by Marcus, adjusted by Kelly
     }
     else {
       vm.put("message", NAME_TAKEN_MSG);
