@@ -3,17 +3,18 @@ package com.webcheckers.boardComponents;
 public class Piece extends Space{
     //Created by Beck Anderson
 
+    //Types of pieces
     private enum Type{
         SINGLE,
         KING}
 
+    //Colors of pieces
     private enum Color{
         RED,
         WHITE}
 
     private final String type;
     private final String color;
-
 
     public Piece(String type,String color, int cellIdx){
         super(cellIdx);
