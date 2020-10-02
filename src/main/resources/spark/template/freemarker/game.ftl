@@ -54,6 +54,7 @@
           <fieldset id="game-toolbar">
             <legend>Controls</legend>
             <div class="toolbar"></div>
+            <button id="request-help" onclick"on()" type="submit">Request Help</button> //Help enhancement
           </fieldset>
           
         </div>
@@ -89,8 +90,8 @@
   </div>
 
   <audio id="audio" src="http://www.soundjay.com/button/beep-07.mp3" autostart="false" ></audio>
-  
+
   <script data-main="/js/game/index" src="/js/require.js"></script>
-  
+
 </body>
 </html>
