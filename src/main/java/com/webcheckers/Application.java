@@ -100,7 +100,7 @@ public final class Application {
     //Added by Marcus, WebServer modified to pass it into it.
     final PlayerLobby playerLobby = new PlayerLobby();
 
-    GameCenter gameLobby = new GameCenter(); // Added by Kelly
+    GameCenter gameLobby = new GameCenter(playerLobby); // Added by Kelly
 
     // inject the game center and freemarker engine into web server
     final WebServer webServer = new WebServer(templateEngine, gson, playerLobby, gameLobby); //added playerlobby attribute
