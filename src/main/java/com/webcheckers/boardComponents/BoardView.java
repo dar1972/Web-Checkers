@@ -11,11 +11,19 @@ public class BoardView implements Iterable{
     public BoardView(){
         gameBoard = new Row[8];
         Row row;
+        String pieceColor = "q";
         for (int i = 0; i<8;i++){
+            if(i==0||i==1||i==2){
+                pieceColor = "r";
+            }else if(i==7||i==6||i==5){
+                pieceColor = "w";
+            }else if(i==3){
+                pieceColor = "q";
+            }
             if (i==0||i==2||i==4||i==6) {
-                row = new Row(i,"White");
+                row = new Row(i,"White",pieceColor);
             }else{
-                row = new Row(i,"Black");
+                row = new Row(i,"Black",pieceColor);
             }
             gameBoard[i] = row;
         }

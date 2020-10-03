@@ -12,13 +12,13 @@ public class Space{
      * @param cellIdx the index in a row that the piece is
      * @param color the color of the space (WHITE/BLACK)
      */
-    public Space(int cellIdx, String color){
+    public Space(int cellIdx, String color, String pieceColor){
         this.cellIdx = cellIdx;
         this.color = color;
-        if(cellIdx<3&&color.equals("Black")){
-            piece = new Piece("s","r",cellIdx);
-        }else if(cellIdx>4&&color.equals("Black")){
-            piece = new Piece("s","w",cellIdx);
+        if(color.equals("Black")){
+            if(!(pieceColor.equals("q"))){
+                piece = new Piece("s", pieceColor, cellIdx);
+            }
         }else{
             piece = null;
         }

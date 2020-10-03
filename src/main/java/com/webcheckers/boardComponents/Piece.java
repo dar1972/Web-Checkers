@@ -1,6 +1,6 @@
 package com.webcheckers.boardComponents;
 
-public class Piece extends Space{
+public class Piece{
     //Created by Beck Anderson
 
     //Types of pieces
@@ -23,7 +23,6 @@ public class Piece extends Space{
      * @param cellIdx the location of the piece
      */
     public Piece(String type,String color, int cellIdx){
-        super(cellIdx, color);
         if(type.equals("s")){
             this.type = Type.SINGLE;
         }else{
