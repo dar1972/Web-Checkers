@@ -76,10 +76,6 @@ public class Row implements Iterable{
                 }
                 throw new NoSuchElementException();
             }
-
-            public void remove() {
-                throw new UnsupportedOperationException();
-            }
         };
     }
 }
