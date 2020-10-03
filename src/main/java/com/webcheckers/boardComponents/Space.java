@@ -5,6 +5,7 @@ public class Space{
 
     private final int cellIdx;
     private final String color;
+    private Piece piece;
 
     /**
      * Constructor for a new space
@@ -14,6 +15,13 @@ public class Space{
     public Space(int cellIdx, String color){
         this.cellIdx = cellIdx;
         this.color = color;
+        if(cellIdx<3&&color.equals("Black")){
+            piece = new Piece("s","r",cellIdx);
+        }else if(cellIdx>4&&color.equals("Black")){
+            piece = new Piece("s","w",cellIdx);
+        }else{
+            piece = null;
+        }
     }
 
     /**
@@ -37,8 +45,6 @@ public class Space{
      * @return the piece is there is one, null if not
      */
     public Piece getPiece(){
-        //Change to piece on space
-        //if none then null
-        return null;
+        return piece;
     }
 }
