@@ -1,8 +1,9 @@
 package com.webcheckers.boardComponents;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
-public class Row implements Iterable {
+public class Row implements Iterable{
     //Created by Beck Anderson
 
     private final int index;
@@ -34,12 +35,51 @@ public class Row implements Iterable {
         }
     }
 
-    @Override
-    public Iterator iterator() {
-        return null;
-    }
-
     public int getIndex(){
         return index;
+    }
+
+    /**
+     * Returns an iterator over elements of type Space.
+     * @return an Iterator.
+     */
+    @Override
+    public Iterator iterator() {
+        return new Iterator<Space>() {
+
+            private int currentIndex = 0;
+
+            /**
+             * Returns Space if the iteration has more elements.
+             * (In other words, returns Space if {@link #next} would
+             * return an element rather than throwing an exception.)
+             *
+             * @return True if the iteration has more elements
+             */
+            @Override
+            public boolean hasNext() {
+                return currentIndex < 8;
+            }
+
+            /**
+             * Returns the next element in the iteration.
+             *
+             * @return the next element in the iteration
+             * @throws NoSuchElementException if the iteration has no more elements
+             */
+            @Override
+            public Space next() {
+                if(this.hasNext()) {
+                    int current = currentIndex;
+                    currentIndex ++;
+                    return row[current];
+                }
+                throw new NoSuchElementException();
+            }
+
+            public void remove() {
+                throw new UnsupportedOperationException();
+            }
+        };
     }
 }
