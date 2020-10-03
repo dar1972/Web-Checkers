@@ -48,5 +48,7 @@ public class PostGameLobbyRoute implements Route {
             // display a user message in the Home page
             return templateEngine.render(new ModelAndView(vm, "game.ftl")); // created by Marcus, adjusted by Kelly
         }
+
+        return null;
     }
 }

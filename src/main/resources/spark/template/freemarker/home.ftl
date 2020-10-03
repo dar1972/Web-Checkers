@@ -30,7 +30,7 @@
     <#if currentUser??>
       
       <#list userList?keys as key>
-        <li>${key}</li>
+        <a href="/game">${key}</a>
       </#list>
     <#else>
       <#if lobbySize != 0>

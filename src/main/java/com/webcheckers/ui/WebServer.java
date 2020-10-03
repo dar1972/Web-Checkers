@@ -65,7 +65,7 @@ public class WebServer {
   private final TemplateEngine templateEngine;
   private final Gson gson;
   private final PlayerLobby playerLobby; //added by Marcus
-  private final GameCenter gameLobby; //added by Marcus
+  private final GameCenter gameLobby; //added by Kelly
 
   //
   // Constructor
@@ -82,7 +82,7 @@ public class WebServer {
    * @throws NullPointerException
    *    If any of the parameters are {@code null}.
    */
-  public WebServer(final TemplateEngine templateEngine, final Gson gson, final PlayerLobby playerLobby, final GameLobby gameLobby){
+  public WebServer(final TemplateEngine templateEngine, final Gson gson, final PlayerLobby playerLobby, final GameCenter gameLobby){
     // validation
     Objects.requireNonNull(templateEngine, "templateEngine must not be null");
     Objects.requireNonNull(gson, "gson must not be null");
@@ -154,9 +154,9 @@ public class WebServer {
     //
     LOG.config("WebServer is initialized.");
 
-    get(GAME_URL, new GetGameLobbyRoute(templateEngine)); //added by Kelly
+    // get(GAME_URL, new GetGameLobbyRoute(templateEngine)); //added by Kelly
 
-    post(GAME_URL, new PostGameLobbyRoute(templateEngine, gameLobby)); // added by Kelly
+    post(GAME_URL, new PostGameLobbyRoute(templateEngine, playerLobby)); // added by Kelly
   }
 
 }
