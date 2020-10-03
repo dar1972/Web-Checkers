@@ -14,17 +14,17 @@ public class Row implements Iterable{
      * @param index the row
      * @param color the color space should be
      */
-    public Row(int index, String color){
+    public Row(int index, String color,String pieceColor){
         this.index = index;
         Space space;
         this.row = new Space[8];
         for (int i=0;i<8;i++) {
             int colorSet = 0;
             if (color.equals("White")) {
-                space = new Space(i,"White");
+                space = new Space(i,"White",pieceColor);
                 colorSet = 1;
             }else {
-                space = new Space(i, "Black");
+                space = new Space(i, "Black",pieceColor);
                 colorSet = 2;
             }
             row[i] = space;

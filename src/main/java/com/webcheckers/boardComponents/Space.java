@@ -5,15 +5,23 @@ public class Space{
 
     private final int cellIdx;
     private final String color;
+    private Piece piece;
 
     /**
      * Constructor for a new space
      * @param cellIdx the index in a row that the piece is
      * @param color the color of the space (WHITE/BLACK)
      */
-    public Space(int cellIdx, String color){
+    public Space(int cellIdx, String color, String pieceColor){
         this.cellIdx = cellIdx;
         this.color = color;
+        if(color.equals("Black")){
+            if(!(pieceColor.equals("q"))){
+                piece = new Piece("s", pieceColor, cellIdx);
+            }
+        }else{
+            piece = null;
+        }
     }
 
     /**
@@ -37,8 +45,6 @@ public class Space{
      * @return the piece is there is one, null if not
      */
     public Piece getPiece(){
-        //Change to piece on space
-        //if none then null
-        return null;
+        return piece;
     }
 }
