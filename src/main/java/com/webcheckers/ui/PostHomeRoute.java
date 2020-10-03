@@ -20,7 +20,7 @@ public class PostHomeRoute implements Route {
     static final String USER_IN_ATTR = "currentUser??"; //used by nav-bar.ftl to decide if to display username or not.
     static final String USER_NAME_ATTR = "currentUser.name"; //use by nav-bar.ftl to display the username.
     static final String USER_PARAM = "userName";
-    static final String OPPONENT_PARAM = "userName";
+    static final String OPPONENT_PARAM = "opponentName";
 
 
     private final TemplateEngine templateEngine;
@@ -42,7 +42,7 @@ public class PostHomeRoute implements Route {
 
             LOG.finer("PostHomeRoute is invoked.");
             String userName = request.session().attribute( USER_PARAM );
-            String opponentName = request.session().attribute( OPPONENT_PARAM );
+            String opponentName = request.queryParams(OPPONENT_PARAM);
 
             gameCenter.createGame(userName, opponentName);
 
