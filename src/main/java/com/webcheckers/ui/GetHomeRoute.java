@@ -66,7 +66,7 @@ public class GetHomeRoute implements Route {
     vm.put("message", WELCOME_MSG);
 
     String userName = request.session().attribute(USER_PARAM);
-    Player player = new Player(userName);
+    Player player = playerLobby.getPlayers().get(userName);
     HashMap<String, Player> processedHashMap = (HashMap<String, Player>) playerLobby.getPlayers().clone();
     processedHashMap.remove(userName);
 

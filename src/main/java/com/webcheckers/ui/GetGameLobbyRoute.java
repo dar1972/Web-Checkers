@@ -1,9 +1,12 @@
 package com.webcheckers.ui;
 
+import com.webcheckers.appl.PlayerLobby;
+import com.webcheckers.model.Player;
 import com.webcheckers.util.Message;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
+import spark.Route;
 import spark.TemplateEngine;
 
 import java.util.HashMap;
@@ -11,12 +14,15 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.logging.Logger;
 
-public class GetGameLobbyRoute {
+public class GetGameLobbyRoute implements Route{
     // File created by Beck Anderson, code by Marcus, code adjusted by Kelly
 
     private static final Logger LOG = Logger.getLogger(GetGameLobbyRoute.class.getName());
     private static final Message GAME_LOBBY_MSG = Message.info("You are being transferred into the game.");
+    static final String USER_PARAM = "userName";
+
     private final TemplateEngine templateEngine;
+    private final PlayerLobby playerLobby;
 
     /**
      * Create the Spark Route (UI controller) to handle all {@code GET /} HTTP
@@ -24,9 +30,10 @@ public class GetGameLobbyRoute {
      *
      * @param templateEngine the HTML template rendering engine
      */
-    public GetGameLobbyRoute(final TemplateEngine templateEngine) {
+    public GetGameLobbyRoute(final TemplateEngine templateEngine, final PlayerLobby playerLobby) {
         this.templateEngine = Objects.requireNonNull(templateEngine, "templateEngine is required");
         //
+        this.playerLobby = playerLobby;
         LOG.config("GetGameLobbyRoute is initialized.");
     }
 
@@ -48,8 +55,13 @@ public class GetGameLobbyRoute {
         Map<String, Object> vm = new HashMap<>();
         vm.put("title", "Game Time!");
 
+        String userName = request.session().attribute(USER_PARAM);
+        Player player = playerLobby.getPlayers().get(userName);
+
         // display a user message in the Home page
         vm.put("message", GAME_LOBBY_MSG);
+
+        vm.put("currentUser", player);
 
         // render the View
         return templateEngine.render(new ModelAndView(vm , "game.ftl"));

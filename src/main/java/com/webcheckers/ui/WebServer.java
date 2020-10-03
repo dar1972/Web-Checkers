@@ -150,6 +150,8 @@ public class WebServer {
 
     get(SIGNIN_URL, new GetSignInRoute(templateEngine)); //added by Marcus
 
+    get(GAME_URL, new GetGameLobbyRoute(templateEngine, playerLobby)); 
+
     post(SIGNIN_URL, new PostSignInRoute(templateEngine, playerLobby)); //added by Marcus
     //
     LOG.config("WebServer is initialized.");
