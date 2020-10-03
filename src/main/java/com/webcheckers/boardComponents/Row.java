@@ -17,7 +17,8 @@ public class Row implements Iterable{
     public Row(int index, String color){
         this.index = index;
         Space space;
-        for (int i = 0; i<8;i++) {
+        this.row = new Space[8];
+        for (int i=0;i<8;i++) {
             int colorSet = 0;
             if (color.equals("White")) {
                 space = new Space(i,"White");

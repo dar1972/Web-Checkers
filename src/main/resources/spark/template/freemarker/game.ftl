@@ -63,7 +63,7 @@
           <fieldset id="game-toolbar">
             <legend>Controls</legend>
             <div class="toolbar"></div>
-            <button id="request-help" onclick"on()" type="submit">Request Help</button> //Help
+            <button id="request-help" onclick"on()" type="submit">Request Help</button>
           </fieldset>
 
         </div>

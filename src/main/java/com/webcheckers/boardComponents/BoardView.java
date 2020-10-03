@@ -9,6 +9,7 @@ public class BoardView implements Iterable{
     public Row[] gameBoard;
 
     public BoardView(){
+        gameBoard = new Row[8];
         Row row;
         for (int i = 0; i<8;i++){
             if (i==0||i==2||i==4||i==6) {

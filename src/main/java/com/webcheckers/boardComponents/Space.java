@@ -1,6 +1,6 @@
 package com.webcheckers.boardComponents;
 
-public class Space extends Row{
+public class Space{
     //Created by Beck Anderson
 
     private final int cellIdx;
@@ -12,7 +12,6 @@ public class Space extends Row{
      * @param color the color of the space (WHITE/BLACK)
      */
     public Space(int cellIdx, String color){
-        super(cellIdx,color);
         this.cellIdx = cellIdx;
         this.color = color;
     }
