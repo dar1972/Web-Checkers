@@ -2,6 +2,7 @@ package com.webcheckers.ui;
 
 import com.webcheckers.appl.GameCenter;
 import com.webcheckers.appl.PlayerLobby;
+import com.webcheckers.boardComponents.BoardView;
 import com.webcheckers.model.Player;
 import com.webcheckers.util.Message;
 import spark.ModelAndView;
@@ -32,7 +33,9 @@ public class GetGameLobbyRoute implements Route{
 
     private final TemplateEngine templateEngine;
     private final PlayerLobby playerLobby;
-    private final GameCenter gameCenter;
+
+    private Player playerRed;
+    private Player playerWhite;
 
     /**
      * Create the Spark Route (UI controller) to handle all {@code GET /} HTTP
@@ -62,17 +65,25 @@ public class GetGameLobbyRoute implements Route{
     public Object handle(Request request, Response response) {
         LOG.finer("GetSignInRoute is invoked.");
         //
+        String userName = request.session().attribute(USER_PARAM);
+        Player player = playerLobby.getPlayers().get(userName);
+        playerRed = new Player("red");
+        playerWhite = new Player("White");
+        BoardView board = new BoardView();
 
-        final Player userName = request.session().attribute(USER_PARAM);
 
         Map<String, Object> vm = new HashMap<>();
-        vm.put("title", "Game Time!");
-
-        if (userName != null){
-
+        if(true) { // Safety net
+            vm.put("title", "Game Time!");
+            vm.put("currentUser", player);
+            vm.put("redPlayer", playerRed);
+            vm.put("whitePlayer", playerWhite);
+            vm.put("activeColor", 0);
+            vm.put("board", board);
+            vm.put("gameID", 123);
+            // vm.put("modeOptionsAsJSON", gson.toJson(modeOptions))
+            vm.put("viewMode", 0);
         }
-
-        Player player = playerLobby.getPlayers().get(userName);
 
         // display a user message in the Home page
         vm.put("message", GAME_LOBBY_MSG);
