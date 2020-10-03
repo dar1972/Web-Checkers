@@ -20,7 +20,7 @@
 <body>
   <div class="page">
     <h1>Web Checkers | Game View</h1>
-    
+
     <#include "nav-bar.ftl" />
 
     <div class="navigation">
@@ -38,7 +38,7 @@
 
       <div>
         <div id="game-controls">
-        
+
           <fieldset id="game-info">
             <legend>Info</legend>
 
@@ -59,15 +59,15 @@
               </table>
             </div>
           </fieldset>
-          
+
           <fieldset id="game-toolbar">
             <legend>Controls</legend>
             <div class="toolbar"></div>
-            <button id="request-help" onclick"on()" type="submit">Request Help</button> //Help enhancement
+            <button id="request-help" onclick"on()" type="submit">Request Help</button> //Help
           </fieldset>
-          
+
         </div>
-  
+
         <div class="game-board">
           <table id="game-board">
             <tbody>

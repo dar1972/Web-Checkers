@@ -1,5 +1,6 @@
 package com.webcheckers.ui;
 
+import com.webcheckers.appl.GameCenter;
 import com.webcheckers.appl.PlayerLobby;
 import com.webcheckers.model.Player;
 import com.webcheckers.util.Message;
@@ -21,8 +22,17 @@ public class GetGameLobbyRoute implements Route{
     private static final Message GAME_LOBBY_MSG = Message.info("You are being transferred into the game.");
     static final String USER_PARAM = "userName";
 
+    private final String VIEW_TITLE = "Checkers Game";
+    private final String VIEW_NAME = "game.ftl";
+    private String viewMode, redirect;
+    private static String PLAYER_ALREADY_IN_GAME = "The player you've selected is already in a game.";
+    private static String PLAYER_DOES_NOT_EXIST = "The player by that name does not exist";
+    private static String PLAYER_INVALID = "You cannot play a game with yourself";
+    private static String PLAYER_RESIGN = "The other player is not in the game";
+
     private final TemplateEngine templateEngine;
     private final PlayerLobby playerLobby;
+    private final GameCenter gameCenter;
 
     /**
      * Create the Spark Route (UI controller) to handle all {@code GET /} HTTP
@@ -52,10 +62,16 @@ public class GetGameLobbyRoute implements Route{
     public Object handle(Request request, Response response) {
         LOG.finer("GetSignInRoute is invoked.");
         //
+
+        final Player userName = request.session().attribute(USER_PARAM);
+
         Map<String, Object> vm = new HashMap<>();
         vm.put("title", "Game Time!");
 
-        String userName = request.session().attribute(USER_PARAM);
+        if (userName != null){
+
+        }
+
         Player player = playerLobby.getPlayers().get(userName);
 
         // display a user message in the Home page
