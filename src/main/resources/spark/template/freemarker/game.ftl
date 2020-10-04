@@ -54,9 +54,6 @@
           <fieldset id="game-toolbar">
             <legend>Controls</legend>
             <div class="toolbar"></div>
-            <button id="backup" onclick="on()" type="submit">Backup</button>
-            <button id="Submit_turn" onclick="on()" type="submit">Submit Turn</button>
-            <button id="Resign" onclick = "on()" type="submit">Resign</button>
           </fieldset>
 
         </div>
