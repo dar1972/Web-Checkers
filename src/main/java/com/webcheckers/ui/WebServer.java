@@ -157,6 +157,7 @@ public class WebServer {
     post(GAME_URL, new PostGameLobbyRoute(templateEngine, playerLobby)); // added by Kelly
 
     post(HOME_URL, new PostHomeRoute(templateEngine, gameCenter));
+
     LOG.config("WebServer is initialized.");
 
   }
