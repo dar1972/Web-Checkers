@@ -23,15 +23,6 @@
 
     <#include "nav-bar.ftl" />
 
-    <div class="navigation">
-    <#if currentPlayer??>
-      <a href="/">my home</a> |
-      <a href="/signout">sign out [${currentPlayer.name}]</a>
-    <#else>
-      <a href="/signin">sign in</a>
-    </#if>
-    </div>
-
     <div class="body">
 
       <div id="help_text" class="INFO"></div>
@@ -65,7 +56,7 @@
             <div class="toolbar"></div>
             <button id="backup" onclick="on()" type="submit">Backup</button>
             <button id="Submit_turn" onclick="on()" type="submit">Submit Turn</button>
-            <button id="Resign" onclick"on()" type="submit">Resign</button>
+            <button id="Resign" onclick = "on()" type="submit">Resign</button>
           </fieldset>
 
         </div>

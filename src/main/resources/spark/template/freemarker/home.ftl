@@ -30,7 +30,18 @@
     <#if currentUser??>
       
       <#list userList?keys as key>
-        <a href="/game">${key}</a>
+
+        <a> ${key} </a>
+
+        <form action="./" method="POST">
+        Write an Opponent:
+        <br/>
+        <input name="opponentName" />
+        <br/><br/>
+        <button type="submit">Ok</button>
+      </form>
+        <!--<button id="${key}" onclick = "on()" action = "./" method = "POST" type="submit" name = "opponentName">${key}</button>-->
+
       </#list>
     <#else>
       <#if lobbySize != 0>

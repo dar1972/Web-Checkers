@@ -33,6 +33,7 @@ public class GetGameLobbyRoute implements Route{
 
     private final TemplateEngine templateEngine;
     private final PlayerLobby playerLobby;
+    private final GameCenter gameCenter;
 
     private Player playerRed;
     private Player playerWhite;
@@ -43,10 +44,11 @@ public class GetGameLobbyRoute implements Route{
      *
      * @param templateEngine the HTML template rendering engine
      */
-    public GetGameLobbyRoute(final TemplateEngine templateEngine, final PlayerLobby playerLobby) {
+    public GetGameLobbyRoute(final TemplateEngine templateEngine, final PlayerLobby playerLobby, final GameCenter gameCenter) {
         this.templateEngine = Objects.requireNonNull(templateEngine, "templateEngine is required");
         //
         this.playerLobby = playerLobby;
+        this.gameCenter = gameCenter;
         LOG.config("GetGameLobbyRoute is initialized.");
     }
 
@@ -67,8 +69,16 @@ public class GetGameLobbyRoute implements Route{
         //
         String userName = request.session().attribute(USER_PARAM);
         Player player = playerLobby.getPlayers().get(userName);
-        playerRed = new Player("red");
-        playerWhite = new Player("White");
+
+        if (gameCenter.isRed(player)) {
+            playerRed = player;
+            playerWhite = gameCenter.getOpponent(player);
+        }
+        else {
+            playerWhite = player;
+            playerRed = gameCenter.getOpponent(player);
+        }
+
         BoardView board = new BoardView();
 
 
