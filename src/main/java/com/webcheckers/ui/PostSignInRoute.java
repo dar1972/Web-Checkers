@@ -84,8 +84,7 @@ public class PostSignInRoute implements Route {
     boolean success = playerLobby.addToLobby(player);
 
     if (success) {
-      final Session session = request.session(); 
-      session.attribute( USER_PARAM, userName );
+      request.session().attribute( USER_PARAM, userName );
       response.redirect(WebServer.HOME_URL);
       halt();
       //return null;

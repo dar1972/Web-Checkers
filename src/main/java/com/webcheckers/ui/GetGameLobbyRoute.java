@@ -38,6 +38,16 @@ public class GetGameLobbyRoute implements Route{
     private Player playerRed;
     private Player playerWhite;
 
+    private enum ViewMode{
+        PLAY,
+        SPECTATOR,
+    REPLAY}
+
+    private enum ActiveColor {
+        RED,
+        WHITE
+    }
+
     /**
      * Create the Spark Route (UI controller) to handle all {@code GET /} HTTP
      * requests.
@@ -65,10 +75,15 @@ public class GetGameLobbyRoute implements Route{
      */
 //    @Override
     public Object handle(Request request, Response response) {
+
+        
+
         LOG.finer("GetSignInRoute is invoked.");
         //
         String userName = request.session().attribute(USER_PARAM);
         Player player = playerLobby.getPlayers().get(userName);
+
+
 
         if (gameCenter.isRed(player)) {
             playerRed = player;
@@ -89,7 +104,7 @@ public class GetGameLobbyRoute implements Route{
             vm.put("currentUser", player);
             vm.put("redPlayer", playerRed);
             vm.put("whitePlayer", playerWhite);
-            vm.put("activeColor", 0);
+            vm.put("activeColor", ActiveColor.RED);
 
             if(player == playerRed) {
                 vm.put("board", redBoard);
@@ -100,7 +115,7 @@ public class GetGameLobbyRoute implements Route{
             
             vm.put("gameID", 123);
             // vm.put("modeOptionsAsJSON", gson.toJson(modeOptions))
-            vm.put("viewMode", 0);
+            vm.put("viewMode", ViewMode.PLAY);
 
 
         // display a user message in the Home page

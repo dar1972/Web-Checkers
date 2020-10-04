@@ -21,6 +21,7 @@ public class PostHomeRoute implements Route {
     static final String USER_NAME_ATTR = "currentUser.name"; //use by nav-bar.ftl to display the username.
     static final String USER_PARAM = "userName";
     static final String OPPONENT_PARAM = "opponentName";
+    static final String USER_BUSY = "userBusy";
 
 
     private final TemplateEngine templateEngine;
@@ -44,17 +45,21 @@ public class PostHomeRoute implements Route {
             String userName = request.session().attribute( USER_PARAM );
             String opponentName = request.queryParams(OPPONENT_PARAM);
 
-            gameCenter.createGame(userName, opponentName);
+            if (!gameCenter.getGameLobby().containsKey(opponentName)) { // if the person is not in the game lobby, create a game.
+                gameCenter.createGame(userName, opponentName);
+                response.redirect(WebServer.GAME_URL);
+                halt();
+            }
 
-            
-            response.redirect(WebServer.GAME_URL);
-            halt();
-            //
             Map<String, Object> vm = new HashMap<>();
-            vm.put("title", "Game Time!");
+            vm.put("title", "Welcome!");
+            vm.put("message", Message.error("User is already in game! Try a different one."));
 
-            // display a user message in the Home page
-            return templateEngine.render(new ModelAndView(vm, "game.ftl")); // created by Marcus, adjusted by Kelly
+            request.session().attribute( USER_BUSY, "yes" );
+            response.redirect(WebServer.HOME_URL); 
+            halt();
+
+            return templateEngine.render(new ModelAndView(vm, "home.ftl")); // created by Marcus, adjusted by Kelly
         
 
     }

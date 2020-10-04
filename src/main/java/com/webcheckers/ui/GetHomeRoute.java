@@ -29,7 +29,9 @@ public class GetHomeRoute implements Route {
   private static final Logger LOG = Logger.getLogger(GetHomeRoute.class.getName());
 
   private static final Message WELCOME_MSG = Message.info("Welcome to the world of online Checkers.");
+  private static final Message PLAYER_BUSY_MSG = Message.error("The player you selected was busy. Please try another one.");
   static final String USER_PARAM = "userName";
+  static final String USER_BUSY = "userBusy";
 
 
   private final TemplateEngine templateEngine;
@@ -68,7 +70,15 @@ public class GetHomeRoute implements Route {
     vm.put("title", "Welcome!");
 
     // display a user message in the Home page
-    vm.put("message", WELCOME_MSG);
+    if (request.session().attribute(USER_BUSY) == "yes") {
+      vm.put("message", PLAYER_BUSY_MSG);
+      //request.session().attribute( USER_BUSY, "no" );
+
+    }
+    else {
+      vm.put("message", WELCOME_MSG);
+    }
+
 
     String userName = request.session().attribute(USER_PARAM);
     Player player = playerLobby.getPlayers().get(userName);
