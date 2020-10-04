@@ -1,5 +1,7 @@
 package com.webcheckers.boardComponents;
 
+import com.webcheckers.model.Player;
+
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -8,15 +10,23 @@ public class BoardView implements Iterable{
 
     public Row[] gameBoard;
 
-    public BoardView(){
+    public BoardView(String color){
         gameBoard = new Row[8];
         Row row;
         String pieceColor = "q";
         for (int i = 0; i<8;i++){
             if(i==0||i==1||i==2){
-                pieceColor = "r";
+                if(color.equals("white")) {
+                    pieceColor = "r";
+                }else{
+                    pieceColor = "w";
+                }
             }else if(i==7||i==6||i==5){
-                pieceColor = "w";
+                if(color.equals("white")) {
+                    pieceColor = "w";
+                }else{
+                    pieceColor = "r";
+                }
             }else if(i==3){
                 pieceColor = "q";
             }
