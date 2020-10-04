@@ -23,7 +23,6 @@ public class PostHomeRoute implements Route {
     static final String OPPONENT_PARAM = "opponentName";
     static final String USER_BUSY = "userBusy";
 
-
     private final TemplateEngine templateEngine;
     private final GameCenter gameCenter;
     /**
@@ -40,7 +39,7 @@ public class PostHomeRoute implements Route {
 
     @Override
     public Object handle(Request request, Response response) throws Exception {
-
+            // process after giving username
             LOG.finer("PostHomeRoute is invoked.");
             String userName = request.session().attribute( USER_PARAM );
             String opponentName = request.queryParams(OPPONENT_PARAM);
@@ -50,7 +49,7 @@ public class PostHomeRoute implements Route {
                 response.redirect(WebServer.GAME_URL);
                 halt();
             }
-
+            // used to put in title name, this varies depending on which page it is
             Map<String, Object> vm = new HashMap<>();
             vm.put("title", "Welcome!");
             vm.put("message", Message.error("User is already in game! Try a different one."));

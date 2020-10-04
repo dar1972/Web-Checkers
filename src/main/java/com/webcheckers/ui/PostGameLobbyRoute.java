@@ -35,13 +35,14 @@ public class PostGameLobbyRoute implements Route {
 
     @Override
     public Object handle(Request request, Response response) throws Exception {
-        if (true) {
+        if (true) { // if username is valid
             LOG.finer("GetSignInRoute is invoked.");
             //final Session session = request.session();
             //session.attribute( USER_PARAM, userName );
-            response.redirect(WebServer.GAME_URL);
+            response.redirect(WebServer.GAME_URL); // user gets transferred to game page
             halt();
-            //
+
+            // used to put in title name, this varies depending on which page it is
             Map<String, Object> vm = new HashMap<>();
             vm.put("title", "Game Time!");
 

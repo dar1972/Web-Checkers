@@ -4,12 +4,12 @@ public class Piece{
     //Created by Beck Anderson
 
     //Types of pieces
-    private enum Type{
+    enum Type{
         SINGLE,
         KING}
 
     //Colors of pieces
-    private enum Color{
+    enum Color{
         RED,
         WHITE}
 

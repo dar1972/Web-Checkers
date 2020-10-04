@@ -79,7 +79,8 @@ public class GetGameLobbyRoute implements Route{
         
 
         LOG.finer("GetSignInRoute is invoked.");
-        //
+
+        // get username from players and put them in the player lobby
         String userName = request.session().attribute(USER_PARAM);
         Player player = playerLobby.getPlayers().get(userName);
 
@@ -94,12 +95,12 @@ public class GetGameLobbyRoute implements Route{
             playerRed = gameCenter.getOpponent(player);
         }
 
+        // players are shown the board with their pieces which has their respective color
         BoardView redBoard = new BoardView("red");
         BoardView whiteBoard = new BoardView("white");
 
-
+        // putting values into variables
         Map<String, Object> vm = new HashMap<>();
-
             vm.put("title", "Game Time!");
             vm.put("currentUser", player);
             vm.put("redPlayer", playerRed);
@@ -120,7 +121,6 @@ public class GetGameLobbyRoute implements Route{
 
         // display a user message in the Home page
         vm.put("message", GAME_LOBBY_MSG);
-
         vm.put("currentUser", player);
 
         // render the View

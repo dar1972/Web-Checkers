@@ -64,7 +64,8 @@ public class PostSignInRoute implements Route {
   @Override
   public Object handle(Request request, Response response) {
     LOG.finer("PostSignInRoute is invoked.");
-    //
+
+    // used to put in title name, this varies depending on which page it is
     Map<String, Object> vm = new HashMap<>();
     vm.put("title", "Sign In!");
 
@@ -73,17 +74,18 @@ public class PostSignInRoute implements Route {
 
     final String userName = request.queryParams(USER_PARAM);
 
+    // if user gives invalid username
     if (!playerLobby.isValid(userName)) {
       vm.put("message", INVALID_NAME_MSG);
       return templateEngine.render(new ModelAndView(vm , "signin.ftl"));
     }
+
     Player player = new Player(userName);
 
     //so pass username to playerlobby?
-
     boolean success = playerLobby.addToLobby(player);
 
-    if (success) {
+    if (success) { // if player is added to lobby
       request.session().attribute( USER_PARAM, userName );
       response.redirect(WebServer.HOME_URL);
       halt();
@@ -91,7 +93,8 @@ public class PostSignInRoute implements Route {
       return templateEngine.render(new ModelAndView(vm, "game.ftl")); // created by Marcus, adjusted by Kelly
     }
     else {
-      vm.put("message", NAME_TAKEN_MSG);
+      vm.put("message", NAME_TAKEN_MSG); // example of invalid name: if it is already taken
+
       // render the View
       return templateEngine.render(new ModelAndView(vm , "signin.ftl"));
     }

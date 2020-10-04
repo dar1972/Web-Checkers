@@ -3,8 +3,9 @@ package com.webcheckers.boardComponents;
 public class Space{
     //Created by Beck Anderson
 
-    private final int cellIdx;
+    final int cellIdx;
     private final String color;
+    private boolean validity;
     private Piece piece;
 
     /**
@@ -40,11 +41,19 @@ public class Space{
         return color.equals("Black");
     }
 
+    public void setValid(boolean valid){
+        this.validity = valid;
+    }
+
     /**
      * Checks to see if a piece is on the space
      * @return the piece is there is one, null if not
      */
     public Piece getPiece(){
         return piece;
+    }
+
+    public void setPiece(Piece newPiece){
+        this.piece = newPiece;
     }
 }
