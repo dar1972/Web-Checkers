@@ -51,7 +51,8 @@ public class GetSignInRoute implements Route {
   @Override
   public Object handle(Request request, Response response) {
     LOG.finer("GetSignInRoute is invoked.");
-    //
+
+    // putting in value to variable
     Map<String, Object> vm = new HashMap<>();
     vm.put("title", "Sign In!");
 

@@ -63,20 +63,23 @@ public class GetHomeRoute implements Route {
   @Override
   public Object handle(Request request, Response response) {
     LOG.finer("GetHomeRoute is invoked.");
-    //    
+
+    // set up HashMap to add string values to the variables
     Map<String, Object> vm = new HashMap<>();
     vm.put("title", "Welcome!");
 
     // display a user message in the Home page
     vm.put("message", WELCOME_MSG);
 
+    // get username from players and put them in the player lobby
     String userName = request.session().attribute(USER_PARAM);
     Player player = playerLobby.getPlayers().get(userName);
- 
+
+    // makes it so that player does not see their own name in a list of potential opponents
     HashMap<String, Player> processedHashMap = (HashMap<String, Player>) playerLobby.getPlayers().clone();
     processedHashMap.remove(userName);
 
-      if (userName != null) {
+      if (userName != null) {   // if username is valid
         vm.put("currentUser", player);
         vm.put("userList",processedHashMap);
       }
@@ -84,10 +87,12 @@ public class GetHomeRoute implements Route {
         vm.put("lobbySize", playerLobby.getPlayers().size());
       }
 
+      // once entering opponents name, both players will be sent to the game if both are available
       if (gameCenter.getGameLobby().containsKey(userName)) {
         response.redirect("/game");
         halt();
       }
+
     // render the View
     return templateEngine.render(new ModelAndView(vm , "home.ftl"));
   }
