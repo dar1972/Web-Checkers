@@ -36,6 +36,51 @@ public class Row implements Iterable{
         }
     }
 
+    public void validateRow(){
+        for( Space space : row){
+            if( index%2 == 0){
+                if( space.getCellIdx()%2 == 1){
+                    space.setValid(true);
+                }
+            }
+            else{
+                if( space.getCellIdx()%2 == 0){
+                    space.setValid(true);
+                }
+            }
+        }
+    }
+
+    public void RedRow(){
+        for( Space space : row){
+            if( index%2 == 0){
+                if( space.getCellIdx()%2 == 1){
+                    space.setPiece( new Piece("s", "r", space.getCellIdx()));
+                }
+            }
+            else {
+                if( space.getCellIdx()%2 == 0){
+                    space.setPiece( new Piece("s", "r", space.getCellIdx()));
+                }
+            }
+        }
+    }
+
+    public void WhiteRow(){
+        for( Space space : row){
+            if( index%2 == 0){
+                if( space.getCellIdx()%2 == 1){
+                    space.setPiece( new Piece("s", "w", space.getCellIdx()));
+                }
+            }
+            else {
+                if( space.getCellIdx()%2 == 0){
+                    space.setPiece( new Piece("s", "w", space.getCellIdx()));
+                }
+            }
+        }
+    }
+
     public int getIndex(){
         return index;
     }
