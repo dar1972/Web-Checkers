@@ -79,21 +79,29 @@ public class GetGameLobbyRoute implements Route{
             playerRed = gameCenter.getOpponent(player);
         }
 
-        BoardView board = new BoardView();
+        BoardView redBoard = new BoardView("red");
+        BoardView whiteBoard = new BoardView("white");
 
 
         Map<String, Object> vm = new HashMap<>();
-        if(true) { // Safety net
+
             vm.put("title", "Game Time!");
             vm.put("currentUser", player);
             vm.put("redPlayer", playerRed);
             vm.put("whitePlayer", playerWhite);
             vm.put("activeColor", 0);
-            vm.put("board", board);
+
+            if(player == playerRed) {
+                vm.put("board", redBoard);
+            }
+            else {
+                vm.put("board", whiteBoard);
+            }
+            
             vm.put("gameID", 123);
             // vm.put("modeOptionsAsJSON", gson.toJson(modeOptions))
             vm.put("viewMode", 0);
-        }
+
 
         // display a user message in the Home page
         vm.put("message", GAME_LOBBY_MSG);
