@@ -39,6 +39,69 @@ public class BoardView implements Iterable{
         }
     }
 
+    public void fillRedBoard(){
+        for( Row row: gameBoard){
+            int index = row.getIndex();
+            switch (index) {
+                case 0:
+                    row.WhiteRow();
+                    break;
+                case 1:
+                    row.WhiteRow();
+                    break;
+                case 2:
+                    row.WhiteRow();
+                    break;
+                case 3:
+                    row.validateRow();
+                    break;
+                case 4:
+                    row.validateRow();
+                    break;
+                case 5:
+                    row.RedRow();
+                    break;
+                case 6:
+                    row.RedRow();
+                    break;
+                case 7:
+                    row.RedRow();
+                    break;
+            }
+        }
+    }
+
+    public void fillWhiteBoard(){
+        for( Row row: gameBoard){
+            switch (row.getIndex()){
+                case 0:
+                    row.RedRow();
+                    break;
+                case 1:
+                    row.RedRow();
+                    break;
+                case 2:
+                    row.RedRow();
+                    break;
+                case 3:
+                    row.validateRow();
+                    break;
+                case 4:
+                    row.validateRow();
+                    break;
+                case 5:
+                    row.WhiteRow();
+                    break;
+                case 6:
+                    row.WhiteRow();
+                    break;
+                case 7:
+                    row.WhiteRow();
+                    break;
+            }
+        }
+    }
+
     @Override
     public Iterator iterator() {
         return new Iterator<Row>() {
