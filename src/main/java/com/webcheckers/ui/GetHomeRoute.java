@@ -10,7 +10,10 @@ import spark.Request;
 import spark.Response;
 import spark.Route;
 import spark.TemplateEngine;
+import static spark.Spark.halt;
 
+
+import com.webcheckers.appl.GameCenter;
 import com.webcheckers.appl.PlayerLobby;
 import com.webcheckers.model.Player;
 import com.webcheckers.util.Message;
@@ -31,16 +34,18 @@ public class GetHomeRoute implements Route {
 
   private final TemplateEngine templateEngine;
   private final PlayerLobby playerLobby;
+  private final GameCenter gameCenter;
   /**
    * Create the Spark Route (UI controller) to handle all {@code GET /} HTTP requests.
    *
    * @param templateEngine
    *   the HTML template rendering engine
    */
-  public GetHomeRoute(final TemplateEngine templateEngine, final PlayerLobby playerLobby) {
+  public GetHomeRoute(final TemplateEngine templateEngine, final PlayerLobby playerLobby, final GameCenter gameCenter) {
     this.templateEngine = Objects.requireNonNull(templateEngine, "templateEngine is required");
     //
     this.playerLobby = playerLobby;
+    this.gameCenter = gameCenter;
     LOG.config("GetHomeRoute is initialized.");
   }
 
@@ -67,6 +72,7 @@ public class GetHomeRoute implements Route {
 
     String userName = request.session().attribute(USER_PARAM);
     Player player = playerLobby.getPlayers().get(userName);
+ 
     HashMap<String, Player> processedHashMap = (HashMap<String, Player>) playerLobby.getPlayers().clone();
     processedHashMap.remove(userName);
 
@@ -76,6 +82,11 @@ public class GetHomeRoute implements Route {
       }
       else {
         vm.put("lobbySize", playerLobby.getPlayers().size());
+      }
+
+      if (gameCenter.getGameLobby().containsKey(userName)) {
+        response.redirect("/game");
+        halt();
       }
     // render the View
     return templateEngine.render(new ModelAndView(vm , "home.ftl"));

@@ -23,15 +23,6 @@
 
     <#include "nav-bar.ftl" />
 
-    <div class="navigation">
-    <#if currentPlayer??>
-      <a href="/">my home</a> |
-      <a href="/signout">sign out [${currentPlayer.name}]</a>
-    <#else>
-      <a href="/signin">sign in</a>
-    </#if>
-    </div>
-
     <div class="body">
 
       <div id="help_text" class="INFO"></div>

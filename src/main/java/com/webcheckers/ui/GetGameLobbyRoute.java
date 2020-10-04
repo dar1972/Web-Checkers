@@ -69,8 +69,16 @@ public class GetGameLobbyRoute implements Route{
         //
         String userName = request.session().attribute(USER_PARAM);
         Player player = playerLobby.getPlayers().get(userName);
-        playerRed = player;
-        playerWhite = gameCenter.getOpponent(player);
+
+        if (gameCenter.isRed(player)) {
+            playerRed = player;
+            playerWhite = gameCenter.getOpponent(player);
+        }
+        else {
+            playerWhite = player;
+            playerRed = gameCenter.getOpponent(player);
+        }
+
         BoardView board = new BoardView();
 
 
