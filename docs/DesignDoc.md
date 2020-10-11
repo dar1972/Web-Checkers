@@ -3,11 +3,6 @@ geometry: margin=1in
 ---
 # PROJECT Design Documentation
 
-> _The following template provides the headings for your Design
-> Documentation.  As you edit each section make sure you remove these
-> commentary 'blockquotes'; the lines that start with a > character
-> and appear in the generated PDF in italics._
-
 ## Team Information
 * Team name: Waffles
 * Team members
@@ -17,12 +12,10 @@ geometry: margin=1in
   * Marcus Kapoor
 
 ## Executive Summary
-
-This is a summary of the project.
-
+This Project is creating a web based application called Webcheckers. Webcheckers is modeling a game of checkers on the web. To play the game the user must sign in with unique id. The user can compete in the game of checkers with other online players, in addition to that the user can spectate another game, help the player while spectating. Playing the game involves both players to move their piece one by one. The game governs by the American rules of checkers. 
+ 
 ### Purpose
-> _Provide a very brief statement about the project and the most
-> important user group and user goals._
+The purpose of this project is create a web based application which follows the software development principles. The user goals of this project to provide a very efficient and exciting experience of the web based checkers game. The most important user groups of this project are the ones who have a similat interest towards the game of checkers.
 
 ### Glossary and Acronyms
 > _Provide a table of terms and acronyms._
@@ -30,6 +23,8 @@ This is a summary of the project.
 | Term | Definition |
 |------|------------|
 | VO | Value Object |
+| MVP | Minimum Viable Product |
+
 
 
 ## Requirements
