@@ -89,10 +89,20 @@ Details of the components within these tiers are supplied below.
 This section describes the web interface flow; this is how the user views and interacts
 with the WebCheckers application.
 
-![The WebCheckers Web Interface Statechart](web-interface-placeholder.png)
+![The WebCheckers Web Interface Statechart](UserInterfaceTier.png)
 
-> _Provide a summary of the application's user interface.  Describe, from
-> the user's perspective, the flow of the pages in the web application._
+The diagram shows the interface the user will experience while using the 
+application. The interface has three main pages, they are the home page, 
+the sign in page and the game page. The game starts by asking the user 
+to sign in with a unique username. Post sign in the user is redirected 
+to the home page where they can see the players online. The user can then
+ challenge a player or wait to be challenged by another player. Once the 
+ player has either challenged another player or is challenged by another 
+ player, they are redirected to the game page where they can see the game 
+ board. The player with red pisces makes the first move and then the other 
+ player makes a move and this goes on until the game is over. If the player 
+ has not made any kind of actions in a while, their session has timed out 
+ and they are automatically redirected to the home page. 
 
 
 ### UI Tier
