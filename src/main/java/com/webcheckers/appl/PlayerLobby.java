@@ -11,16 +11,13 @@ public class PlayerLobby {
     HashMap<String, Player> players = new HashMap<>();
 
     public PlayerLobby() {
-
         //do I even need this constructor?
     }
 
 	public synchronized boolean addToLobby(Player user) {
         if (players.containsKey(user.getName())) { //I would have used hashcodes, but freemarker doesn't like iterating over non-string keys.
-            
             return false;
         }
-
         else {
             players.put(user.getName(), user);
             return true;

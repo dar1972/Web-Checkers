@@ -17,17 +17,25 @@ public class Row implements Iterable{
     public Row(int index, String color,String pieceColor){
         this.index = index;
         Space space;
-        this.row = new Space[8];
+        this.row = new Space[8];  //create a new array for th column
+        //create spaces for each spot in the board
         for (int i=0;i<8;i++) {
             int colorSet = 0;
+            //create a white space if color is white
             if (color.equals("White")) {
                 space = new Space(i,"White",pieceColor);
+                //colorSet = 1 will switch it to black next time
                 colorSet = 1;
-            }else {
+            }
+            //create a black space if color is black
+            else {
                 space = new Space(i, "Black",pieceColor);
+                //colorSet = 2 will switch it to white next time
                 colorSet = 2;
             }
+            //add the space to the row
             row[i] = space;
+            // change the next space color based on the last one
             if(colorSet==1){
                 color = "Black";
             }else{
@@ -36,6 +44,9 @@ public class Row implements Iterable{
         }
     }
 
+    /**
+     *
+     */
     public void validateRow(){
         for( Space space : row){
             if( index%2 == 0){
@@ -51,6 +62,9 @@ public class Row implements Iterable{
         }
     }
 
+    /**
+     *
+     */
     public void RedRow(){
         for( Space space : row){
             if( index%2 == 0){
@@ -66,6 +80,9 @@ public class Row implements Iterable{
         }
     }
 
+    /**
+     *
+     */
     public void WhiteRow(){
         for( Space space : row){
             if( index%2 == 0){
