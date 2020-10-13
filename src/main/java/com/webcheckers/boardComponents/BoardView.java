@@ -1,7 +1,5 @@
 package com.webcheckers.boardComponents;
 
-import com.webcheckers.model.Player;
-
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 

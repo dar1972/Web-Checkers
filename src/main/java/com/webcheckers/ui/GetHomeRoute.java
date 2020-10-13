@@ -18,8 +18,6 @@ import com.webcheckers.appl.PlayerLobby;
 import com.webcheckers.model.Player;
 import com.webcheckers.util.Message;
 
-import freemarker.core.Environment;
-
 /**
  * The UI Controller to GET the Home page.
  *
@@ -32,6 +30,10 @@ public class GetHomeRoute implements Route {
   private static final Message PLAYER_BUSY_MSG = Message.error("The player you selected was busy. Please try another one.");
   static final String USER_PARAM = "userName";
   static final String USER_BUSY = "userBusy";
+
+  static final String VIEW_NAME = "home.ftl";
+  static final String TITLE_ATTR = "title";
+  static final String TITLE = "Welcome!";
 
 
   private final TemplateEngine templateEngine;
@@ -68,7 +70,7 @@ public class GetHomeRoute implements Route {
 
     // set up HashMap to add string values to the variables
     Map<String, Object> vm = new HashMap<>();
-    vm.put("title", "Welcome!");
+    vm.put(TITLE_ATTR, TITLE);
 
     // display a user message in the Home page
     if (request.session().attribute(USER_BUSY) == "yes") {
@@ -104,6 +106,6 @@ public class GetHomeRoute implements Route {
       }
 
     // render the View
-    return templateEngine.render(new ModelAndView(vm , "home.ftl"));
+    return templateEngine.render(new ModelAndView(vm , VIEW_NAME));
   }
 }

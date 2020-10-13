@@ -9,9 +9,7 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 import spark.Route;
-import spark.Session;
 import spark.TemplateEngine;
-import spark.http.matching.Halt;
 
 import com.webcheckers.appl.PlayerLobby;
 import com.webcheckers.model.Player;
