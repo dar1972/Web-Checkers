@@ -47,13 +47,19 @@ This section describes the features of the application.
 
 ## Application Domain
 
-This section describes the application domain.
-
-![The WebCheckers Domain Model](domain-model-placeholder.png)
-
-> _Provide a high-level overview of the domain for this application. You
-> can discuss the more important domain entities and their relationship
-> to each other._
+![The WebCheckers Web Interface Statechart](ApplicationTier.jpg)
+The diagram is the domain model of the application and the fundamental 
+structure of the web based application. In order for the application to 
+function properly, it will be structured in a similar manner as depicted 
+in the diagram. To play the game the user is supposed to have a unique 
+username. The user can either be a spectator or play the game with 
+another player. The game is played on the 8 by 8 board which consists of 
+64 squares, either dark or light. Players have 12 checkers pieces each which 
+are either red or black. The user is supposed to make a move on the dark 
+square. Every move manipulates the checkers piece’s location on the square. 
+The spectator can watch the game while two different players are playing 
+the game and also has an option of suggesting a player of their choice 
+with the next move. 
 
 
 ## Architecture and Design
@@ -113,21 +119,9 @@ with the WebCheckers application.
 
 
 ### Application Tier
-
-![The WebCheckers Web Application Tier Chart](ApplicationTier.jpg)
-The diagram is the domain model of the application and the fundamental 
-structure of the web based application. In order for the application to 
-function properly, it will be structured in a similar manner as depicted 
-in the diagram. To play the game the user is supposed to have a unique 
-username. The user can either be a spectator or play the game with 
-another player. The game is played on the 8 by 8 board which consists of 
-64 squares, either dark or light. Players have 12 checkers pieces each which 
-are either red or black. The user is supposed to make a move on the dark 
-square. Every move manipulates the checkers piece’s location on the square. 
-The spectator can watch the game while two different players are playing 
-the game and also has an option of suggesting a player of their choice 
-with the next move. 
-
+> _Provide a summary of the Application tier of your architecture. This
+> section will follow the same instructions that are given for the UI
+> Tier above._
 
 
 ### Model Tier
