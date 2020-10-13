@@ -2,7 +2,6 @@ package com.webcheckers.appl;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import com.webcheckers.model.Game;
 import com.webcheckers.model.Player;

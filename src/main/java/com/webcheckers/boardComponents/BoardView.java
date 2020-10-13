@@ -10,31 +10,44 @@ public class BoardView implements Iterable{
 
     public Row[] gameBoard;
 
+    /**
+     * Creates a new board
+     * @param color the color of the player who will see the board
+     */
     public BoardView(String color){
         gameBoard = new Row[8];
         Row row;
         String pieceColor = "q";
         for (int i = 0; i<8;i++){
+            //for rows 0,1,and 2, white pieces if white player, red if red
             if(i==0||i==1||i==2){
                 if(color.equals("white")) {
                     pieceColor = "r";
                 }else{
                     pieceColor = "w";
                 }
-            }else if(i==7||i==6||i==5){
+            }
+            //for rows 5,6, and 7 red pieces if white player, white if red
+            else if(i==7||i==6||i==5){
                 if(color.equals("white")) {
                     pieceColor = "w";
                 }else{
                     pieceColor = "r";
                 }
-            }else if(i==3){
+            }
+            //for rows 4 and 5, no pieces
+            else if(i==3){
                 pieceColor = "q";
             }
+            //for rows 0, 2, 4, and 6, the rows will start with white
             if (i==0||i==2||i==4||i==6) {
                 row = new Row(i,"White",pieceColor);
-            }else{
+            }
+            //for rows 1, 3, 5, and 7, the rows will start with black
+            else{
                 row = new Row(i,"Black",pieceColor);
             }
+            //store the row in the gameBoard
             gameBoard[i] = row;
         }
     }

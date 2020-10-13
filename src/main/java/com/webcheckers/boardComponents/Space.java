@@ -16,11 +16,14 @@ public class Space{
     public Space(int cellIdx, String color, String pieceColor){
         this.cellIdx = cellIdx;
         this.color = color;
+        //create a new piece on black spaces for the start of the game
         if(color.equals("Black")){
             if(!(pieceColor.equals("q"))){
                 piece = new Piece("s", pieceColor, cellIdx);
             }
-        }else{
+        }
+        // if not a black space, no piece exists
+        else{
             piece = null;
         }
     }
