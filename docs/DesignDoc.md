@@ -48,6 +48,7 @@ This section describes the features of the application.
 ## Application Domain
 
 ![The WebCheckers Web Interface Statechart](ApplicationTier.jpg)
+
 The diagram is the domain model of the application and the fundamental 
 structure of the web based application. In order for the application to 
 function properly, it will be structured in a similar manner as depicted 
