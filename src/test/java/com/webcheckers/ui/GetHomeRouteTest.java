@@ -98,11 +98,11 @@ public class GetHomeRouteTest {
   }
 
   /**
-   * Test that CuT redirects to the Game view when a @Linkplain(PlayerServices) object exists.
+   * Test that CuT redirects to the Game view when a @Linkplain(PlayerLobby) object exists.
    */
   @Test
   public void old_session() {
-    // Arrange the test scenario: There is an existing session with a PlayerServices object
+    // Arrange the test scenario: There is an existing session with a PlayerLobby object
     when(session.attribute(GetHomeRoute.USER_PARAM)).thenReturn(testLobby.getPlayers().get(GetHomeRoute.USER_PARAM));
 
     // Invoke the test
