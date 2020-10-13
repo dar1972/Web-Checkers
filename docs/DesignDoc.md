@@ -113,6 +113,8 @@ with the WebCheckers application.
 
 
 ### Application Tier
+
+![The WebCheckers Web Application Tier Chart](ApplicationTier.jpg)
 The diagram is the domain model of the application and the fundamental 
 structure of the web based application. In order for the application to 
 function properly, it will be structured in a similar manner as depicted 
