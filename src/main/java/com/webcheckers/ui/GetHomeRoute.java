@@ -27,9 +27,15 @@ public class GetHomeRoute implements Route {
   private static final Logger LOG = Logger.getLogger(GetHomeRoute.class.getName());
 
   private static final Message WELCOME_MSG = Message.info("Welcome to the world of online Checkers.");
+  private static final Message SELECT_PLAYER_MSG = Message.info("Select a player to enter a game with.");
+
   private static final Message PLAYER_BUSY_MSG = Message.error("The player you selected was busy. Please try another one.");
+  private static final Message NOT_SELECTED_MSG = Message.error("You didn't select a player or the page refreshed right before you confirmed your selection. Please try again.");
+
   static final String USER_PARAM = "userName";
   static final String USER_BUSY = "userBusy";
+  static final String NOT_SELECTED = "notSelected";
+
 
   static final String VIEW_NAME = "home.ftl";
   static final String TITLE_ATTR = "title";
@@ -72,21 +78,29 @@ public class GetHomeRoute implements Route {
     Map<String, Object> vm = new HashMap<>();
     vm.put(TITLE_ATTR, TITLE);
 
-    // display a user message in the Home page
-    if (request.session().attribute(USER_BUSY) == "yes") {
-      vm.put("message", PLAYER_BUSY_MSG);
-      //request.session().attribute( USER_BUSY, "no" );
 
-    }
-    else {
-      vm.put("message", WELCOME_MSG);
-    }
 
 
     // get username from players and put them in the player lobby
     String userName = request.session().attribute(USER_PARAM);
     Player player = playerLobby.getPlayers().get(userName);
 
+    // display a user message in the Home page
+    if (request.session().attribute(USER_BUSY) == "yes") {
+      vm.put("message", PLAYER_BUSY_MSG);
+      //request.session().attribute( USER_BUSY, "no" );
+    
+    }
+    else if (request.session().attribute(NOT_SELECTED) == "yes") {
+      vm.put("message", NOT_SELECTED_MSG);
+    }
+    else if (userName != null) {
+      vm.put("message", SELECT_PLAYER_MSG);
+    }
+    else {
+      vm.put("message", WELCOME_MSG);
+    }
+        
     // makes it so that player does not see their own name in a list of potential opponents
     HashMap<String, Player> processedHashMap = (HashMap<String, Player>) playerLobby.getPlayers().clone();
     processedHashMap.remove(userName);
@@ -95,9 +109,9 @@ public class GetHomeRoute implements Route {
         vm.put("currentUser", player);
         vm.put("userList",processedHashMap);
       }
-      else {
-        vm.put("lobbySize", playerLobby.getPlayers().size());
-      }
+        
+      vm.put("lobbySize", playerLobby.getPlayers().size());
+      
 
       // once entering opponents name, both players will be sent to the game if both are available
       if (gameCenter.getGameLobby().containsKey(userName)) {

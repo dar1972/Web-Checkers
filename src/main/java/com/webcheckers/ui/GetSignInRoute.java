@@ -61,5 +61,5 @@ public class GetSignInRoute implements Route {
 
     // render the View
     return templateEngine.render(new ModelAndView(vm , "signin.ftl"));
-  }
+  } 
 }

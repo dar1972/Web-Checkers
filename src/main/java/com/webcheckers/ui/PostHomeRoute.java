@@ -22,6 +22,7 @@ public class PostHomeRoute implements Route {
     static final String USER_PARAM = "userName";
     static final String OPPONENT_PARAM = "opponentName";
     static final String USER_BUSY = "userBusy";
+    static final String NOT_SELECTED = "notSelected";
 
     private final TemplateEngine templateEngine;
     private final GameCenter gameCenter;
@@ -44,6 +45,12 @@ public class PostHomeRoute implements Route {
             String userName = request.session().attribute( USER_PARAM );
             String opponentName = request.queryParams(OPPONENT_PARAM);
 
+            if (opponentName == null) { //if a person wasn't chosen, redirect to gethomeroute and indicate to tell the player they haven't selected. 
+                request.session().attribute( NOT_SELECTED, "yes" );
+                response.redirect(WebServer.HOME_URL); 
+                halt();
+            }
+            
             if (!gameCenter.getGameLobby().containsKey(opponentName)) { // if the person is not in the game lobby, create a game.
                 gameCenter.createGame(userName, opponentName);
                 response.redirect(WebServer.GAME_URL);
