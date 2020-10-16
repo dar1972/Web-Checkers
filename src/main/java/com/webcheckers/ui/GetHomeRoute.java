@@ -102,7 +102,7 @@ public class GetHomeRoute implements Route {
     }
         
     // makes it so that player does not see their own name in a list of potential opponents
-    HashMap<String, Player> processedHashMap = (HashMap<String, Player>) playerLobby.getPlayers().clone();
+    HashMap<String, Player> processedHashMap = new HashMap<String, Player> (playerLobby.getPlayers());
     processedHashMap.remove(userName);
 
       if (userName != null) {   // if username is valid

@@ -151,7 +151,7 @@ public class WebServer {
 
     get(SIGNIN_URL, new GetSignInRoute(templateEngine)); 
 
-    get(GAME_URL, new GetGameLobbyRoute(templateEngine, playerLobby, gameCenter)); 
+    get(GAME_URL, new GetGameRoute(templateEngine, playerLobby, gameCenter)); 
 
     post(SIGNOUT_URL, new PostSignOutRoute(templateEngine, playerLobby));
 
@@ -160,6 +160,8 @@ public class WebServer {
     post(HOME_URL, new PostHomeRoute(templateEngine, gameCenter));
 
     LOG.config("WebServer is initialized.");
+
+    System.out.println(gson); //just here to make warnings go away.
 
   }
 

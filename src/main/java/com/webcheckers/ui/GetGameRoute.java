@@ -4,7 +4,6 @@ import com.webcheckers.appl.GameCenter;
 import com.webcheckers.appl.PlayerLobby;
 import com.webcheckers.boardComponents.BoardView;
 import com.webcheckers.model.Player;
-import com.webcheckers.util.Message;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -16,20 +15,11 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.logging.Logger;
 
-public class GetGameLobbyRoute implements Route{
+public class GetGameRoute implements Route {
     // File created by Beck Anderson, code by Marcus, code adjusted by Kelly
 
-    private static final Logger LOG = Logger.getLogger(GetGameLobbyRoute.class.getName());
-    private static final Message GAME_LOBBY_MSG = Message.info("You are being transferred into the game.");
+    private static final Logger LOG = Logger.getLogger(GetGameRoute.class.getName());
     static final String USER_PARAM = "userName";
-
-    private final String VIEW_TITLE = "Checkers Game";
-    private final String VIEW_NAME = "game.ftl";
-    private String viewMode, redirect;
-    private static String PLAYER_ALREADY_IN_GAME = "The player you've selected is already in a game.";
-    private static String PLAYER_DOES_NOT_EXIST = "The player by that name does not exist";
-    private static String PLAYER_INVALID = "You cannot play a game with yourself";
-    private static String PLAYER_RESIGN = "The other player is not in the game";
 
     private final TemplateEngine templateEngine;
     private final PlayerLobby playerLobby;
@@ -54,12 +44,12 @@ public class GetGameLobbyRoute implements Route{
      *
      * @param templateEngine the HTML template rendering engine
      */
-    public GetGameLobbyRoute(final TemplateEngine templateEngine, final PlayerLobby playerLobby, final GameCenter gameCenter) {
+    public GetGameRoute(final TemplateEngine templateEngine, final PlayerLobby playerLobby, final GameCenter gameCenter) {
         this.templateEngine = Objects.requireNonNull(templateEngine, "templateEngine is required");
         //
         this.playerLobby = playerLobby;
         this.gameCenter = gameCenter;
-        LOG.config("GetGameLobbyRoute is initialized.");
+        LOG.config("GetGameRoute is initialized.");
     }
 
     /**
@@ -78,7 +68,7 @@ public class GetGameLobbyRoute implements Route{
 
         
 
-        LOG.finer("GetSignInRoute is invoked.");
+        LOG.finer("GetGameRoute is invoked.");
 
         // get username from players and put them in the player lobby
         String userName = request.session().attribute(USER_PARAM);
@@ -120,7 +110,6 @@ public class GetGameLobbyRoute implements Route{
 
 
         // display a user message in the Home page
-        vm.put("message", GAME_LOBBY_MSG);
         vm.put("currentUser", player);
 
         // render the View

@@ -26,12 +26,12 @@ import spark.TemplateEngine;
  * @author <a href='mailto:kx8058@rit.edu'>Kelly Xiong Chen</a>
  */
 @Tag("UI-tier")
-public class GetGameLobbyRouteTest {
+public class GetGameRouteTest {
 
     /**
      * The component-under-test (CuT).
      */
-    private GetGameLobbyRoute CuT;
+    private GetGameRoute CuT;
 
     private Request request;
     private Session session;
@@ -56,7 +56,7 @@ public class GetGameLobbyRouteTest {
         // create a unique CuT for each test
         testLobby = new PlayerLobby();
         gameCenter = new GameCenter(testLobby);
-        CuT = new GetGameLobbyRoute(engine, testLobby, gameCenter);
+        CuT = new GetGameRoute(engine, testLobby, gameCenter);
     }
 
     /**
@@ -66,7 +66,7 @@ public class GetGameLobbyRouteTest {
     public void new_session() {
         // Arrange the test scenario: The session holds no game.
 //        final GameCenter gameCenter = new GameCenter();
-        final PlayerLobby testLobby = new PlayerLobby();
+        //final PlayerLobby testLobby = new PlayerLobby();
 //        when(session.attribute(GetGameLobbyRoute.GAMELOBBY_KEY)).thenReturn(testLobby);
 
         // To analyze what the Route created in the View-Model map you need
@@ -100,7 +100,7 @@ public class GetGameLobbyRouteTest {
     @Test
     public void old_session() {
         // Arrange the test scenario: There is an existing session with a PlayerServices object
-        when(session.attribute(GetGameLobbyRoute.USER_PARAM)).thenReturn(null);
+        when(session.attribute(GetGameRoute.USER_PARAM)).thenReturn(null);
 
         // Invoke the test
         try {

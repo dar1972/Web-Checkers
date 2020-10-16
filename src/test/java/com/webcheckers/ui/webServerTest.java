@@ -6,6 +6,8 @@ import com.webcheckers.appl.PlayerLobby;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import spark.TemplateEngine;
+
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.mock;
 
 
@@ -22,5 +24,6 @@ class WebServerTest {
     @Test
     void constructor() {
         WebServer web = new WebServer(engine, gson, playerLobby, center);
+        assertNotNull(web);
     }
 }

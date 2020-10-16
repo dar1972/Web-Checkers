@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import com.webcheckers.model.Game;
 import com.webcheckers.model.Player;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import java.util.Map;
@@ -23,7 +22,7 @@ public class GameCenterTest {
     public void test_make_player_service() {
         final GameCenter CuT = new GameCenter(testLobby);
         // Invoke test
-        final Map playerSvc = CuT.getGameLobby();
+        final Map<String, Game> playerSvc = CuT.getGameLobby();
         // Analyze results
         assertNotNull(playerSvc);
     }
@@ -40,7 +39,7 @@ public class GameCenterTest {
         final Player testRedPlayer = new Player("Paul");
         final Player testWhitePlayer = new Player("Blart");
         // Invoke test
-        final Map game = CuT.getGameLobby();
+        final Map<String, Game> game = CuT.getGameLobby();
 
         // Analyze the results
         // 1) the returned game is real
