@@ -27,24 +27,28 @@
             spectating active games,
             or replay archived games
     -->
-    <#if currentUser?? && currentUser??>
-      <form action="./" method="POST">
-        <#list userList?keys as key>
+    <#if currentUser??>
+      <#if lobbySize == 1>
+        There are no other players online at this time.
+      <#else>
+        <form action="./" method="POST">
+          <#list userList?keys as key>
 
-        <!--<a href= '/game?opponentName=${key}'> ${key} </a> -->
+          <!--<a href= '/game?opponentName=${key}'> ${key} </a> -->
 
-  
-        <input type = "radio" id = ${key} name="opponentName" value = ${key} />
-        <label for=${key}>${key}</label>
-        <br/>
-        
-        </#list>
-
-        <#if lobbySize gt 1>
+    
+          <input type = "radio" id = ${key} name="opponentName" value = ${key} />
+          <label for=${key}>${key}</label>
           <br/>
-          <button type="submit">Enter Game</button>
-        </#if>
-      </form>
+          
+          </#list>
+
+          <#if lobbySize gt 1>
+            <br/>
+            <button type="submit">Enter Game</button>
+          </#if>
+        </form>
+      </#if>
     <#else>
       <#if lobbySize == 0>
         There are no other players online at this time.
