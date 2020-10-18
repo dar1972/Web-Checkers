@@ -1,7 +1,5 @@
 package com.webcheckers.model;
 
-import java.util.Objects;
-
 // Created by Dhruv
 public class Move {
     private Position startPos, endPos;
