@@ -50,7 +50,7 @@ public class BoardView implements Iterable{
         }
     }
 
-    public void fillRedBoard(){
+    public synchronized void fillRedBoard(){
         for( Row row: gameBoard){
             int index = row.getIndex();
             switch (index) {
@@ -82,7 +82,7 @@ public class BoardView implements Iterable{
         }
     }
 
-    public void fillWhiteBoard(){
+    public synchronized void fillWhiteBoard(){
         for( Row row: gameBoard){
             switch (row.getIndex()){
                 case 0:

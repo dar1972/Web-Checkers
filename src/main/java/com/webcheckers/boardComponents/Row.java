@@ -65,7 +65,7 @@ public class Row implements Iterable{
     /**
      *
      */
-    public void RedRow(){
+    public synchronized void RedRow(){
         for( Space space : row){
             if( index%2 == 0){
                 if( space.getCellIdx()%2 == 1){
@@ -83,7 +83,7 @@ public class Row implements Iterable{
     /**
      *
      */
-    public void WhiteRow(){
+    public synchronized void WhiteRow(){
         for( Space space : row){
             if( index%2 == 0){
                 if( space.getCellIdx()%2 == 1){
