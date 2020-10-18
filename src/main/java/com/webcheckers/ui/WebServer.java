@@ -8,6 +8,11 @@ import java.util.logging.Logger;
 import com.google.gson.Gson;
 import com.webcheckers.appl.GameCenter;
 import com.webcheckers.appl.PlayerLobby;
+import com.webcheckers.ui.SprintTwoRoutes.PostBackupMoveRoute;
+import com.webcheckers.ui.SprintTwoRoutes.PostCheckTurnRoute;
+import com.webcheckers.ui.SprintTwoRoutes.PostResignGameRoute;
+import com.webcheckers.ui.SprintTwoRoutes.PostSubmitTurnRoute;
+import com.webcheckers.ui.SprintTwoRoutes.PostValidateMoveRoute;
 
 import spark.TemplateEngine;
 
@@ -58,6 +63,14 @@ public class WebServer {
   public static final String SIGNIN_URL = "/signin"; //added by Marcus
   public static final String GAME_URL = "/game"; //added by Kelly
   public static final String SIGNOUT_URL = "/signout"; //added by Marcus
+  public static final String VALIDATE_MOVE_URL = "/validateMove"; //added by Marcus
+  public static final String SUBMIT_TURN_URL = "/submitTurn"; //added by Marcus
+  public static final String BACKUP_MOVE_URL = "/backupMove"; //added by Marcus
+  public static final String RESIGN_GAME_URL = "/resignGame"; //added by Marcus
+  public static final String CHECK_TURN_URL = "/checkTurn"; //added by Marcus
+
+
+
 
   //
   // Attributes
@@ -158,6 +171,18 @@ public class WebServer {
     post(SIGNIN_URL, new PostSignInRoute(templateEngine, playerLobby)); 
 
     post(HOME_URL, new PostHomeRoute(templateEngine, gameCenter));
+
+    post(VALIDATE_MOVE_URL, new PostValidateMoveRoute());
+
+    post(SUBMIT_TURN_URL, new PostSubmitTurnRoute());
+
+    post(BACKUP_MOVE_URL, new PostBackupMoveRoute());
+
+    post(RESIGN_GAME_URL, new PostResignGameRoute());
+
+    post(CHECK_TURN_URL, new PostCheckTurnRoute());
+
+
 
     LOG.config("WebServer is initialized.");
 
