@@ -74,7 +74,9 @@ public class GetGameRoute implements Route {
         String userName = request.session().attribute(USER_PARAM);
         Player player = playerLobby.getPlayers().get(userName);
 
-
+        if(!gameCenter.getGameLobby().containsKey(userName)) {
+            response.redirect(WebServer.HOME_URL);
+        }
 
         if (gameCenter.isRed(player)) {
             playerRed = player;

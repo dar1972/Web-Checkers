@@ -57,6 +57,14 @@ public class GameCenter {
         }
     }
 
+    public synchronized void resignGame(Player user) {
+        Player opponent = getOpponent(user);
+
+        gameLobby.remove(user.getName());
+        gameLobby.remove(opponent.getName());
+
+    }
+
 
 
     
