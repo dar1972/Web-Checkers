@@ -7,7 +7,7 @@ import com.webcheckers.model.Game;
 import com.webcheckers.model.Move;
 import com.webcheckers.util.Message;
 import spark.*;
-import static com.webcheckers.model.Game.ActiveColor;
+
 
 import java.util.logging.Logger;
 

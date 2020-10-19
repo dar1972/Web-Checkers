@@ -173,13 +173,13 @@ public class WebServer {
 
     post(VALIDATE_MOVE_URL, new PostValidateMoveRoute(gameCenter, gson));
 
-    post(SUBMIT_TURN_URL, new PostSubmitTurnRoute());
+    post(SUBMIT_TURN_URL, new PostSubmitTurnRoute(gameCenter,gson));
 
     post(BACKUP_MOVE_URL, new PostBackupMoveRoute(gameCenter, gson));
 
     post(RESIGN_GAME_URL, new PostResignGameRoute(gameCenter, playerLobby, gson));
 
-    post(CHECK_TURN_URL, new PostCheckTurnRoute());
+    post(CHECK_TURN_URL, new PostCheckTurnRoute(gameCenter,gson));
 
 
 

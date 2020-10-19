@@ -3,6 +3,7 @@ package com.webcheckers.appl;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.google.gson.Gson;
 import com.webcheckers.model.Game;
 import com.webcheckers.model.Player;
 
@@ -73,6 +74,27 @@ public class GameCenter {
         }
     }
 
+    public boolean isPlayerActive(String name){
+        Game game = getGame(name);
+        if(name!=null && game!=null){
+            return name.equals(game.getActivePlayer().getName());
+        }return false;
+    }
+
+    public synchronized boolean isPlayerInGame(String name){
+        return gameLobby.containsKey(name);
+    }
+
+    public boolean finishTurn(String name){
+        Game game = getGame(name);
+        boolean exists = false;
+        if(game!=null){
+            //get real thing in a bit
+            exists = true;
+        }
+        return exists;
+    }
+
     public synchronized void resignGame(Player user) {
         Player opponent = getOpponent(user);
 
@@ -81,7 +103,21 @@ public class GameCenter {
 
     }
 
+    public synchronized String gameWon(String name){
+        if(!getGameLobby().containsKey(name)){
+            return null;
+        }
+        Player winner = getGame(name).getWinner();
+        if(winner != null){
+            if(isPlayerInGame(winner.toString())) {
+                playerLobby.removeFromLobby(winner);
+            }if(isPlayerInGame(getOpponent(winner).toString())){
+                playerLobby.removeFromLobby(getOpponent(winner));
+            }
+            return winner.toString();
+        }
+        return null;
+    }
 
 
-    
 }

@@ -9,8 +9,8 @@ public class Game {
         RED,
         WHITE
     }
-    private ActiveColor activeColor;
-    private String winner;
+    private ActiveColor activeColor = ActiveColor.RED;
+    private Player winner;
 
     /**
      * Create a new instance of a game
@@ -20,7 +20,6 @@ public class Game {
     public Game (Player red, Player white) {
         this.red = red;
         this.white = white;
-        this.activeColor = ActiveColor.RED;
         id = 0; //CHANGE THIS LATER FOR MULTIPLE GAMES OR ELSE EVERYTHING WILL BE BROKEN.
     }
 
@@ -40,21 +39,26 @@ public class Game {
         return white;
     }
 
-
-
-     public ActiveColor getActiveColor() {
+    public ActiveColor getActiveColor() {
         return activeColor;
-     }
+    }
 
-     public String getWinner() {
+    public Player getActivePlayer(){
+        if(activeColor==ActiveColor.RED){
+            return red;
+        }else{
+            return white;
+        }
+    }
 
+    public Player getWinner() {
         return winner;
-     }
+    }
 
-     public boolean backupMove() {
-         //do something. 
-         return true;
-     }
+    public boolean backupMove() {
+        //do something.
+        return true;
+    }
 
     /**
      * This will check to see if the selected Object is equal
@@ -74,6 +78,4 @@ public class Game {
             return false;
         }
     }
-
-
 }

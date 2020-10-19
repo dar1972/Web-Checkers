@@ -7,6 +7,7 @@ public class BoardView implements Iterable{
     //Created by Beck Anderson
 
     public Row[] gameBoard;
+    private final int ROWS = 8;
 
     /**
      * Creates a new board
@@ -16,7 +17,7 @@ public class BoardView implements Iterable{
         gameBoard = new Row[8];
         Row row;
         String pieceColor = "q";
-        for (int i = 0; i<8;i++){
+        for (int i = 0; i < ROWS; i ++){
             //for rows 0,1,and 2, white pieces if white player, red if red
             if(i==0||i==1||i==2){
                 if(color.equals("white")) {

@@ -33,7 +33,7 @@ public class GetGameRoute implements Route {
     private enum ViewMode{
         PLAY,
         SPECTATOR,
-    REPLAY}
+        REPLAY}
 
     private enum ActiveColor {
         RED,
