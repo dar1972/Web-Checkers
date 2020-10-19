@@ -9,7 +9,7 @@ public class Piece{
         KING}
 
     //Colors of pieces
-    enum Color{
+    public enum Color{
         RED,
         WHITE}
 
