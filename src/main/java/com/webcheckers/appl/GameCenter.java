@@ -34,6 +34,10 @@ public class GameCenter {
         return gameLobby;
     }
 
+    public Game getGame(String playerName) {
+        return gameLobby.get(playerName);
+    }
+
     public Player getOpponent(Player user) {
         String userName = user.getName();
         Game game = gameLobby.get(userName);

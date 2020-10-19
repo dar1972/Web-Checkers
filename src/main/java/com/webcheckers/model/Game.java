@@ -5,6 +5,12 @@ public class Game {
     private Player red;
     private Player white;
     private int id;
+    private enum ActiveColor {
+        RED,
+        WHITE
+    }
+    private ActiveColor activeColor = ActiveColor.RED;
+    private String winner;
 
     /**
      * Create a new instance of a game
@@ -32,6 +38,22 @@ public class Game {
     public Player getWhite() {
         return white;
     }
+
+
+
+     public ActiveColor getActiveColor() {
+        return activeColor;
+     }
+
+     public String getWinner() {
+
+        return winner;
+     }
+
+     public boolean backupMove() {
+         //do something. 
+         return true;
+     }
 
     /**
      * This will check to see if the selected Object is equal

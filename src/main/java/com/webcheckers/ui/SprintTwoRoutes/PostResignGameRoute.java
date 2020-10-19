@@ -16,27 +16,35 @@ public class PostResignGameRoute implements Route {
     private Game gameID;
     private GameCenter gameCenter;
     private PlayerLobby playerLobby;
+    private Gson gson;
 
     /**
      * Create the Spark Route (UI controller) to handle all {@code GET /} HTTP
      * requests.
      *
      */
-    public PostResignGameRoute(GameCenter gameCenter, PlayerLobby playerLobby) {
+    public PostResignGameRoute(GameCenter gameCenter, PlayerLobby playerLobby, Gson gson) {
         this.gameCenter = gameCenter;
         this.playerLobby = playerLobby;
+        this.gson = gson;
     }
 
     @Override
     public Object handle(Request request, Response response) throws Exception {
         
         String userName = request.session().attribute("userName");
-
+        Message msg;
         gameCenter.resignGame(playerLobby.getPlayers().get(userName));
+
+        if(gameCenter.getGameLobby().containsKey(userName)) {
+            msg = Message.error("Resign failed.");
+        }
+        else {
+            msg = Message.info("Resign success");
+        }
         
         String json;
-        Gson gson = new GsonBuilder().create();
-        json = gson.toJson( Message.info("blablablatest") );
+        json = gson.toJson(msg);
 
         return json;
           

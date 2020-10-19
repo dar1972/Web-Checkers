@@ -176,9 +176,9 @@ public class WebServer {
 
     post(SUBMIT_TURN_URL, new PostSubmitTurnRoute());
 
-    post(BACKUP_MOVE_URL, new PostBackupMoveRoute());
+    post(BACKUP_MOVE_URL, new PostBackupMoveRoute(gameCenter, gson));
 
-    post(RESIGN_GAME_URL, new PostResignGameRoute(gameCenter, playerLobby));
+    post(RESIGN_GAME_URL, new PostResignGameRoute(gameCenter, playerLobby, gson));
 
     post(CHECK_TURN_URL, new PostCheckTurnRoute());
 
@@ -186,7 +186,6 @@ public class WebServer {
 
     LOG.config("WebServer is initialized.");
 
-    System.out.println(gson); //just here to make warnings go away.
 
   }
 
