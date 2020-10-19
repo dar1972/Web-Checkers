@@ -17,6 +17,10 @@ public class Move {
         return endPos;
     }
 
+    public Move invertMove(){
+        return null;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof Move)){

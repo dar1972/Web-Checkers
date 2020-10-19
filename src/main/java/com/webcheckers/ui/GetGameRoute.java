@@ -20,6 +20,8 @@ public class GetGameRoute implements Route {
 
     private static final Logger LOG = Logger.getLogger(GetGameRoute.class.getName());
     static final String USER_PARAM = "userName";
+    static final String Game_ID = "gameID";
+
 
     private final TemplateEngine templateEngine;
     private final PlayerLobby playerLobby;
@@ -72,6 +74,7 @@ public class GetGameRoute implements Route {
 
         // get username from players and put them in the player lobby
         String userName = request.session().attribute(USER_PARAM);
+        String gameID = request.session().attribute(Game_ID);
         Player player = playerLobby.getPlayers().get(userName);
 
         if(!gameCenter.getGameLobby().containsKey(userName)) {
@@ -91,10 +94,13 @@ public class GetGameRoute implements Route {
         BoardView redBoard = new BoardView("red");
         BoardView whiteBoard = new BoardView("white");
 
+        gameID = String.valueOf(GameCenter.getGameID(player));
+
         // putting values into variables
         Map<String, Object> vm = new HashMap<>();
             vm.put("title", "Game Time!");
             vm.put("currentUser", player);
+            vm.put(Game_ID, gameID);
             vm.put("redPlayer", playerRed);
             vm.put("whitePlayer", playerWhite);
             vm.put("activeColor", ActiveColor.RED);
@@ -105,8 +111,7 @@ public class GetGameRoute implements Route {
             else {
                 vm.put("board", whiteBoard);
             }
-            
-            vm.put("gameID", 123);
+
             // vm.put("modeOptionsAsJSON", gson.toJson(modeOptions))
             vm.put("viewMode", ViewMode.PLAY);
 

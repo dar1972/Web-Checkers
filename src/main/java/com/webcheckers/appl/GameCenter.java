@@ -11,6 +11,7 @@ public class GameCenter {
 
     private final PlayerLobby playerLobby;
     private Map<String, Game> gameLobby;
+    private static Map<Player, Integer> gameIDMap;
 
     public GameCenter(PlayerLobby playerLobby) {
         this.playerLobby = playerLobby;
@@ -47,6 +48,17 @@ public class GameCenter {
         }
         else {
             return game.getRed();
+        }
+    }
+
+    public static int getGameID(Player player){
+        int gameID = 0;
+        if (gameIDMap.containsKey(player)){
+            return  gameIDMap.get(player);
+        }
+        else {
+            gameIDMap.put(player, gameID);
+            return gameID++;
         }
     }
 

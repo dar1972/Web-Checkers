@@ -5,11 +5,11 @@ public class Game {
     private Player red;
     private Player white;
     private int id;
-    private enum ActiveColor {
+    public enum ActiveColor {
         RED,
         WHITE
     }
-    private ActiveColor activeColor = ActiveColor.RED;
+    private ActiveColor activeColor;
     private String winner;
 
     /**
@@ -20,6 +20,7 @@ public class Game {
     public Game (Player red, Player white) {
         this.red = red;
         this.white = white;
+        this.activeColor = ActiveColor.RED;
         id = 0; //CHANGE THIS LATER FOR MULTIPLE GAMES OR ELSE EVERYTHING WILL BE BROKEN.
     }
 

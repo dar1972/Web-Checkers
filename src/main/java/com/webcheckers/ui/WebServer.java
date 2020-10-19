@@ -12,7 +12,6 @@ import com.webcheckers.ui.SprintTwoRoutes.PostBackupMoveRoute;
 import com.webcheckers.ui.SprintTwoRoutes.PostCheckTurnRoute;
 import com.webcheckers.ui.SprintTwoRoutes.PostResignGameRoute;
 import com.webcheckers.ui.SprintTwoRoutes.PostSubmitTurnRoute;
-import com.webcheckers.ui.SprintTwoRoutes.PostValidateMoveRoute;
 
 import spark.TemplateEngine;
 
@@ -172,7 +171,7 @@ public class WebServer {
 
     post(HOME_URL, new PostHomeRoute(templateEngine, gameCenter));
 
-    post(VALIDATE_MOVE_URL, new PostValidateMoveRoute());
+    post(VALIDATE_MOVE_URL, new PostValidateMoveRoute(gameCenter, gson));
 
     post(SUBMIT_TURN_URL, new PostSubmitTurnRoute());
 
