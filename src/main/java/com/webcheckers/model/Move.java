@@ -18,7 +18,10 @@ public class Move {
     }
 
     public Move invertMove(){
-        return null;
+
+        Position start = new Position(7-this.start.getRow(), 7-this.start.getCol());
+        Position end = new Position(7-this.end.getRow(), 7-this.end.getCol());
+        return new Move(start, end);
     }
 
     @Override

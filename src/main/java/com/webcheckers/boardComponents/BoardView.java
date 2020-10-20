@@ -123,10 +123,10 @@ public class BoardView implements Iterable{
         Position end = move.getEnd();
 
         Row startRow = gameBoard[start.getRow()];
-        Space startSpace = startRow.row[start.getCell()];
+        Space startSpace = startRow.row[start.getCol()];
 
         Row endRow = gameBoard[end.getRow()];
-        Space endSpace = endRow.row[end.getCell()];
+        Space endSpace = endRow.row[end.getCol()];
 
         Piece piece = startSpace.getPiece();
         startSpace.deletePiece();

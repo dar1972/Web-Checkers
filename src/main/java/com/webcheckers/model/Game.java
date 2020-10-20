@@ -65,7 +65,8 @@ public class Game {
         }
     }
 
-    public void updateActivePlayer(){
+    public void updateActivePlayer(Move move){
+        move.invertMove();
         if(activeColor==ActiveColor.RED){
             activeColor = ActiveColor.WHITE;
         }else{

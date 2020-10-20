@@ -42,6 +42,8 @@ public class PostSubmitTurnRoute implements Route{
         LOG.config("PostSubmitTurnRoute is invoked.");
 
         Message message;
+        Move move;
+        Game getGame;
         String userName = request.session().attribute( USER_PARAM );
 
         if(gameCenter.isPlayerInGame(userName)){
@@ -53,19 +55,26 @@ public class PostSubmitTurnRoute implements Route{
             else if(gameCenter.isPlayerActive(userName)){
                 Game game = gameCenter.getGame(userName);
                 message = Message.info(SUBMIT_TURN_INFO);
+
                 Player red = gameCenter.getGame(userName).getRed();
+                getGame = gameCenter.getGame(userName);
+
+                BoardView boardViewRed = getGame.getGameBoardRed();
+                BoardView boardViewWhite = getGame.getGameBoardWhite();
+
+                move = gameCenter.getMove();
+
                 if(gameCenter.getGame(userName).getActivePlayer()==red){
-                    Game getGame = gameCenter.getGame(userName);
-                    BoardView boardView = getGame.getGameBoardRed();
-                    Move move = gameCenter.getMove();
-                    boardView.updateBoard(move);
-                }else {
-                    Game getGame = gameCenter.getGame(userName);
-                    BoardView boardView = getGame.getGameBoardWhite();
-                    Move move = gameCenter.getMove();
-                    boardView.updateBoard(move);
+                    boardViewRed.updateBoard(move);
+                    Move moveInvert = move.invertMove();
+                    boardViewWhite.updateBoard(moveInvert);
                 }
-                game.updateActivePlayer();
+                else {
+                    boardViewWhite.updateBoard(move);
+                    Move moveInvert = move.invertMove();
+                    boardViewRed.updateBoard(moveInvert);
+                }
+                game.updateActivePlayer(move);
                 gameCenter.storeMove(null);
             }
             else{
