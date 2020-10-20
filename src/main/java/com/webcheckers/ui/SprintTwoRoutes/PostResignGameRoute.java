@@ -31,6 +31,13 @@ public class PostResignGameRoute implements Route {
         
         String userName = request.session().attribute("userName");
         Message msg;
+        String json;
+
+        if (gameCenter.getGame(userName).getPlayerWhoResigned() != "") {
+            msg = Message.info("Opponent already resigned!");
+            json = gson.toJson(msg);
+            return json;
+        }
         gameCenter.getGame(userName).setPlayerWhoResigned(userName);
         Player opponent = gameCenter.getOpponent(playerLobby.getPlayers().get(userName));
         gameCenter.leaveGame(playerLobby.getPlayers().get(userName));
@@ -42,7 +49,6 @@ public class PostResignGameRoute implements Route {
             msg = Message.info("Resign success");
         }
         
-        String json;
         json = gson.toJson(msg);
 
         return json;

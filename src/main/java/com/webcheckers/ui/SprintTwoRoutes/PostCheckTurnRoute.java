@@ -13,15 +13,14 @@ import java.util.logging.Logger;
 
 public class PostCheckTurnRoute implements Route{
 
-    public static final String GAME_WON = "You won the game :D Please head back to the home menu.";
-    public static final String GAME_LOST = "You lost the game :( Please head back to the home menu.";
+    
 
     static final String USER_PARAM = "userName";
 
     private static final Logger LOG = Logger.getLogger(PostSignInRoute.class.getName());
 
     private final Gson gson;
-    //private final GameCenter gameCenter;
+    private final GameCenter gameCenter;
 
     /**
      * Create the Spark Route (UI controller) to handle all {@code GET /} HTTP
@@ -30,7 +29,7 @@ public class PostCheckTurnRoute implements Route{
      */
     public PostCheckTurnRoute(GameCenter gameCenter,Gson gson) {
         Objects.requireNonNull( gameCenter );
-        //this.gameCenter = gameCenter;
+        this.gameCenter = gameCenter;
         this.gson = gson;
         LOG.config("PostCheckTurnRoute is initialized.");
     }
@@ -38,18 +37,16 @@ public class PostCheckTurnRoute implements Route{
     @Override
     public Object handle(Request request, Response response) throws Exception {
         LOG.finer("PostCheckTurnRoute is invoked.");
-
-        String name = request.session().attribute(USER_PARAM);
-        //String outcome = Boolean.toString(gameCenter.isPlayerActive(name));
-        String winner = "gameCenter.gameWon(name);";
+        String userName = request.session().attribute("userName");
         Message message;
-
-        if (winner.equals(name)) {
-            message = Message.info(GAME_WON);
-        } else {
-            message = Message.info(GAME_LOST);
+        if (gameCenter.getGame(userName).getActivePlayer().getName() == userName) {
+            message = Message.info("true");
         }
+        else {
+            message = Message.info("false");
 
+        }
+        
         String json;
         json = gson.toJson(message);
         return json;
