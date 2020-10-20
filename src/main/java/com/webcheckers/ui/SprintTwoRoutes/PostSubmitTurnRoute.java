@@ -10,7 +10,7 @@ import com.webcheckers.ui.PostSignInRoute;
 import com.webcheckers.util.Message;
 import spark.*;
 
-import java.util.Deque;
+
 import java.util.logging.Logger;
 
 //Made and worked on by Beck Anderson
@@ -62,37 +62,20 @@ public class PostSubmitTurnRoute implements Route{
                 BoardView boardViewRed = getGame.getGameBoardRed();
                 BoardView boardViewWhite = getGame.getGameBoardWhite();
 
-                //move = gameCenter.getMove();
-                Deque<Move> moveTemp = gameCenter.getGame(userName).getMoves();
-                if(gameCenter.getGame(userName).getActivePlayer()==red){
-                    Deque<Move> moveTempRed;
-                    moveTempRed.addAll(moveTemp);
+                move = gameCenter.getMove();
 
-                    while (gameCenter.getGame(userName).getMoves().size() > 0) {
-                        
-                        move = moveTempRed.pollFirst();
-                        boardViewRed.updateBoard(move);
-                        Move moveInvert = move.invertMove();
-                        boardViewWhite.updateBoard(moveInvert);
-                    }
-                    
-       //             boardViewRed.updateBoard(move);
-        //            Move moveInvert = move.invertMove();
-       //             boardViewWhite.updateBoard(moveInvert);
+                if(gameCenter.getGame(userName).getActivePlayer()==red){
+                    boardViewRed.updateBoard(move);
+                    Move moveInvert = move.invertMove();
+                    boardViewWhite.updateBoard(moveInvert);
                 }
                 else {
-                    Deque<Move> moveTempWhite;
-                    moveTempWhite.addAll(moveTemp);
-                    while (gameCenter.getGame(userName).getMoves().size() > 0) {
-                        move = moveTempWhite.pollFirst();
-                        boardViewWhite.updateBoard(move);
-                        Move moveInvert = move.invertMove();
-                        boardViewRed.updateBoard(moveInvert);
-
-                    }
+                    boardViewWhite.updateBoard(move);
+                    Move moveInvert = move.invertMove();
+                    boardViewRed.updateBoard(moveInvert);
                 }
                 game.updateActivePlayer(move);
-                gameCenter.getGame(userName).storeMove(move);
+                gameCenter.storeMove(null);
             }
             else{
                 message = Message.info(SWAP_TURN_ERROR);
@@ -106,3 +89,4 @@ public class PostSubmitTurnRoute implements Route{
         return json;
     }
 }
+
