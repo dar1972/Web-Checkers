@@ -113,8 +113,23 @@ public class GetGameRoute implements Route {
             }
 
             final Map<String, Object> modeOptions = new HashMap<>(2);
-            modeOptions.put("isGameOver", false);
-            modeOptions.put("gameOverMessage", "game ended");
+
+            String resignedPlayerName = gameCenter.getGame(userName).getPlayerWhoResigned();
+            if (resignedPlayerName != ""){
+                modeOptions.put("isGameOver", true);
+
+                if (resignedPlayerName != userName) {
+                    modeOptions.put("gameOverMessage", resignedPlayerName + " resigned. You won!");
+                }
+                else {
+                    modeOptions.put("gameOverMessage", "You resigned. You technically shouldn't see this message.");
+
+                }
+
+            }
+            else {
+                modeOptions.put("isGameOver", false);
+            }
             vm.put("modeOptionsAsJSON", gson.toJson(modeOptions));  
             vm.put("viewMode", ViewMode.PLAY);
 

@@ -84,29 +84,13 @@ public class GameCenter {
         return exists;
     }
 
-    public synchronized void resignGame(Player user) {
-        Player opponent = getOpponent(user);
-
+    public synchronized void leaveGame(Player user) {
+        getGame(user.getName()).setWinner(getOpponent(user));
         gameLobby.remove(user.getName());
-        gameLobby.remove(opponent.getName());
-
+        
     }
 
-    public synchronized String gameWon(String name){
-        if(!getGameLobby().containsKey(name)){
-            return null;
-        }
-        Player winner = getGame(name).getWinner();
-        if(winner != null){
-            if(isPlayerInGame(winner.toString())) {
-                playerLobby.removeFromLobby(winner);
-            }if(isPlayerInGame(getOpponent(winner).toString())){
-                playerLobby.removeFromLobby(getOpponent(winner));
-            }
-            return winner.toString();
-        }
-        return null;
-    }
+
 
     public Move getMove(){
         return move;

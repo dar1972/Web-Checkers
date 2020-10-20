@@ -3,6 +3,7 @@ package com.webcheckers.ui.SprintTwoRoutes;
 import com.google.gson.Gson;
 import com.webcheckers.appl.GameCenter;
 import com.webcheckers.appl.PlayerLobby;
+import com.webcheckers.model.Player;
 import com.webcheckers.util.Message;
 
 import spark.*;
@@ -30,9 +31,11 @@ public class PostResignGameRoute implements Route {
         
         String userName = request.session().attribute("userName");
         Message msg;
-        gameCenter.resignGame(playerLobby.getPlayers().get(userName));
+        gameCenter.getGame(userName).setPlayerWhoResigned(userName);
+        Player opponent = gameCenter.getOpponent(playerLobby.getPlayers().get(userName));
+        gameCenter.leaveGame(playerLobby.getPlayers().get(userName));
 
-        if(gameCenter.getGameLobby().containsKey(userName)) {
+        if(gameCenter.getGame(opponent.getName()).getPlayerWhoResigned() == "") {
             msg = Message.error("Resign failed.");
         }
         else {

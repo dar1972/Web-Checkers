@@ -115,8 +115,14 @@ public class GetHomeRoute implements Route {
 
       // once entering opponents name, both players will be sent to the game if both are available
       if (gameCenter.getGameLobby().containsKey(userName)) {
-        response.redirect("/game");
-        halt();
+        if (gameCenter.getGame(userName).getWinner() == player) {
+            gameCenter.leaveGame(player);
+        }
+        else {
+          response.redirect("/game");
+          halt();
+        }
+        
       }
 
     // render the View

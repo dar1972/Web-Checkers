@@ -12,6 +12,7 @@ public class Game {
     private BoardView gameBoardWhite;
     private BoardView gameBoardRed;
     private Deque<Move> moves;
+    private String playerWhoResigned;
     public enum ActiveColor {
         RED,
         WHITE
@@ -30,6 +31,7 @@ public class Game {
         this.white = white;
         gameBoardWhite = new BoardView("white");
         id = id++;
+        playerWhoResigned = "";
     }
 
     /**
@@ -81,6 +83,9 @@ public class Game {
         return winner;
     }
 
+    public void setWinner(Player player) {
+        this.winner = player;
+    }
     public boolean backupMove() {
         //do something.
         return true;
@@ -106,6 +111,13 @@ public class Game {
         return moves.pollFirst();
     }
 
+    public void setPlayerWhoResigned(String playerWhoResigned) {
+        this.playerWhoResigned = playerWhoResigned;
+    }
+
+    public String getPlayerWhoResigned() {
+        return playerWhoResigned;
+    }
     /**
      * This will check to see if the selected Object is equal
      * to this Game instance
