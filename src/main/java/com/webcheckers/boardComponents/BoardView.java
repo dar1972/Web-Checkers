@@ -3,10 +3,7 @@ package com.webcheckers.boardComponents;
 import com.webcheckers.model.Move;
 import com.webcheckers.model.Position;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 import java.util.NoSuchElementException;
 
 public class BoardView implements Iterable{
@@ -150,78 +147,12 @@ public class BoardView implements Iterable{
         else {
             return true;
         }
+        
 
     }
 
-    public boolean validMove(Move move){
-        Position end = move.getEnd();
 
-        ArrayList<Position> goodMoves = validMoves(move);
-        for(int i=0; i<goodMoves.size();i++){
-            Position check = goodMoves.get(i);
-            if (end.getRow() == check.getRow() && end.getCell() == check.getCell()) {
-                return true;
-            }
-        } return false;
-    }
-
-
-    private ArrayList<Position> validMovesHelper(Move move, Position possibility, String direction){
-        ArrayList<Position> goodMoves = new ArrayList<>();
-        Position start = move.getStart();
-
-        Row startRow = gameBoard[start.getRow()];
-        Space startSpace = startRow.row[start.getCell()];
-
-        Row possibilityRow = gameBoard[possibility.getRow()];
-        Space possibilitySpace = possibilityRow.row[possibility.getCell()];
-
-        if (possibilitySpace.getPiece() != null) {
-            if (possibilitySpace.getPiece().getColor() != startSpace.getPiece().getColor()) {
-                Position possibility3 = null;
-                switch (direction) {
-                    case "UR":
-                        if (possibility.getCell() < 7 && possibility.getRow() < 7) {
-                            possibility3 = new Position(possibility.getRow() - 1, possibility.getCell() + 1);
-                        }
-                        break;
-                    case "UL":
-                        if (possibility.getCell() >= 2 && possibility.getRow() < 7) {
-                            possibility3 = new Position(possibility.getRow() - 1, possibility.getCell() - 1);
-                        }
-                        break;
-                    case "DL":
-                        if (possibility.getCell() >= 2 && possibility.getRow() >= 2) {
-                            possibility3 = new Position(possibility.getRow() + 1, possibility.getCell() - 1);
-                        }
-                        break;
-                    case "DR":
-                        if (possibility.getCell() >= 2 && possibility.getRow() < 7) {
-                            possibility3 = new Position(possibility.getRow() + 1, possibility.getCell() + 1);
-                        }
-                        break;
-                }
-                if(possibility3 == null){
-                    return goodMoves;
-                }
-                Row possibility3Row = gameBoard[possibility3.getRow()];
-                Space possibility3Space = possibility3Row.row[possibility.getCell()];
-
-                if (possibility3Space.getPiece() == null) {
-                    goodMoves.add(possibility3);
-                }
-            }
-        }else{
-            goodMoves.add(possibility);
-        }
-        return goodMoves;
-    }
-
-    private ArrayList<Position> validMoves(Move move) {
-
-        ArrayList<Position> goodMoves = new ArrayList<>();
-        int i;
-        ArrayList<Position> moves;
+    public boolean validMoveDistance(Move move) {
 
         Position start = move.getStart();
         Position end = move.getEnd();
@@ -236,67 +167,30 @@ public class BoardView implements Iterable{
         Piece piece = startSpace.getPiece();
 
         if (piece.getType() == Piece.Type.SINGLE){
-            Position possibility1 = new Position(start.getRow()-1, start.getCell()+1);
-            Position possibility2 = new Position(start.getRow()-1, start.getCell()-1);
+            Position possibility1 = new Position(start.getRow()+1, start.getCell()+1);
+            Position possibility2 = new Position(start.getRow()+1, start.getCell()-1);
 
-            if(possibility1.getCell()<8) {
-                moves = validMovesHelper(move, possibility1, "UR");
+            Row possibility1Row = gameBoard[start.getRow()];
+            Space possibility1Space = startRow.row[start.getCell()];
 
-                for (i = 0; i < moves.size(); i++) {
-                    goodMoves.add(moves.get(i));
-                    i++;
+
+            if (possibility1Space.getPiece() != null) {
+                if (possibility1Space.getPiece().getColor() != startSpace.getPiece().getColor()) {
+                    
                 }
             }
-            if(possibility2.getCell()>0) {
-                moves = validMovesHelper(move, possibility2, "UL");
 
-                for (i = 0; i < moves.size(); i++) {
-                    goodMoves.add(moves.get(i));
-                    i++;
-                }
-            }
         }
         if (piece.getType() == Piece.Type.KING){
-            Position possibility1 = new Position(start.getRow()-1, start.getCell()+1);
-            Position possibility2 = new Position(start.getRow()-1, start.getCell()-1);
-            Position possibility3 = new Position(start.getRow()+1, start.getCell()-1);
-            Position possibility4 = new Position(start.getRow()+1, start.getCell()+1);
+            Position possibility1 = new Position(start.getRow()+1, start.getCell()+1);
+            Position possibility2 = new Position(start.getRow()+1, start.getCell()-1);
+            Position possibility3 = new Position(start.getRow()-1, start.getCell()-1);
+            Position possibility4 = new Position(start.getRow()-1, start.getCell()+1);
 
-            if(possibility1.getCell()<8&&possibility1.getRow()<8) {
-                moves = validMovesHelper(move, possibility1, "UR");
 
-                for (i = 0; i < moves.size(); i++) {
-                    goodMoves.add(moves.get(i));
-                    i++;
-                }
-            }
-            if(possibility2.getCell()<8&&possibility2.getRow()>0) {
-                moves = validMovesHelper(move, possibility2, "UL");
-
-                for (i = 0; i < moves.size(); i++) {
-                    goodMoves.add(moves.get(i));
-                    i++;
-                }
-            }
-            if(possibility3.getCell()>0&&possibility3.getRow()>0) {
-                moves = validMovesHelper(move, possibility3, "DL");
-
-                for (i = 0; i < moves.size(); i++) {
-                    goodMoves.add(moves.get(i));
-                    i++;
-                }
-            }
-            if(possibility4.getCell()>0&&possibility4.getRow()<8) {
-                moves = validMovesHelper(move, possibility4, "DR");
-
-                for (i = 0; i < moves.size(); i++) {
-                    goodMoves.add(moves.get(i));
-                    i++;
-                }
-            }
         }
 
-        return goodMoves;
+        return true;
 
     }
 

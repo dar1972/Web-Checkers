@@ -5,7 +5,6 @@ import com.webcheckers.appl.GameCenter;
 import com.webcheckers.boardComponents.Piece;
 import com.webcheckers.model.Game;
 import com.webcheckers.model.Move;
-import com.webcheckers.model.Player;
 import com.webcheckers.model.Position;
 import com.webcheckers.util.Message;
 import spark.*;
@@ -55,20 +54,8 @@ public class PostValidateMoveRoute implements Route {
             move = move.invertMove();
             msg = Message.info("Oppenent will play first"); // problem from here on
         }
-        Player activePLayer = gameCenter.getGame(userName).getActivePlayer();
-        if(gameCenter.getGame(userName).getRed()==activePLayer){
-            if(gameCenter.getGame(userName).getGameBoardRed().validMove(move)){
-                msg = Message.info("valid Move");
-            }else{
-                msg = Message.error("invalid move, please try another.");
-            }
-        }else {
-            if(gameCenter.getGame(userName).getGameBoardWhite().validMove(move.invertMove())){
-                msg = Message.info("valid Move");
-            }else {
-                msg = Message.error("invalid move, please try another.");
-            }
-        }
+        msg = Message.info("valid Move");
+
         String json;
         json = gson.toJson(msg);
         return json;
