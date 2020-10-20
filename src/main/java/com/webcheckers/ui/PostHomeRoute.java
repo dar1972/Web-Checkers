@@ -61,7 +61,7 @@ public class PostHomeRoute implements Route {
             vm.put("message", Message.error("User is already in game! Try a different one."));
 
             request.session().attribute( USER_BUSY, "yes" );
-            response.redirect(WebServer.HOME_URL); 
+            response.redirect(WebServer.HOME_URL);  
             halt();
 
             return templateEngine.render(new ModelAndView(vm, "home.ftl")); // created by Marcus, adjusted by Kelly

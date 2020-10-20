@@ -2,6 +2,8 @@ package com.webcheckers.model;
 
 import com.webcheckers.boardComponents.BoardView;
 
+import java.util.Deque;
+
 public class Game {
     
     private Player red;
@@ -9,6 +11,7 @@ public class Game {
     private int id = 0;
     private BoardView gameBoardWhite;
     private BoardView gameBoardRed;
+    private Deque<Move> moves;
     public enum ActiveColor {
         RED,
         WHITE
@@ -85,6 +88,22 @@ public class Game {
 
     public int getGameId() {
         return id;
+    }
+
+    public Deque<Move> getMoves(){
+        return moves;
+    }
+
+    public void storeMove(Move move){
+        moves.add(move);
+    }
+
+    public Move popNewestMove(){
+        return moves.pollLast();
+    }
+
+    public Move popOldestMove(){
+        return moves.pollFirst();
     }
 
     /**

@@ -106,10 +106,17 @@ to the home page where they can see the players online. The user can then
 
 
 ### UI Tier
-> _Provide a summary of the Server-side UI tier of your architecture.
-> Describe the types of components in the tier and describe their
-> responsibilities.  This should be a narrative description, i.e. it has
-> a flow or "story line" that the reader can follow._
+This sequence chart displays the components that take place and their progression
+ throughout the application. It starts off with the component at the upper left of
+  this diagram. We are starting from when a player has logged in successfully. Once
+   doing so, the player gets to see who is playing or is willing to play. If a player
+    is in the middle of a game, a message about a user being busy (userBusy) would 
+    appear. Otherwise, a game is created and the player would be redirected to the 
+    actual game page. When two players are being put into a game, their colors (red or 
+    white) and the game board are displayed. Then, the game starts and follows the 
+    rules of a checkers game. Red player goes first and then the white player. 
+
+![The UI Tier Sequence Diagram](ui-tier-seqDiagram.png)
 
 > _At appropriate places as part of this narrative provide one or more
 > static models (UML class structure or object diagrams) with some
@@ -130,15 +137,30 @@ to the home page where they can see the players online. The user can then
 
 
 ### Application Tier
-> _Provide a summary of the Application tier of your architecture. This
-> section will follow the same instructions that are given for the UI
-> Tier above._
+These classes are where the user/player is being directed into a lobby filled 
+with other players and if there is another available player, then both players 
+are put into a game. However, there are more behind the scene events happening. 
+A player has a name and overrides the equals method. Knowing this, this player 
+is put into a player lobby. If an available player is connected with another 
+available player (isPlayerActive and isPlayerInGame), a game is created and 
+both players are redirected to the game page/board (createGame). One player 
+is assigned to the red color and the other is white. Once in the game, the 
+players take turns while following the rules of checkers. Players can let each 
+other know when their turn is done and resign from a game. At the end of the 
+game, the winner is displayed. 
+
+![The Application Tier UML Diagram](AppTierStateChart.jpg)
 
 
 ### Model Tier
-> _Provide a summary of the Application tier of your architecture. This
-> section will follow the same instructions that are given for the UI
-> Tier above._
+In the earlier two tier, this was said: “follow the game of checkers”. This 
+diagram shows more in-depth of that process. Within this process, the red 
+and white players have their game view loaded. The game view consists of a 
+checkerboard, which is where the rows and pieces component comes into play. 
+When it is their turn, they will see an active color. Players should see their 
+pieces move from one valid box to another. This repeats until there is a winner.  
+
+![The Model Tier UML Diagram](ModelTierStateChart.jpg)
 
 ### Design Improvements
 > _Discuss design improvements that you would make if the project were
