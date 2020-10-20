@@ -103,7 +103,7 @@ public class GetGameRoute implements Route {
             vm.put(Game_ID, gameID);
             vm.put("redPlayer", playerRed);
             vm.put("whitePlayer", playerWhite);
-            vm.put("activeColor", ActiveColor.RED);
+            vm.put("activeColor", gameCenter.getGame(player.getName()).getActiveColor());
 
             if(player == playerRed) {
                 vm.put("board", redBoard);

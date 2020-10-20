@@ -51,6 +51,14 @@ public class Game {
         }
     }
 
+    public void updateActivePlayer(){
+        if(activeColor==ActiveColor.RED){
+            activeColor = ActiveColor.WHITE;
+        }else{
+            activeColor = ActiveColor.RED;
+        }
+    }
+
     public Player getWinner() {
         return winner;
     }

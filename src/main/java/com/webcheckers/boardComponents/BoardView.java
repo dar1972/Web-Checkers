@@ -114,6 +114,7 @@ public class BoardView implements Iterable{
         }
     }
 
+
     @Override
     public Iterator iterator() {
         return new Iterator<Row>() {

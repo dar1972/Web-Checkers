@@ -52,8 +52,7 @@ public class PostValidateMoveRoute implements Route {
             msg = Message.info("Oppenent will play first"); // problem from here on
         }
         msg = Message.info("valid Move");
-
-
+        
         String json;
         json = gson.toJson(msg);
         return json;
