@@ -106,7 +106,7 @@ public class GetGameRoute implements Route {
                 vm.put("board", gameCenter.getGame(playerWhite.getName()).getGameBoardWhite());
             }
 
-            // vm.put("modeOptionsAsJSON", gson.toJson(modeOptions))
+            // vm.put("modeOptionsAsJSON", gson.toJson(modeOptions)) 
             vm.put("viewMode", ViewMode.PLAY);
 
 

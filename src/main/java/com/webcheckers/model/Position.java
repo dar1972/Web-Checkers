@@ -3,23 +3,23 @@ package com.webcheckers.model;
 // Created by Dhruv
 public class Position {
 
-    private int row, col;
+    private int row, cell;
 
-    public Position(int row, int col) {
+    public Position(int row, int cell) {
         this.row = row;
-        this.col = col;
+        this.cell = cell;
     }
 
     public int getRow() {
         return row;
     }
 
-    public int getCol() {
-        return col;
+    public int getCell() {
+        return cell;
     }
 
     @Override
     public String toString() {
-        return "Position{" + "row=" + row + ", cell=" + col + '}';
+        return "Position{" + "row=" + row + ", cell=" + cell + '}';
     }
 }
