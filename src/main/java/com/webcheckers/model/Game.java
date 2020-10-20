@@ -1,10 +1,14 @@
 package com.webcheckers.model;
 
+import com.webcheckers.boardComponents.BoardView;
+
 public class Game {
     
     private Player red;
     private Player white;
     private int id = 0;
+    private BoardView gameBoardWhite;
+    private BoardView gameBoardRed;
     public enum ActiveColor {
         RED,
         WHITE
@@ -19,7 +23,9 @@ public class Game {
      */
     public Game (Player red, Player white) {
         this.red = red;
+        gameBoardRed = new BoardView("red");
         this.white = white;
+        gameBoardWhite = new BoardView("white");
         id = id++;
     }
 
@@ -37,6 +43,14 @@ public class Game {
      */
     public Player getWhite() {
         return white;
+    }
+
+    public BoardView getGameBoardWhite(){
+        return gameBoardWhite;
+    }
+
+    public BoardView getGameBoardRed(){
+        return gameBoardRed;
     }
 
     public ActiveColor getActiveColor() {

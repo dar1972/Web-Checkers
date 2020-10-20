@@ -1,5 +1,7 @@
 package com.webcheckers.boardComponents;
 
+import com.webcheckers.model.Move;
+
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -114,7 +116,9 @@ public class BoardView implements Iterable{
         }
     }
 
+    public void updateBoard(Move move){
 
+    }
     @Override
     public Iterator iterator() {
         return new Iterator<Row>() {

@@ -68,8 +68,6 @@ public class GetGameRoute implements Route {
 //    @Override
     public Object handle(Request request, Response response) {
 
-        
-
         LOG.finer("GetGameRoute is invoked.");
 
         // get username from players and put them in the player lobby
@@ -90,10 +88,6 @@ public class GetGameRoute implements Route {
             playerRed = gameCenter.getOpponent(player);
         }
 
-        // players are shown the board with their pieces which has their respective color
-        BoardView redBoard = new BoardView("red");
-        BoardView whiteBoard = new BoardView("white");
-
         int gameID = gameCenter.getGame(userName).getGameId();
 
         // putting values into variables
@@ -106,10 +100,10 @@ public class GetGameRoute implements Route {
             vm.put("activeColor", gameCenter.getGame(player.getName()).getActiveColor());
 
             if(player == playerRed) {
-                vm.put("board", redBoard);
+                vm.put("board", gameCenter.getGame(playerRed.getName()).getGameBoardRed());
             }
             else {
-                vm.put("board", whiteBoard);
+                vm.put("board", gameCenter.getGame(playerWhite.getName()).getGameBoardWhite());
             }
 
             // vm.put("modeOptionsAsJSON", gson.toJson(modeOptions))
