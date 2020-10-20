@@ -74,7 +74,7 @@ public class GetGameRoute implements Route {
 
         // get username from players and put them in the player lobby
         String userName = request.session().attribute(USER_PARAM);
-        String gameID = request.session().attribute(Game_ID);
+        //String gameID = request.session().attribute(Game_ID);
         Player player = playerLobby.getPlayers().get(userName);
 
         if(!gameCenter.getGameLobby().containsKey(userName)) {
@@ -94,7 +94,7 @@ public class GetGameRoute implements Route {
         BoardView redBoard = new BoardView("red");
         BoardView whiteBoard = new BoardView("white");
 
-        gameID = String.valueOf(GameCenter.getGameID(player));
+        int gameID = gameCenter.getGame(userName).getGameId();
 
         // putting values into variables
         Map<String, Object> vm = new HashMap<>();

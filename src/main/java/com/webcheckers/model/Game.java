@@ -4,7 +4,7 @@ public class Game {
     
     private Player red;
     private Player white;
-    private int id;
+    private int id = 0;
     public enum ActiveColor {
         RED,
         WHITE
@@ -20,7 +20,7 @@ public class Game {
     public Game (Player red, Player white) {
         this.red = red;
         this.white = white;
-        id = 0; //CHANGE THIS LATER FOR MULTIPLE GAMES OR ELSE EVERYTHING WILL BE BROKEN.
+        id = id++;
     }
 
     /**
@@ -58,6 +58,10 @@ public class Game {
     public boolean backupMove() {
         //do something.
         return true;
+    }
+
+    public int getGameId() {
+        return id;
     }
 
     /**

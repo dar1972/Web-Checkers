@@ -52,17 +52,6 @@ public class GameCenter {
         }
     }
 
-    public static int getGameID(Player player){
-        int gameID = 0;
-        if (gameIDMap.containsKey(player)){
-            return  gameIDMap.get(player);
-        }
-        else {
-            gameIDMap.put(player, gameID);
-            return gameID++;
-        }
-    }
-
     public boolean isRed(Player user) {
         String userName = user.getName();
         Game game = gameLobby.get(userName);
