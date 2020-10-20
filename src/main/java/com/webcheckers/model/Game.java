@@ -98,12 +98,12 @@ public class Game {
         moves.add(move);
     }
 
-    public Move pullMoveFront(){
-        return null;
+    public Move popNewestMove(){
+        return moves.pollLast();
     }
 
-    public Move pullMoveBack(){
-        return null;
+    public Move popOldestMove(){
+        return moves.pollFirst();
     }
 
     /**
