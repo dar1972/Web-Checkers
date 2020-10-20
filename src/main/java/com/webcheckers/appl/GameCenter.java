@@ -53,7 +53,7 @@ public class GameCenter {
         }
     }
 
-    public boolean isRed(Player user) {
+    public synchronized boolean isRed(Player user) {
         String userName = user.getName();
         Game game = gameLobby.get(userName);
         if(game.getRed().equals(user)) {

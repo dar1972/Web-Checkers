@@ -1,5 +1,6 @@
 package com.webcheckers.ui;
 
+import com.google.gson.Gson;
 import com.webcheckers.appl.GameCenter;
 import com.webcheckers.appl.PlayerLobby;
 import com.webcheckers.boardComponents.BoardView;
@@ -14,6 +15,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.logging.Logger;
+import static spark.Spark.halt;
+
 
 public class GetGameRoute implements Route {
     // File created by Beck Anderson, code by Marcus, code adjusted by Kelly
@@ -29,6 +32,7 @@ public class GetGameRoute implements Route {
 
     private Player playerRed;
     private Player playerWhite;
+    private Gson gson;
 
     private enum ViewMode{
         PLAY,
@@ -46,11 +50,12 @@ public class GetGameRoute implements Route {
      *
      * @param templateEngine the HTML template rendering engine
      */
-    public GetGameRoute(final TemplateEngine templateEngine, final PlayerLobby playerLobby, final GameCenter gameCenter) {
+    public GetGameRoute(final TemplateEngine templateEngine, final PlayerLobby playerLobby, final GameCenter gameCenter, Gson gson) {
         this.templateEngine = Objects.requireNonNull(templateEngine, "templateEngine is required");
         //
         this.playerLobby = playerLobby;
         this.gameCenter = gameCenter;
+        this.gson = gson;
         LOG.config("GetGameRoute is initialized.");
     }
 
@@ -72,11 +77,13 @@ public class GetGameRoute implements Route {
 
         // get username from players and put them in the player lobby
         String userName = request.session().attribute(USER_PARAM);
+        //userName = request.queryParams(USER_PARAM);
         //String gameID = request.session().attribute(Game_ID);
         Player player = playerLobby.getPlayers().get(userName);
 
-        if(!gameCenter.getGameLobby().containsKey(userName)) {
+        if(!gameCenter.getGameLobby().containsKey(userName) || gameCenter.getGame(userName) == null) {
             response.redirect(WebServer.HOME_URL);
+            halt();
         }
 
         if (gameCenter.isRed(player)) {
@@ -106,7 +113,10 @@ public class GetGameRoute implements Route {
                 vm.put("board", gameCenter.getGame(playerWhite.getName()).getGameBoardWhite());
             }
 
-            // vm.put("modeOptionsAsJSON", gson.toJson(modeOptions)) 
+            final Map<String, Object> modeOptions = new HashMap<>(2);
+            modeOptions.put("isGameOver", true);
+            modeOptions.put("gameOverMessage", "game ended");
+            vm.put("modeOptionsAsJSON", gson.toJson(modeOptions));  
             vm.put("viewMode", ViewMode.PLAY);
 
 

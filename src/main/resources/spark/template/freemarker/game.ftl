@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
+  <link rel="icon" href="data:,">
   <title>${title} | Web Checkers</title>
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/game.css">

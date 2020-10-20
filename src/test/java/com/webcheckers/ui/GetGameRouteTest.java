@@ -56,7 +56,7 @@ public class GetGameRouteTest {
         // create a unique CuT for each test
         testLobby = new PlayerLobby();
         gameCenter = new GameCenter(testLobby);
-        CuT = new GetGameRoute(engine, testLobby, gameCenter);
+        CuT = new GetGameRoute(engine, testLobby, gameCenter, null);
     }
 
     /**

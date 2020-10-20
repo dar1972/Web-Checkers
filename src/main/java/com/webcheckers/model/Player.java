@@ -18,7 +18,7 @@ public class Player {
      * This will get and return the name of the player
      * @return the name of the player
      */
-    public String getName() {
+    public synchronized String getName() {
         return userName;
     }
 

@@ -36,7 +36,7 @@ public class Game {
      * this will get and return the red player
      * @return the red player
      */
-    public Player getRed() {
+    public synchronized Player getRed() {
         return red;
     }
 
@@ -44,7 +44,7 @@ public class Game {
      * this will get and return the white player
      * @return the white player
      */
-    public Player getWhite() {
+    public synchronized Player getWhite() {
         return white;
     }
 

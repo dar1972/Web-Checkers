@@ -163,7 +163,7 @@ public class WebServer {
 
     get(SIGNIN_URL, new GetSignInRoute(templateEngine)); 
 
-    get(GAME_URL, new GetGameRoute(templateEngine, playerLobby, gameCenter)); 
+    get(GAME_URL, new GetGameRoute(templateEngine, playerLobby, gameCenter, gson)); 
 
     post(SIGNOUT_URL, new PostSignOutRoute(templateEngine, playerLobby));
 
