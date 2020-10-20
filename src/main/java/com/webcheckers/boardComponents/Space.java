@@ -59,4 +59,14 @@ public class Space{
     public void setPiece(Piece newPiece){
         this.piece = newPiece;
     }
+
+    public void createPiece(String type, String color){
+        piece = new Piece(type,color,cellIdx);
+    }
+
+    public void deletePiece(){
+        if(piece!=null){
+            piece=null;
+        }
+    }
 }

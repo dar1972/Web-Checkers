@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.google.gson.Gson;
 import com.webcheckers.model.Game;
+import com.webcheckers.model.Move;
 import com.webcheckers.model.Player;
 
 public class GameCenter {
@@ -13,11 +14,11 @@ public class GameCenter {
     private final PlayerLobby playerLobby;
     private Map<String, Game> gameLobby;
     private static Map<Player, Integer> gameIDMap;
+    private Move move;
 
     public GameCenter(PlayerLobby playerLobby) {
         this.playerLobby = playerLobby;
         gameLobby = new HashMap<>();
-
     }
 
     public synchronized void createGame(String redName, String whiteName) {
@@ -108,5 +109,12 @@ public class GameCenter {
         return null;
     }
 
+    public Move getMove(){
+        return move;
+    }
+
+    public void storeMove(Move move){
+        this.move = move;
+    }
 
 }

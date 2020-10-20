@@ -1,6 +1,7 @@
 package com.webcheckers.boardComponents;
 
 import com.webcheckers.model.Move;
+import com.webcheckers.model.Position;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -10,6 +11,7 @@ public class BoardView implements Iterable{
 
     public Row[] gameBoard;
     private final int ROWS = 8;
+
 
     /**
      * Creates a new board
@@ -117,8 +119,22 @@ public class BoardView implements Iterable{
     }
 
     public void updateBoard(Move move){
+        Position start = move.getStart();
+        Position end = move.getEnd();
 
+        Row startRow = gameBoard[start.getRow()];
+        Space startSpace = startRow.row[start.getCell()];
+
+        Row endRow = gameBoard[end.getRow()];
+        Space endSpace = endRow.row[end.getCell()];
+
+        Piece piece = startSpace.getPiece();
+        startSpace.deletePiece();
+        String type = piece.getType().toString();
+        String color = piece.getColor().toString();
+        endSpace.createPiece(type,color);
     }
+
     @Override
     public Iterator iterator() {
         return new Iterator<Row>() {

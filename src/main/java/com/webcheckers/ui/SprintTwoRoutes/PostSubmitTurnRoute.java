@@ -2,7 +2,10 @@ package com.webcheckers.ui.SprintTwoRoutes;
 
 import com.google.gson.Gson;
 import com.webcheckers.appl.GameCenter;
+import com.webcheckers.boardComponents.BoardView;
 import com.webcheckers.model.Game;
+import com.webcheckers.model.Move;
+import com.webcheckers.model.Player;
 import com.webcheckers.ui.PostSignInRoute;
 import com.webcheckers.util.Message;
 import spark.*;
@@ -49,8 +52,21 @@ public class PostSubmitTurnRoute implements Route{
             }
             else if(gameCenter.isPlayerActive(userName)){
                 Game game = gameCenter.getGame(userName);
-                message = Message.error(SUBMIT_TURN_INFO);
+                message = Message.info(SUBMIT_TURN_INFO);
+                Player red = gameCenter.getGame(userName).getRed();
+                if(gameCenter.getGame(userName).getActivePlayer()==red){
+                    Game getGame = gameCenter.getGame(userName);
+                    BoardView boardView = getGame.getGameBoardRed();
+                    Move move = gameCenter.getMove();
+                    boardView.updateBoard(move);
+                }else {
+                    Game getGame = gameCenter.getGame(userName);
+                    BoardView boardView = getGame.getGameBoardWhite();
+                    Move move = gameCenter.getMove();
+                    boardView.updateBoard(move);
+                }
                 game.updateActivePlayer();
+                gameCenter.storeMove(null);
             }
             else{
                 message = Message.info(SWAP_TURN_ERROR);

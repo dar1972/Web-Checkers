@@ -23,11 +23,11 @@ public class Piece{
      * @param cellIdx the location of the piece
      */
     public Piece(String type,String color, int cellIdx){
-        if(type.equals("s")){
+        if(type.equals("s")||type.equals("SINGLE")){
             this.type = Type.SINGLE;
         }else{
             this.type = Type.KING;
-        }if(color.equals("r")){
+        }if(color.equals("r")||color.equals("RED")){
             this.color = Color.RED;
         }else{
             this.color = Color.WHITE;

@@ -2,19 +2,19 @@ package com.webcheckers.model;
 
 // Created by Dhruv
 public class Move {
-    private Position startPos, endPos;
+    private Position start, end;
 
     public Move(Position startPos, Position endPos) {
-        this.startPos = startPos;
-        this.endPos = endPos;
+        this.start = startPos;
+        this.end = endPos;
     }
 
-    public Position getStartPos() {
-        return startPos;
+    public Position getStart() {
+        return start;
     }
 
-    public Position getEndPos() {
-        return endPos;
+    public Position getEnd() {
+        return end;
     }
 
     public Move invertMove(){
@@ -28,7 +28,7 @@ public class Move {
         }
         else {
             Move that = (Move)o;
-            return that.startPos.equals(this.startPos) && that.endPos.equals(this.endPos);
+            return that.start.equals(this.start) && that.end.equals(this.end);
         }
     }
 }

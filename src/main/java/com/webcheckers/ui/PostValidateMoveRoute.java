@@ -5,10 +5,12 @@ import com.webcheckers.appl.GameCenter;
 import com.webcheckers.boardComponents.Piece;
 import com.webcheckers.model.Game;
 import com.webcheckers.model.Move;
+import com.webcheckers.model.Position;
 import com.webcheckers.util.Message;
 import spark.*;
 
 
+import java.util.Properties;
 import java.util.logging.Logger;
 
 // File created by Beck Anderson
@@ -44,6 +46,7 @@ public class PostValidateMoveRoute implements Route {
 
         Gson gson = new Gson();
         move = gson.fromJson(actionData, Move.class);
+        gameCenter.storeMove(move);
         String userName = request.session().attribute("userName");
         game = gameCenter.getGame(userName);
 
@@ -52,7 +55,7 @@ public class PostValidateMoveRoute implements Route {
             msg = Message.info("Oppenent will play first"); // problem from here on
         }
         msg = Message.info("valid Move");
-        
+
         String json;
         json = gson.toJson(msg);
         return json;
