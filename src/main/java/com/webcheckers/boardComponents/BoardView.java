@@ -135,6 +135,65 @@ public class BoardView implements Iterable{
         endSpace.createPiece(type,color);
     }
 
+    public boolean spaceCollision(Move move) {
+        Position end = move.getEnd();
+
+        Row endRow = gameBoard[end.getRow()];
+        Space endSpace = endRow.row[end.getCell()];
+
+        if (endSpace.getPiece() == null) {
+            return false;
+        }
+        else {
+            return true;
+        }
+        
+
+    }
+
+
+    public boolean validMoveDistance(Move move) {
+
+        Position start = move.getStart();
+        Position end = move.getEnd();
+
+        Row startRow = gameBoard[start.getRow()];
+        Space startSpace = startRow.row[start.getCell()];
+
+        Row endRow = gameBoard[end.getRow()];
+        Space endSpace = endRow.row[end.getCell()];
+
+
+        Piece piece = startSpace.getPiece();
+
+        if (piece.getType() == Piece.Type.SINGLE){
+            Position possibility1 = new Position(start.getRow()+1, start.getCell()+1);
+            Position possibility2 = new Position(start.getRow()+1, start.getCell()-1);
+
+            Row possibility1Row = gameBoard[start.getRow()];
+            Space possibility1Space = startRow.row[start.getCell()];
+
+
+            if (possibility1Space.getPiece() != null) {
+                if (possibility1Space.getPiece().getColor() != startSpace.getPiece().getColor()) {
+                    
+                }
+            }
+
+        }
+        if (piece.getType() == Piece.Type.KING){
+            Position possibility1 = new Position(start.getRow()+1, start.getCell()+1);
+            Position possibility2 = new Position(start.getRow()+1, start.getCell()-1);
+            Position possibility3 = new Position(start.getRow()-1, start.getCell()-1);
+            Position possibility4 = new Position(start.getRow()-1, start.getCell()+1);
+
+
+        }
+
+        return true;
+
+    }
+
     @Override
     public Iterator iterator() {
         return new Iterator<Row>() {
