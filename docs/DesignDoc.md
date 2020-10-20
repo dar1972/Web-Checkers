@@ -111,6 +111,8 @@ to the home page where they can see the players online. The user can then
 > responsibilities.  This should be a narrative description, i.e. it has
 > a flow or "story line" that the reader can follow._
 
+![The UI Tier Sequence Diagram](ui-tier-seqDiagram.png)
+
 > _At appropriate places as part of this narrative provide one or more
 > static models (UML class structure or object diagrams) with some
 > details such as critical attributes and methods._
@@ -134,11 +136,15 @@ to the home page where they can see the players online. The user can then
 > section will follow the same instructions that are given for the UI
 > Tier above._
 
+![The Application Tier UML Diagram](AppTierStateChart.jpg)
+
 
 ### Model Tier
 > _Provide a summary of the Application tier of your architecture. This
 > section will follow the same instructions that are given for the UI
 > Tier above._
+
+![The Model Tier UML Diagram](ModelTierStateChart.jpg)
 
 ### Design Improvements
 > _Discuss design improvements that you would make if the project were
