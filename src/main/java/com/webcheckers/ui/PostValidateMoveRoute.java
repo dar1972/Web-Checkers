@@ -2,16 +2,13 @@ package com.webcheckers.ui;
 
 import com.google.gson.Gson;
 import com.webcheckers.appl.GameCenter;
-import com.webcheckers.boardComponents.Piece;
 import com.webcheckers.model.Game;
 import com.webcheckers.model.Move;
 import com.webcheckers.model.Player;
-import com.webcheckers.model.Position;
 import com.webcheckers.util.Message;
 import spark.*;
 
 
-import java.util.Properties;
 import java.util.logging.Logger;
 
 // File created by Beck Anderson
@@ -26,7 +23,7 @@ public class PostValidateMoveRoute implements Route {
     private Gson gson;
     private Message msg;
 
-    private Piece piece;
+    //private Piece piece;
 
     /**
      * Create the Spark Route (UI controller) to handle all {@code GET /} HTTP
@@ -42,10 +39,9 @@ public class PostValidateMoveRoute implements Route {
     @Override
     public Object handle(Request request, Response response) throws Exception {
         LOG.finer("PostValidateRoute is invoked");
-        String gameID = request.queryParams(GetGameRoute.Game_ID);
+        //String gameID = request.queryParams(GetGameRoute.Game_ID);
         String actionData = request.queryParams("actionData");
 
-        Gson gson = new Gson();
         move = gson.fromJson(actionData, Move.class);
         gameCenter.storeMove(move);
         String userName = request.session().attribute("userName");

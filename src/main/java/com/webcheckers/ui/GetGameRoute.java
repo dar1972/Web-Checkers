@@ -3,7 +3,6 @@ package com.webcheckers.ui;
 import com.google.gson.Gson;
 import com.webcheckers.appl.GameCenter;
 import com.webcheckers.appl.PlayerLobby;
-import com.webcheckers.boardComponents.BoardView;
 import com.webcheckers.model.Player;
 import spark.ModelAndView;
 import spark.Request;
@@ -39,10 +38,10 @@ public class GetGameRoute implements Route {
         SPECTATOR,
         REPLAY}
 
-    private enum ActiveColor {
+    /*private enum ActiveColor {
         RED,
         WHITE
-    }
+    }*/
 
     /**
      * Create the Spark Route (UI controller) to handle all {@code GET /} HTTP
@@ -114,7 +113,7 @@ public class GetGameRoute implements Route {
             }
 
             final Map<String, Object> modeOptions = new HashMap<>(2);
-            modeOptions.put("isGameOver", true);
+            modeOptions.put("isGameOver", false);
             modeOptions.put("gameOverMessage", "game ended");
             vm.put("modeOptionsAsJSON", gson.toJson(modeOptions));  
             vm.put("viewMode", ViewMode.PLAY);

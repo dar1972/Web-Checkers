@@ -1,19 +1,15 @@
 package com.webcheckers.ui.SprintTwoRoutes;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.webcheckers.appl.GameCenter;
 import com.webcheckers.appl.PlayerLobby;
-import com.webcheckers.model.Game;
-import com.webcheckers.ui.WebServer;
 import com.webcheckers.util.Message;
 
 import spark.*;
-import static spark.Spark.halt;
 
 public class PostResignGameRoute implements Route {
 
-    private Game gameID;
+    //private Game gameID;
     private GameCenter gameCenter;
     private PlayerLobby playerLobby;
     private Gson gson;

@@ -48,6 +48,9 @@ public class Space{
         this.validity = valid;
     }
 
+    public boolean getValidity() {
+        return this.validity;
+    }
     /**
      * Checks to see if a piece is on the space
      * @return the piece is there is one, null if not

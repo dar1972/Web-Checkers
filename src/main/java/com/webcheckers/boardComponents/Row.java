@@ -3,7 +3,7 @@ package com.webcheckers.boardComponents;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class Row implements Iterable{
+public class Row implements Iterable<Space>{
     //Created by Beck Anderson
 
     private final int index;
@@ -107,7 +107,7 @@ public class Row implements Iterable{
      * @return an Iterator.
      */
     @Override
-    public Iterator iterator() {
+    public Iterator<Space> iterator() {
         return new Iterator<Space>() {
 
             private int currentIndex = 0;

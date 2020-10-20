@@ -3,13 +3,11 @@ package com.webcheckers.boardComponents;
 import com.webcheckers.model.Move;
 import com.webcheckers.model.Position;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 import java.util.NoSuchElementException;
 
-public class BoardView implements Iterable{
+public class BoardView implements Iterable<Row>{
     //Created by Beck Anderson
 
     public Row[] gameBoard;
@@ -224,13 +222,13 @@ public class BoardView implements Iterable{
         ArrayList<Position> moves;
 
         Position start = move.getStart();
-        Position end = move.getEnd();
+        //Position end = move.getEnd();
 
         Row startRow = gameBoard[start.getRow()];
         Space startSpace = startRow.row[start.getCell()];
 
-        Row endRow = gameBoard[end.getRow()];
-        Space endSpace = endRow.row[end.getCell()];
+        //Row endRow = gameBoard[end.getRow()];
+        //Space endSpace = endRow.row[end.getCell()];
 
 
         Piece piece = startSpace.getPiece();
@@ -301,7 +299,7 @@ public class BoardView implements Iterable{
     }
 
     @Override
-    public Iterator iterator() {
+    public Iterator<Row> iterator() {
         return new Iterator<Row>() {
 
             private int currentRow = 0;

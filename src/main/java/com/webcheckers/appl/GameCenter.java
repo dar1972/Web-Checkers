@@ -3,7 +3,6 @@ package com.webcheckers.appl;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.google.gson.Gson;
 import com.webcheckers.model.Game;
 import com.webcheckers.model.Move;
 import com.webcheckers.model.Player;
@@ -13,7 +12,7 @@ public class GameCenter {
 
     private final PlayerLobby playerLobby;
     private Map<String, Game> gameLobby;
-    private static Map<Player, Integer> gameIDMap;
+    //private static Map<Player, Integer> gameIDMap;
     private Move move;
 
     public GameCenter(PlayerLobby playerLobby) {
