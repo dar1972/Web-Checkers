@@ -1,5 +1,6 @@
 package com.webcheckers.appl;
 
+import java.util.Deque;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,7 +15,7 @@ public class GameCenter {
     private final PlayerLobby playerLobby;
     private Map<String, Game> gameLobby;
     private static Map<Player, Integer> gameIDMap;
-    private Move move;
+    private Deque<Move> moves;
 
     public GameCenter(PlayerLobby playerLobby) {
         this.playerLobby = playerLobby;
@@ -109,12 +110,12 @@ public class GameCenter {
         return null;
     }
 
-    public Move getMove(){
-        return move;
-    }
-
-    public void storeMove(Move move){
-        this.move = move;
-    }
+//    public Move getMove(){
+//        return move;
+//    }
+//
+//    public void storeMove(Move move){
+//        this.move = move;
+//    }
 
 }

@@ -153,6 +153,8 @@ public class BoardView implements Iterable{
 
     }
 
+    //public boolean capture()
+
     public boolean validMove(Move move){
         Position end = move.getEnd();
 
@@ -160,6 +162,11 @@ public class BoardView implements Iterable{
         for(int i=0; i<goodMoves.size();i++){
             Position check = goodMoves.get(i);
             if (end.getRow() == check.getRow() && end.getCell() == check.getCell()) {
+//                if (Math.abs(start.getRow() - end.getRow()) == 2) {
+//                    int avgRow = (start.getRow() + end.getRow()) / 2;
+//                    int avgCell = (start.getCell() + end.getCell()) / 2;
+//                    Space capture = gameBoard[avgRow].row[avgCell];
+//                    capture.deletePiece();
                 return true;
             }
         } return false;
