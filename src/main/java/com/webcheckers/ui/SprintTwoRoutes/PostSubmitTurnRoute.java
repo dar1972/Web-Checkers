@@ -5,7 +5,7 @@ import com.webcheckers.appl.GameCenter;
 import com.webcheckers.boardComponents.BoardView;
 import com.webcheckers.model.Game;
 import com.webcheckers.model.Move;
-import com.webcheckers.model.Player;
+//import com.webcheckers.model.Player;
 import com.webcheckers.ui.PostSignInRoute;
 import com.webcheckers.util.Message;
 import spark.*;
@@ -56,7 +56,7 @@ public class PostSubmitTurnRoute implements Route{
                 Game game = gameCenter.getGame(userName);
                 message = Message.info(SUBMIT_TURN_INFO);
 
-                Player red = gameCenter.getGame(userName).getRed();
+                //Player red = gameCenter.getGame(userName).getRed();
                 getGame = gameCenter.getGame(userName);
 
                 BoardView boardViewRed = getGame.getGameBoardRed();
@@ -64,26 +64,26 @@ public class PostSubmitTurnRoute implements Route{
 
                 moves = gameCenter.getMoves(game);
 
-                if(gameCenter.getGame(userName).getActivePlayer()==red){
+
+                if (game.getActiveColor() == Game.ActiveColor.RED){
 
                     for (Move move : moves) {
-                        boardViewRed.updateBoard(move);
                         Move moveInvert = move.invertMove();
+                        boardViewRed.updateBoard(move);
                         boardViewWhite.updateBoard(moveInvert);
                     }
-
                 }
                 else {
-
                     for (Move move : moves) {
-                        boardViewWhite.updateBoard(move);
                         Move moveInvert = move.invertMove();
                         boardViewRed.updateBoard(moveInvert);
+                        boardViewWhite.updateBoard(move);
                     }
-
                 }
-                //game.updateActivePlayer(move);
-                //.storeMove(null);
+
+
+                game.updateActivePlayer();
+
             }
             else{
                 message = Message.info(SWAP_TURN_ERROR);

@@ -10,7 +10,9 @@ public class Game {
     private Player white;
     private int id = 0;
     private BoardView gameBoardWhite;
-    private BoardView gameBoardRed;
+    private BoardView gameBoardRed; 
+    private ArrayList<BoardView> snapshotsRed;
+    private ArrayList<BoardView> snapshotsWhite;
     private ArrayList<Move> moves;
     private String playerWhoResigned;
     public enum ActiveColor {
@@ -33,6 +35,11 @@ public class Game {
         id = id++;
         playerWhoResigned = "";
         moves = new ArrayList<Move>();
+        snapshotsRed = new ArrayList<BoardView>();
+        snapshotsRed.add(new BoardView("red"));
+        snapshotsWhite = new ArrayList<BoardView>();
+        snapshotsWhite.add(new BoardView("white"));
+
     }
 
     /**
@@ -71,13 +78,14 @@ public class Game {
         }
     }
 
-    public void updateActivePlayer(Move move){
-        move.invertMove();
+    public void updateActivePlayer(){
         if(activeColor==ActiveColor.RED){
             activeColor = ActiveColor.WHITE;
         }else{
             activeColor = ActiveColor.RED;
         }
+
+        moves.clear();
     }
 
     public Player getWinner() {
@@ -100,8 +108,41 @@ public class Game {
         return moves;
     }
 
+  /*  public void removeMoveFromList(Move move) {
+        int index = moves.lastIndexOf(move);
+        moves.remove(index);
+    }
+*/
     public void storeMove(Move move){
         moves.add(move);
+
+        BoardView r = snapshotsRed.get(snapshotsRed.size()-1);
+        BoardView w = snapshotsWhite.get(snapshotsWhite.size()-1);
+        Move invertedMove = move.invertMove();
+
+
+        if (activeColor == ActiveColor.RED) {
+
+            r.updateBoard(move);
+            w.updateBoard(invertedMove);
+        }
+        else {
+            r.updateBoard(invertedMove);
+            w.updateBoard(move);
+
+        }
+
+        snapshotsRed.add(r);
+        snapshotsWhite.add(w);
+    }
+
+    public ArrayList<BoardView> getActiveSnapshots(){
+        if (activeColor == ActiveColor.RED) {
+            return snapshotsRed;
+        }
+        else {
+            return snapshotsWhite;
+        }
     }
 
 
