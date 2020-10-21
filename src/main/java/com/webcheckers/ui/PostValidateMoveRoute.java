@@ -41,10 +41,10 @@ public class PostValidateMoveRoute implements Route {
         LOG.finer("PostValidateRoute is invoked");
         //String gameID = request.queryParams(GetGameRoute.Game_ID);
         String actionData = request.queryParams("actionData");
+        String userName = request.session().attribute("userName");
+
 
         move = gson.fromJson(actionData, Move.class);
-        gameCenter.storeMove(move);
-        String userName = request.session().attribute("userName");
         game = gameCenter.getGame(userName);
 
         if ( game.getActiveColor() == Game.ActiveColor.WHITE ){
@@ -55,12 +55,16 @@ public class PostValidateMoveRoute implements Route {
         if(gameCenter.getGame(userName).getRed()==activePLayer){
             if(gameCenter.getGame(userName).getGameBoardRed().validMove(move)){
                 msg = Message.info("valid Move");
+                gameCenter.storeMove(move, game);
+
             }else{
                 msg = Message.error("invalid move, please try another.");
             }
         }else {
             if(gameCenter.getGame(userName).getGameBoardWhite().validMove(move.invertMove())){
                 msg = Message.info("valid Move");
+                gameCenter.storeMove(move, game);
+
             }else {
                 msg = Message.error("invalid move, please try another.");
             }

@@ -2,7 +2,7 @@ package com.webcheckers.model;
 
 import com.webcheckers.boardComponents.BoardView;
 
-import java.util.Deque;
+import java.util.ArrayList;
 
 public class Game {
     
@@ -11,7 +11,7 @@ public class Game {
     private int id = 0;
     private BoardView gameBoardWhite;
     private BoardView gameBoardRed;
-    private Deque<Move> moves;
+    private ArrayList<Move> moves;
     private String playerWhoResigned;
     public enum ActiveColor {
         RED,
@@ -32,6 +32,7 @@ public class Game {
         gameBoardWhite = new BoardView("white");
         id = id++;
         playerWhoResigned = "";
+        moves = new ArrayList<Move>();
     }
 
     /**
@@ -95,7 +96,7 @@ public class Game {
         return id;
     }
 
-    public Deque<Move> getMoves(){
+    public ArrayList<Move> getMoves(){
         return moves;
     }
 
@@ -103,13 +104,6 @@ public class Game {
         moves.add(move);
     }
 
-    public Move popNewestMove(){
-        return moves.pollLast();
-    }
-
-    public Move popOldestMove(){
-        return moves.pollFirst();
-    }
 
     public void setPlayerWhoResigned(String playerWhoResigned) {
         this.playerWhoResigned = playerWhoResigned;

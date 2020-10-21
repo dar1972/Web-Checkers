@@ -10,7 +10,7 @@ import com.webcheckers.ui.PostSignInRoute;
 import com.webcheckers.util.Message;
 import spark.*;
 
-
+import java.util.ArrayList;
 import java.util.logging.Logger;
 
 //Made and worked on by Beck Anderson
@@ -42,7 +42,7 @@ public class PostSubmitTurnRoute implements Route{
         LOG.config("PostSubmitTurnRoute is invoked.");
 
         Message message;
-        Move move;
+        ArrayList<Move> moves;
         Game getGame;
         String userName = request.session().attribute( USER_PARAM );
 
@@ -62,20 +62,28 @@ public class PostSubmitTurnRoute implements Route{
                 BoardView boardViewRed = getGame.getGameBoardRed();
                 BoardView boardViewWhite = getGame.getGameBoardWhite();
 
-                move = gameCenter.getMove();
+                moves = gameCenter.getMoves(game);
 
                 if(gameCenter.getGame(userName).getActivePlayer()==red){
-                    boardViewRed.updateBoard(move);
-                    Move moveInvert = move.invertMove();
-                    boardViewWhite.updateBoard(moveInvert);
+
+                    for (Move move : moves) {
+                        boardViewRed.updateBoard(move);
+                        Move moveInvert = move.invertMove();
+                        boardViewWhite.updateBoard(moveInvert);
+                    }
+
                 }
                 else {
-                    boardViewWhite.updateBoard(move);
-                    Move moveInvert = move.invertMove();
-                    boardViewRed.updateBoard(moveInvert);
+
+                    for (Move move : moves) {
+                        boardViewWhite.updateBoard(move);
+                        Move moveInvert = move.invertMove();
+                        boardViewRed.updateBoard(moveInvert);
+                    }
+
                 }
-                game.updateActivePlayer(move);
-                gameCenter.storeMove(null);
+                //game.updateActivePlayer(move);
+                //.storeMove(null);
             }
             else{
                 message = Message.info(SWAP_TURN_ERROR);
