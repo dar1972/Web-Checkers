@@ -245,7 +245,7 @@ public class BoardView implements Iterable<Row>{
                     i++;
                 }
             }
-            if(possibility2.getCell()>0) {
+            if(possibility2.getCell()>=0) {
                 moves = validMovesHelper(move, possibility2, "UL");
 
                 for (i = 0; i < moves.size(); i++) {
