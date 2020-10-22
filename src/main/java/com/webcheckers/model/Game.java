@@ -109,8 +109,19 @@ public class Game {
         this.winner = player;
     }
     public boolean backupMove() {
-        //do something.
-        return true;
+        int size1 = getActiveSnapshots().size();
+        int size2 = getTempSnapshots().size();
+        getActiveSnapshots().remove(getActiveSnapshots().size()-1);
+        getTempSnapshots().remove(getTempSnapshots().size()-1);
+
+        resetMoveAllowed(); //this will probably fuck with piece capture validation. This is a patch for more serious issues.
+        if (getActiveSnapshots().size() < size1 && getTempSnapshots().size() < size2) {
+            return true;
+        }
+        else {
+            return false;
+        }
+
     }
 
     public int getGameId() {
@@ -132,7 +143,7 @@ public class Game {
         ArrayList<BoardView> activeSnapshots = getActiveSnapshots();
         ArrayList<BoardView> inactiveSnapshots = getInactiveSnapshots();
     
-        BoardView activeBoard = activeSnapshots.get(getActiveSnapshots().size()-1);
+        BoardView activeBoard = copyBoard(activeSnapshots.get(getActiveSnapshots().size()-1));
 
         BoardView tempBoard;
         if (snapshotsTemp.size() == 0) {
@@ -224,12 +235,11 @@ public class Game {
 
 
     public void resetMoveAllowed() {
-       /* ArrayList<BoardView> redSnapshots = getRedSnapshots();
+        ArrayList<BoardView> redSnapshots = getRedSnapshots();
         ArrayList<BoardView> whiteSnapshots = getWhiteSnapshots();
         redSnapshots.get(redSnapshots.size()-1).setMoveAllowed(true);
-        whiteSnapshots.get(whiteSnapshots.size()-1).setMoveAllowed(true); */
-        gameBoardRed.setMoveAllowed(true);
-        gameBoardWhite.setMoveAllowed(true);
+        whiteSnapshots.get(whiteSnapshots.size()-1).setMoveAllowed(true);
+
     }
     public void setPlayerWhoResigned(String playerWhoResigned) {
         this.playerWhoResigned = playerWhoResigned;
