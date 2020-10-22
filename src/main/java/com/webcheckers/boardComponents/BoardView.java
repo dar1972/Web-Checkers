@@ -227,7 +227,7 @@ public class BoardView implements Iterable<Row>, Serializable{
         }else{
             goodMoves.add(possibility);
         }
-        return goodMoves;
+        return goodMoves; //should this even be an arraylist? Will this ever return more than 1 move?
     }
 
     private ArrayList<Position> validMoves(Move move) {
@@ -275,7 +275,7 @@ public class BoardView implements Iterable<Row>, Serializable{
             Position possibility3 = new Position(start.getRow()+1, start.getCell()-1);
             Position possibility4 = new Position(start.getRow()+1, start.getCell()+1);
 
-            if(possibility1.getCell()<8&&possibility1.getRow()<8) {
+            if(possibility1.getCell() < 8 && possibility1.getRow() >= 0) {
                 moves = validMovesHelper(move, possibility1, "UR");
 
                 for (i = 0; i < moves.size(); i++) {
@@ -283,7 +283,7 @@ public class BoardView implements Iterable<Row>, Serializable{
                     i++;
                 }
             }
-            if(possibility2.getCell()<8&&possibility2.getRow()>0) {
+            if(possibility2.getCell() >= 0 && possibility2.getRow() >= 0) {
                 moves = validMovesHelper(move, possibility2, "UL");
 
                 for (i = 0; i < moves.size(); i++) {
@@ -291,7 +291,7 @@ public class BoardView implements Iterable<Row>, Serializable{
                     i++;
                 }
             }
-            if(possibility3.getCell()>0&&possibility3.getRow()>0) {
+            if(possibility3.getCell() >= 0 && possibility3.getRow() < 8) {
                 moves = validMovesHelper(move, possibility3, "DL");
 
                 for (i = 0; i < moves.size(); i++) {
@@ -299,7 +299,7 @@ public class BoardView implements Iterable<Row>, Serializable{
                     i++;
                 }
             }
-            if(possibility4.getCell()>0&&possibility4.getRow()<8) {
+            if(possibility4.getCell() < 8 && possibility4.getRow() < 8) {
                 moves = validMovesHelper(move, possibility4, "DR");
 
                 for (i = 0; i < moves.size(); i++) {
