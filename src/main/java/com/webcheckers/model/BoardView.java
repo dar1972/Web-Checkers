@@ -1,8 +1,6 @@
-package com.webcheckers.boardComponents;
+package com.webcheckers.model;
 
-import com.webcheckers.boardComponents.Piece.Color;
-import com.webcheckers.model.Move;
-import com.webcheckers.model.Position;
+import com.webcheckers.model.Piece.Color;
 
 import java.io.Serializable;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.webcheckers.boardComponents;
+package com.webcheckers.model;
 
 import java.io.Serializable;
 import java.util.Iterator;

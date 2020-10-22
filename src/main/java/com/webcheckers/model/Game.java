@@ -1,7 +1,5 @@
 package com.webcheckers.model;
 
-import com.webcheckers.boardComponents.BoardView;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectInputStream;

@@ -8,11 +8,6 @@ import java.util.logging.Logger;
 import com.google.gson.Gson;
 import com.webcheckers.appl.GameCenter;
 import com.webcheckers.appl.PlayerLobby;
-import com.webcheckers.ui.SprintTwoRoutes.PostBackupMoveRoute;
-import com.webcheckers.ui.SprintTwoRoutes.PostCheckTurnRoute;
-import com.webcheckers.ui.SprintTwoRoutes.PostResignGameRoute;
-import com.webcheckers.ui.SprintTwoRoutes.PostSubmitTurnRoute;
-
 import spark.TemplateEngine;
 
 

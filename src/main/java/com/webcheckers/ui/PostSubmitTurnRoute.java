@@ -1,11 +1,9 @@
-package com.webcheckers.ui.SprintTwoRoutes;
+package com.webcheckers.ui;
 
 import com.google.gson.Gson;
 import com.webcheckers.appl.GameCenter;
-import com.webcheckers.boardComponents.BoardView;
+import com.webcheckers.model.BoardView;
 import com.webcheckers.model.Game;
-import com.webcheckers.model.Move;
-import com.webcheckers.ui.PostSignInRoute;
 import com.webcheckers.util.Message;
 import spark.*;
 
@@ -41,7 +39,6 @@ public class PostSubmitTurnRoute implements Route{
         LOG.config("PostSubmitTurnRoute is invoked.");
 
         Message message;
-        ArrayList<Move> moves;
         String userName = request.session().attribute( USER_PARAM );
 
         if(gameCenter.isPlayerInGame(userName)){
@@ -54,7 +51,6 @@ public class PostSubmitTurnRoute implements Route{
                 Game game = gameCenter.getGame(userName);
                 message = Message.info(SUBMIT_TURN_INFO);
 
-                moves = gameCenter.getMoves(game);
                 ArrayList<BoardView> activeSnapshots = game.getActiveSnapshots();
                 ArrayList<BoardView> inactiveSnapshots = game.getInactiveSnapshots();
                 ArrayList<BoardView> tempSnapshots = game.getTempSnapshots();
