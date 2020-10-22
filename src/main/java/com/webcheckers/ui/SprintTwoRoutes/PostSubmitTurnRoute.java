@@ -5,7 +5,6 @@ import com.webcheckers.appl.GameCenter;
 import com.webcheckers.boardComponents.BoardView;
 import com.webcheckers.model.Game;
 import com.webcheckers.model.Move;
-//import com.webcheckers.model.Player;
 import com.webcheckers.ui.PostSignInRoute;
 import com.webcheckers.util.Message;
 import spark.*;
@@ -55,11 +54,6 @@ public class PostSubmitTurnRoute implements Route{
                 Game game = gameCenter.getGame(userName);
                 message = Message.info(SUBMIT_TURN_INFO);
 
-                //Player red = gameCenter.getGame(userName).getRed();
-
-                BoardView boardViewRed = game.getGameBoardRed();
-                BoardView boardViewWhite = game.getGameBoardWhite();
-
                 moves = gameCenter.getMoves(game);
                 ArrayList<BoardView> activeSnapshots = game.getActiveSnapshots();
                 ArrayList<BoardView> inactiveSnapshots = game.getInactiveSnapshots();
@@ -79,24 +73,12 @@ public class PostSubmitTurnRoute implements Route{
                     game.setGameBoardRed(game.copyBoard(activeBoard));
                     game.setGameBoardWhite(game.copyBoard(inactiveBoard));
 
-                    /*
-                    for (Move move : moves) {
-                        Move moveInvert = move.invertMove();
-                        boardViewRed.updateBoard(move);
-                        boardViewWhite.updateBoard(moveInvert);
-                    }*/
                 }
                 else {
 
                     game.setGameBoardRed(game.copyBoard(inactiveBoard));
                     game.setGameBoardWhite(game.copyBoard(activeBoard));
 
-                    /*
-                    for (Move move : moves) {
-                        Move moveInvert = move.invertMove();
-                        boardViewRed.updateBoard(moveInvert);
-                        boardViewWhite.updateBoard(move);
-                    }*/
                 }
 
                 tempSnapshots.clear();

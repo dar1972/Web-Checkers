@@ -3,11 +3,8 @@ package com.webcheckers.ui.SprintTwoRoutes;
 import com.google.gson.Gson;
 import com.webcheckers.appl.GameCenter;
 import com.webcheckers.ui.PostSignInRoute;
-import com.webcheckers.ui.WebServer;
 import com.webcheckers.util.Message;
 import spark.*;
-import static spark.Spark.halt;
-
 
 import java.util.Objects;
 import java.util.logging.Logger;
