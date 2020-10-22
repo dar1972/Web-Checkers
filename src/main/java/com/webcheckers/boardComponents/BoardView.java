@@ -135,6 +135,10 @@ public class BoardView implements Iterable<Row>, Serializable{
         startSpace.deletePiece();
         String type = piece.getType().toString();
         String color = piece.getColor().toString();
+
+        if (endRow.getIndex() == 0 || endRow.getIndex() == 7) { //Kingify if at opposite end of board.
+            type = Piece.Type.KING.toString();
+        }
         endSpace.createPiece(type,color);
 
         if (Math.abs(startSpace.getCellIdx() - endSpace.getCellIdx()) == 2) { //if a piece capture jump occured
@@ -143,6 +147,8 @@ public class BoardView implements Iterable<Row>, Serializable{
             Space capturedSpace = capturedRow.row[capturedPos.getCell()];
             capturedSpace.deletePiece();
         }
+
+
     }
 
     public boolean spaceCollision(Move move) {
