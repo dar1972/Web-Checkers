@@ -43,7 +43,6 @@ public class PostSubmitTurnRoute implements Route{
 
         Message message;
         ArrayList<Move> moves;
-        Game getGame;
         String userName = request.session().attribute( USER_PARAM );
 
         if(gameCenter.isPlayerInGame(userName)){
@@ -57,31 +56,50 @@ public class PostSubmitTurnRoute implements Route{
                 message = Message.info(SUBMIT_TURN_INFO);
 
                 //Player red = gameCenter.getGame(userName).getRed();
-                getGame = gameCenter.getGame(userName);
 
-                BoardView boardViewRed = getGame.getGameBoardRed();
-                BoardView boardViewWhite = getGame.getGameBoardWhite();
+                BoardView boardViewRed = game.getGameBoardRed();
+                BoardView boardViewWhite = game.getGameBoardWhite();
 
                 moves = gameCenter.getMoves(game);
+                ArrayList<BoardView> activeSnapshots = game.getActiveSnapshots();
+                ArrayList<BoardView> inactiveSnapshots = game.getInactiveSnapshots();
+                ArrayList<BoardView> tempSnapshots = game.getTempSnapshots();
 
+                BoardView activeBoard = activeSnapshots.get(activeSnapshots.size()-1);
+
+
+                for (int i = 0; i < tempSnapshots.size(); i++) { 
+                    inactiveSnapshots.add(game.copyBoard(tempSnapshots.get(i)));
+                }
+        
+                BoardView inactiveBoard = inactiveSnapshots.get(inactiveSnapshots.size()-1);
 
                 if (game.getActiveColor() == Game.ActiveColor.RED){
 
+                    game.setGameBoardRed(game.copyBoard(activeBoard));
+                    game.setGameBoardWhite(game.copyBoard(inactiveBoard));
+
+                    /*
                     for (Move move : moves) {
                         Move moveInvert = move.invertMove();
                         boardViewRed.updateBoard(move);
                         boardViewWhite.updateBoard(moveInvert);
-                    }
+                    }*/
                 }
                 else {
+
+                    game.setGameBoardRed(game.copyBoard(inactiveBoard));
+                    game.setGameBoardWhite(game.copyBoard(activeBoard));
+
+                    /*
                     for (Move move : moves) {
                         Move moveInvert = move.invertMove();
                         boardViewRed.updateBoard(moveInvert);
                         boardViewWhite.updateBoard(move);
-                    }
+                    }*/
                 }
 
-
+                tempSnapshots.clear();
                 game.updateActivePlayer();
 
             }

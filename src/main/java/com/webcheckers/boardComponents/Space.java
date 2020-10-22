@@ -1,6 +1,9 @@
 package com.webcheckers.boardComponents;
 
-public class Space{
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
+public class Space implements Serializable {
     //Created by Beck Anderson
 
     final int cellIdx;

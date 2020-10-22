@@ -1,6 +1,9 @@
 package com.webcheckers.boardComponents;
 
-public class Piece{
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
+public class Piece implements Serializable {
     //Created by Beck Anderson
 
     //Types of pieces

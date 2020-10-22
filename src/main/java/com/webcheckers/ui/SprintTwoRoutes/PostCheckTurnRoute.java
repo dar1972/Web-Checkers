@@ -3,8 +3,11 @@ package com.webcheckers.ui.SprintTwoRoutes;
 import com.google.gson.Gson;
 import com.webcheckers.appl.GameCenter;
 import com.webcheckers.ui.PostSignInRoute;
+import com.webcheckers.ui.WebServer;
 import com.webcheckers.util.Message;
 import spark.*;
+import static spark.Spark.halt;
+
 
 import java.util.Objects;
 import java.util.logging.Logger;
@@ -13,7 +16,7 @@ import java.util.logging.Logger;
 
 public class PostCheckTurnRoute implements Route{
 
-    
+
 
     static final String USER_PARAM = "userName";
 
@@ -39,13 +42,21 @@ public class PostCheckTurnRoute implements Route{
         LOG.finer("PostCheckTurnRoute is invoked.");
         String userName = request.session().attribute("userName");
         Message message;
-        if (gameCenter.getGame(userName).getActivePlayer().getName() == userName) {
-            message = Message.info("true");
+
+        if (userName != null) {
+            if (gameCenter.getGame(userName).getActivePlayer().getName() == userName) {
+                message = Message.info("true");
+            }
+            else {
+                message = Message.info("false");
+    
+            }
         }
         else {
-            message = Message.info("false");
-
+            message = Message.info("true"); //Not actually true, but triggers page refresh when this route is invoked after server restart.
         }
+
+
         
         String json;
         json = gson.toJson(message);

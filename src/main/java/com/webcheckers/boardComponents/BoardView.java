@@ -3,11 +3,13 @@ package com.webcheckers.boardComponents;
 import com.webcheckers.model.Move;
 import com.webcheckers.model.Position;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class BoardView implements Iterable<Row>{
+@SuppressWarnings("serial")
+public class BoardView implements Iterable<Row>, Serializable{
     //Created by Beck Anderson
 
     public Row[] gameBoard;

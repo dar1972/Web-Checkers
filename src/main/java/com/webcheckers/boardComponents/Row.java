@@ -1,9 +1,11 @@
 package com.webcheckers.boardComponents;
 
+import java.io.Serializable;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class Row implements Iterable<Space>{
+@SuppressWarnings("serial")
+public class Row implements Iterable<Space>, Serializable {
     //Created by Beck Anderson
 
     private final int index;

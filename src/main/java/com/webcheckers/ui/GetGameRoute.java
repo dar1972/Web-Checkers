@@ -3,6 +3,8 @@ package com.webcheckers.ui;
 import com.google.gson.Gson;
 import com.webcheckers.appl.GameCenter;
 import com.webcheckers.appl.PlayerLobby;
+import com.webcheckers.boardComponents.BoardView;
+import com.webcheckers.model.Game;
 import com.webcheckers.model.Player;
 import spark.ModelAndView;
 import spark.Request;
@@ -10,6 +12,7 @@ import spark.Response;
 import spark.Route;
 import spark.TemplateEngine;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -94,27 +97,29 @@ public class GetGameRoute implements Route {
             playerRed = gameCenter.getOpponent(player);
         }
 
-        int gameID = gameCenter.getGame(userName).getGameId();
+        Game game = gameCenter.getGame(userName);
 
         // putting values into variables
         Map<String, Object> vm = new HashMap<>();
             vm.put("title", "Game Time!");
             vm.put("currentUser", player);
-            vm.put(Game_ID, gameID);
+            //vm.put(Game_ID, gameID);
             vm.put("redPlayer", playerRed);
             vm.put("whitePlayer", playerWhite);
-            vm.put("activeColor", gameCenter.getGame(player.getName()).getActiveColor());
+            vm.put("activeColor", game.getActiveColor());
 
             if(player == playerRed) {
-                vm.put("board", gameCenter.getGame(playerRed.getName()).getGameBoardRed());
+                ArrayList<BoardView> snapshotsRed = game.getRedSnapshots();
+                vm.put("board", snapshotsRed.get(snapshotsRed.size()-1));
             }
             else {
-                vm.put("board", gameCenter.getGame(playerWhite.getName()).getGameBoardWhite());
+                ArrayList<BoardView> snapshotsWhite = game.getWhiteSnapshots();
+                vm.put("board", snapshotsWhite.get(snapshotsWhite.size()-1));
             }
 
             final Map<String, Object> modeOptions = new HashMap<>(2);
 
-            String resignedPlayerName = gameCenter.getGame(userName).getPlayerWhoResigned();
+            String resignedPlayerName = game.getPlayerWhoResigned();
             if (resignedPlayerName != ""){
                 modeOptions.put("isGameOver", true);
 
