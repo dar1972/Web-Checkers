@@ -179,10 +179,9 @@ public class BoardView implements Iterable<Row>, Serializable{
     }
 
 
-    private ArrayList<Position> validMovesHelper(Move move, Position possibility, String direction){
-        ArrayList<Position> goodMoves = new ArrayList<>();
+    private Position validMovesHelper(Move move, Position possibility, String direction){
+        //boolean goodMove = false;
         Position start = move.getStart();
-
         Row startRow = gameBoard[start.getRow()];
         Space startSpace = startRow.row[start.getCell()];
 
@@ -194,17 +193,17 @@ public class BoardView implements Iterable<Row>, Serializable{
                 Position possibility3 = null;
                 switch (direction) {
                     case "UR":
-                        if (possibility.getCell() < 7 && possibility.getRow() >= 2) {
+                        if (possibility.getCell() < 7 && possibility.getRow() >= 1) {
                             possibility3 = new Position(possibility.getRow() - 1, possibility.getCell() + 1);
                         }
                         break;
                     case "UL":
-                        if (possibility.getCell() >= 2 && possibility.getRow() >= 2) {
+                        if (possibility.getCell() >= 1 && possibility.getRow() >= 1) {
                             possibility3 = new Position(possibility.getRow() - 1, possibility.getCell() - 1);
                         }
                         break;
                     case "DL":
-                        if (possibility.getCell() >= 2 && possibility.getRow() < 7) {
+                        if (possibility.getCell() >= 1 && possibility.getRow() < 7) {
                             possibility3 = new Position(possibility.getRow() + 1, possibility.getCell() - 1);
                         }
                         break;
@@ -214,28 +213,31 @@ public class BoardView implements Iterable<Row>, Serializable{
                         }
                         break;
                 }
-                if(possibility3 == null){
-                    return goodMoves;
+
+                if (possibility3 == null) {
+                    return null;
                 }
                 Row possibility3Row = gameBoard[possibility3.getRow()];
-                Space possibility3Space = possibility3Row.row[possibility.getCell()];
+                Space possibility3Space = possibility3Row.row[possibility3.getCell()];
 
                 if (possibility3Space.getPiece() == null) {
-                    goodMoves.add(possibility3);
+                    return possibility3;
+                }
+                else {
+                    return null;
                 }
             }
+            else {
+                return null;
+            }
         }else{
-            goodMoves.add(possibility);
+            return possibility;
         }
-        return goodMoves; //should this even be an arraylist? Will this ever return more than 1 move?
     }
 
     private ArrayList<Position> validMoves(Move move) {
 
         ArrayList<Position> goodMoves = new ArrayList<>();
-        int i;
-        ArrayList<Position> moves;
-
         Position start = move.getStart();
         //Position end = move.getEnd();
 
@@ -253,20 +255,18 @@ public class BoardView implements Iterable<Row>, Serializable{
             Position possibility2 = new Position(start.getRow()-1, start.getCell()-1);
 
             if(possibility1.getCell()<8) {
-                moves = validMovesHelper(move, possibility1, "UR");
-
-                for (i = 0; i < moves.size(); i++) {
-                    goodMoves.add(moves.get(i));
-                    i++;
+                Position goodMove = validMovesHelper(move, possibility1, "UR");
+                if(goodMove != null) { //if move valid
+                    goodMoves.add(goodMove);
                 }
+
             }
             if(possibility2.getCell()>=0) {
-                moves = validMovesHelper(move, possibility2, "UL");
-
-                for (i = 0; i < moves.size(); i++) {
-                    goodMoves.add(moves.get(i));
-                    i++;
+                Position goodMove = validMovesHelper(move, possibility2, "UL");
+                if(goodMove != null) {
+                    goodMoves.add(goodMove);
                 }
+
             }
         }
         if (piece.getType() == Piece.Type.KING){
@@ -276,35 +276,28 @@ public class BoardView implements Iterable<Row>, Serializable{
             Position possibility4 = new Position(start.getRow()+1, start.getCell()+1);
 
             if(possibility1.getCell() < 8 && possibility1.getRow() >= 0) {
-                moves = validMovesHelper(move, possibility1, "UR");
-
-                for (i = 0; i < moves.size(); i++) {
-                    goodMoves.add(moves.get(i));
-                    i++;
+                Position goodMove = validMovesHelper(move, possibility1, "UR");
+                if(goodMove != null) {
+                    goodMoves.add(goodMove);
                 }
             }
             if(possibility2.getCell() >= 0 && possibility2.getRow() >= 0) {
-                moves = validMovesHelper(move, possibility2, "UL");
-
-                for (i = 0; i < moves.size(); i++) {
-                    goodMoves.add(moves.get(i));
-                    i++;
+                Position goodMove = validMovesHelper(move, possibility2, "UL");
+                if(goodMove != null) {
+                    goodMoves.add(goodMove);
                 }
+
             }
             if(possibility3.getCell() >= 0 && possibility3.getRow() < 8) {
-                moves = validMovesHelper(move, possibility3, "DL");
-
-                for (i = 0; i < moves.size(); i++) {
-                    goodMoves.add(moves.get(i));
-                    i++;
+                Position goodMove = validMovesHelper(move, possibility3, "DL");
+                if(goodMove != null) {
+                    goodMoves.add(goodMove);
                 }
             }
             if(possibility4.getCell() < 8 && possibility4.getRow() < 8) {
-                moves = validMovesHelper(move, possibility4, "DR");
-
-                for (i = 0; i < moves.size(); i++) {
-                    goodMoves.add(moves.get(i));
-                    i++;
+                Position goodMove = validMovesHelper(move, possibility4, "DR");
+                if(goodMove != null) {
+                    goodMoves.add(goodMove);
                 }
             }
         }
