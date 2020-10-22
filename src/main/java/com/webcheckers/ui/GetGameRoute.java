@@ -132,6 +132,10 @@ public class GetGameRoute implements Route {
                 }
 
             }
+            else if (game.getWinner() != null) {
+                modeOptions.put("isGameOver", true);
+                modeOptions.put("gameOverMessage", game.getWinner().toString() + " Won!");
+            }
             else {
                 modeOptions.put("isGameOver", false);
             }

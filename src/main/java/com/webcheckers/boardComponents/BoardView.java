@@ -1,5 +1,6 @@
 package com.webcheckers.boardComponents;
 
+import com.webcheckers.boardComponents.Piece.Color;
 import com.webcheckers.model.Move;
 import com.webcheckers.model.Position;
 
@@ -118,6 +119,30 @@ public class BoardView implements Iterable<Row>, Serializable{
                     row.WhiteRow();
                     break;
             }
+        }
+    }
+
+    public boolean colorCleared() {
+        boolean redPieceExists = false;
+        boolean whitePieceExists = false;
+        for( Row row: gameBoard){
+            for (Space space : row) {
+                if (space.getPiece() != null) {
+                    if (space.getPiece().getColor() == Color.RED) {
+                        redPieceExists = true;
+                    }
+                    else {
+                        whitePieceExists = true;
+                    }
+                }
+            }
+        }
+
+        if (redPieceExists && whitePieceExists) {
+            return false;
+        }
+        else {
+            return true;
         }
     }
 

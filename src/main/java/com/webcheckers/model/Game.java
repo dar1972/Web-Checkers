@@ -45,7 +45,7 @@ public class Game {
         snapshotsWhite = new ArrayList<BoardView>();
         snapshotsWhite.add(new BoardView("white"));
         snapshotsTemp = new ArrayList<BoardView>();
-
+        winner = null;
     }
 
     /**
@@ -232,6 +232,13 @@ public class Game {
         return playerWhoResigned;
     }
 
+    public boolean colorCleared() {
+        ArrayList<BoardView> snapshots = getActiveSnapshots();
+        BoardView board = snapshots.get(snapshots.size()-1);
+
+        boolean cleared = board.colorCleared();
+        return cleared;
+    }
     
     /**
      * This will check to see if the selected Object is equal

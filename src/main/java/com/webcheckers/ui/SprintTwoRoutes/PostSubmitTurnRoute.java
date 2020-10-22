@@ -82,7 +82,11 @@ public class PostSubmitTurnRoute implements Route{
                 }
 
                 tempSnapshots.clear();
+                if (game.colorCleared()) { //check if a color has been fully wiped from the board. 
+                    game.setWinner(game.getActivePlayer()); 
+                }
                 game.updateActivePlayer();
+
 
             }
             else{
