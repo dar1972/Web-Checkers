@@ -6,7 +6,7 @@ import java.io.Serializable;
 public class Space implements Serializable {
     //Created by Beck Anderson
 
-    final int cellIdx;
+    private final int cellIdx;
     private final String color;
     private boolean validity;
     private Piece piece;

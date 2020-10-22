@@ -136,6 +136,13 @@ public class BoardView implements Iterable<Row>, Serializable{
         String type = piece.getType().toString();
         String color = piece.getColor().toString();
         endSpace.createPiece(type,color);
+
+        if (Math.abs(startSpace.getCellIdx() - endSpace.getCellIdx()) == 2) { //if a piece capture jump occured
+            Position capturedPos = new Position((startRow.getIndex() + endRow.getIndex())/2, (startSpace.getCellIdx() + endSpace.getCellIdx())/2);
+            Row capturedRow = gameBoard[capturedPos.getRow()];
+            Space capturedSpace = capturedRow.row[capturedPos.getCell()];
+            capturedSpace.deletePiece();
+        }
     }
 
     public boolean spaceCollision(Move move) {
@@ -181,22 +188,22 @@ public class BoardView implements Iterable<Row>, Serializable{
                 Position possibility3 = null;
                 switch (direction) {
                     case "UR":
-                        if (possibility.getCell() < 7 && possibility.getRow() < 7) {
+                        if (possibility.getCell() < 7 && possibility.getRow() >= 2) {
                             possibility3 = new Position(possibility.getRow() - 1, possibility.getCell() + 1);
                         }
                         break;
                     case "UL":
-                        if (possibility.getCell() >= 2 && possibility.getRow() < 7) {
+                        if (possibility.getCell() >= 2 && possibility.getRow() >= 2) {
                             possibility3 = new Position(possibility.getRow() - 1, possibility.getCell() - 1);
                         }
                         break;
                     case "DL":
-                        if (possibility.getCell() >= 2 && possibility.getRow() >= 2) {
+                        if (possibility.getCell() >= 2 && possibility.getRow() < 7) {
                             possibility3 = new Position(possibility.getRow() + 1, possibility.getCell() - 1);
                         }
                         break;
                     case "DR":
-                        if (possibility.getCell() >= 2 && possibility.getRow() < 7) {
+                        if (possibility.getCell() < 7 && possibility.getRow() < 7) {
                             possibility3 = new Position(possibility.getRow() + 1, possibility.getCell() + 1);
                         }
                         break;
