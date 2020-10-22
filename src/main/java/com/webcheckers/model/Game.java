@@ -34,16 +34,16 @@ public class Game {
      */
     public Game (Player red, Player white) {
         this.red = red;
-        gameBoardRed = new BoardView("red");
+        gameBoardRed = new BoardView("red", true);
         this.white = white;
-        gameBoardWhite = new BoardView("white");
+        gameBoardWhite = new BoardView("white", true);
         id = id++;
         playerWhoResigned = "";
         moves = new ArrayList<Move>();
         snapshotsRed = new ArrayList<BoardView>();
-        snapshotsRed.add(new BoardView("red"));
+        snapshotsRed.add(new BoardView("red", true));
         snapshotsWhite = new ArrayList<BoardView>();
-        snapshotsWhite.add(new BoardView("white"));
+        snapshotsWhite.add(new BoardView("white", true));
         snapshotsTemp = new ArrayList<BoardView>();
         winner = null;
     }
@@ -223,7 +223,14 @@ public class Game {
 }
 
 
-
+    public void resetMoveAllowed() {
+       /* ArrayList<BoardView> redSnapshots = getRedSnapshots();
+        ArrayList<BoardView> whiteSnapshots = getWhiteSnapshots();
+        redSnapshots.get(redSnapshots.size()-1).setMoveAllowed(true);
+        whiteSnapshots.get(whiteSnapshots.size()-1).setMoveAllowed(true); */
+        gameBoardRed.setMoveAllowed(true);
+        gameBoardWhite.setMoveAllowed(true);
+    }
     public void setPlayerWhoResigned(String playerWhoResigned) {
         this.playerWhoResigned = playerWhoResigned;
     }

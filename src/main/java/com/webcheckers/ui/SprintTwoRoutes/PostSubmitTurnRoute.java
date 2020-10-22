@@ -70,16 +70,18 @@ public class PostSubmitTurnRoute implements Route{
 
                 if (game.getActiveColor() == Game.ActiveColor.RED){
 
-                    game.setGameBoardRed(game.copyBoard(activeBoard));
-                    game.setGameBoardWhite(game.copyBoard(inactiveBoard));
+                    game.setGameBoardRed(activeBoard);
+                    game.setGameBoardWhite(inactiveBoard);
 
                 }
                 else {
 
-                    game.setGameBoardRed(game.copyBoard(inactiveBoard));
-                    game.setGameBoardWhite(game.copyBoard(activeBoard));
+                    game.setGameBoardRed(activeBoard);
+                    game.setGameBoardWhite(inactiveBoard);
 
                 }
+
+                game.resetMoveAllowed();
 
                 tempSnapshots.clear();
                 if (game.colorCleared()) { //check if a color has been fully wiped from the board. 

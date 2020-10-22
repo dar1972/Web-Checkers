@@ -14,6 +14,7 @@ public class BoardView implements Iterable<Row>, Serializable{
     //Created by Beck Anderson
 
     public Row[] gameBoard;
+    private boolean moveAllowed;
     private final int ROWS = 8;
 
 
@@ -21,7 +22,8 @@ public class BoardView implements Iterable<Row>, Serializable{
      * Creates a new board
      * @param color the color of the player who will see the board
      */
-    public BoardView(String color){
+    public BoardView(String color, boolean moveAllowed){
+        this.moveAllowed = moveAllowed;
         gameBoard = new Row[8];
         Row row;
         String pieceColor = "q";
@@ -192,12 +194,28 @@ public class BoardView implements Iterable<Row>, Serializable{
     }
 
     public boolean validMove(Move move){
+        Position start = move.getStart();
         Position end = move.getEnd();
 
         ArrayList<Position> goodMoves = validMoves(move);
-        for(int i=0; i<goodMoves.size();i++){
-            Position check = goodMoves.get(i);
-            if (end.getRow() == check.getRow() && end.getCell() == check.getCell()) {
+        ArrayList<Position> forceMoves = new ArrayList<>();
+
+        //check if must choose piece capture jump.
+        for (Position check : goodMoves) {
+            if (Math.abs(start.getCell() - check.getCell()) == 2) {
+                forceMoves.add(check);
+            }
+        }
+
+        if (forceMoves.size() != 0) {
+            goodMoves = forceMoves;
+            moveAllowed = true;
+        }
+
+        for(Position check : goodMoves){
+            //Position check = goodMoves.get(i);
+            if (end.getRow() == check.getRow() && end.getCell() == check.getCell() && moveAllowed) {
+                moveAllowed = false;
                 return true;
             }
         } return false;
@@ -256,7 +274,13 @@ public class BoardView implements Iterable<Row>, Serializable{
                 return null;
             }
         }else{
-            return possibility;
+            if (!moveAllowed) {
+                return null;
+            }
+            else {
+                return possibility;
+
+            }
         }
     }
 
@@ -329,6 +353,10 @@ public class BoardView implements Iterable<Row>, Serializable{
 
         return goodMoves;
 
+    }
+
+    public void setMoveAllowed(boolean moveAllowed) {
+        this.moveAllowed = moveAllowed;
     }
 
     @Override
