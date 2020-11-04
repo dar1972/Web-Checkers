@@ -5,6 +5,7 @@ package com.webcheckers.model;
 public class Player {
 
     private String userName;
+    public boolean spectating;
 
     /**
      * Creates a new instance of a Player class

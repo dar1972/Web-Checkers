@@ -10,6 +10,7 @@ public class Game {
     
     private Player red;
     private Player white;
+    private Player Spectator;
     private int id = 0;
     private BoardView gameBoardWhite;
     private BoardView gameBoardRed; 
