@@ -12,12 +12,13 @@ public class GameCenter {
     // Made by Beck Anderson
 
     private final PlayerLobby playerLobby;
-    private Map<String, Game> gameLobby;
-    //private static Map<Player, Integer> gameIDMap;
+    private HashMap<String, Game> gameLobby;
+    private HashMap<Integer, Game> gameArchive;
 
     public GameCenter(PlayerLobby playerLobby) {
         this.playerLobby = playerLobby;
         gameLobby = new HashMap<>();
+        gameArchive = new HashMap<>();
     }
 
     public synchronized void createGame(String redName, String whiteName) {
@@ -29,6 +30,7 @@ public class GameCenter {
 
         gameLobby.put(redName, game);
         gameLobby.put(whiteName, game);
+        gameArchive.put(game.getGameId(), game);
 
     }
 
@@ -40,6 +42,9 @@ public class GameCenter {
         return gameLobby.get(playerName);
     }
 
+    public Game getGame(int gameID) {
+        return gameArchive.get(gameID);
+    }
     public Player getOpponent(Player user) {
         String userName = user.getName();
         Game game = gameLobby.get(userName);
@@ -100,4 +105,7 @@ public class GameCenter {
         game.storeMove(move);
     }
 
+	public HashMap<Integer, Game> getArchivedGames() {
+		return gameArchive;
+    }
 }

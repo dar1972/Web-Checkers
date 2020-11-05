@@ -1,6 +1,8 @@
 package com.webcheckers.ui;
 
 import com.webcheckers.appl.GameCenter;
+import com.webcheckers.appl.PlayerLobby;
+import com.webcheckers.model.Player;
 import com.webcheckers.util.Message;
 import spark.*;
 
@@ -25,15 +27,17 @@ public class PostHomeRoute implements Route {
 
     private final TemplateEngine templateEngine;
     private final GameCenter gameCenter;
+    private final PlayerLobby playerLobby;
     /**
      * Create the Spark Route (UI controller) to handle all {@code GET /} HTTP
      * requests.
      *
      * @param templateEngine the HTML template rendering engine
      */
-    public PostHomeRoute(final TemplateEngine templateEngine, final GameCenter gameCenter) {
+    public PostHomeRoute(final TemplateEngine templateEngine, final GameCenter gameCenter, final PlayerLobby playerLobby) {
         this.templateEngine = Objects.requireNonNull(templateEngine, "templateEngine is required");
         this.gameCenter = gameCenter;
+        this.playerLobby = playerLobby;
         LOG.config("PostHomeRoute is initialized.");
     }
 
@@ -42,6 +46,7 @@ public class PostHomeRoute implements Route {
             // process after giving username
             LOG.finer("PostHomeRoute is invoked.");
             String userName = request.session().attribute( USER_PARAM );
+            Player user = playerLobby.getPlayers().get(userName);
             String opponentName = request.queryParams(OPPONENT_PARAM);
 
             if (opponentName == null) { //if a person wasn't chosen, redirect to gethomeroute and indicate to tell the player they haven't selected. 
@@ -50,7 +55,7 @@ public class PostHomeRoute implements Route {
                 halt();
             }
             
-            if (!gameCenter.getGameLobby().containsKey(opponentName)) { // if the person is not in the game lobby, create a game.
+            if (!gameCenter.getGameLobby().containsKey(opponentName) && !user.isSpectating()) { // if the person is not in the game lobby, create a game.
                 gameCenter.createGame(userName, opponentName);
                 response.redirect(WebServer.GAME_URL);
                 halt();

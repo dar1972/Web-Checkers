@@ -5,37 +5,42 @@ import java.io.ByteArrayOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Game {
-    
+
     private Player red;
     private Player white;
-    private int id = 0;
+    private int id;
+    private static AtomicInteger atomicInteger = new AtomicInteger(0); // thread safe.
     private BoardView gameBoardWhite;
-    private BoardView gameBoardRed; 
+    private BoardView gameBoardRed;
     private ArrayList<BoardView> snapshotsRed;
     private ArrayList<BoardView> snapshotsWhite;
     private ArrayList<BoardView> snapshotsTemp;
     private ArrayList<Move> moves;
     private String playerWhoResigned;
+
     public enum ActiveColor {
-        RED,
-        WHITE
+        RED, WHITE
     }
+
     private ActiveColor activeColor = ActiveColor.RED;
     private Player winner;
+    private boolean isOver;
 
     /**
      * Create a new instance of a game
-     * @param red the red player in a game
+     * 
+     * @param red   the red player in a game
      * @param white the white player in a game
      */
-    public Game (Player red, Player white) {
+    public Game(Player red, Player white) {
         this.red = red;
         gameBoardRed = new BoardView("red", true);
         this.white = white;
         gameBoardWhite = new BoardView("white", true);
-        id = id++;
+        this.id = atomicInteger.incrementAndGet();
         playerWhoResigned = "";
         moves = new ArrayList<Move>();
         snapshotsRed = new ArrayList<BoardView>();
@@ -44,21 +49,27 @@ public class Game {
         snapshotsWhite.add(new BoardView("white", true));
         snapshotsTemp = new ArrayList<BoardView>();
         winner = null;
+        isOver = false;
     }
 
     /**
      * this will get and return the red player
+     * 
      * @return the red player
      */
-    public synchronized Player getRed() {
+    public Player getRed() {
         return red;
+    }
+
+    public boolean getIsOver() {
+        return isOver;
     }
 
     /**
      * this will get and return the white player
      * @return the white player
      */
-    public synchronized Player getWhite() {
+    public Player getWhite() {
         return white;
     }
 
@@ -105,7 +116,16 @@ public class Game {
 
     public void setWinner(Player player) {
         this.winner = player;
+        this.isOver = true;
     }
+
+    public boolean isWinner(){
+        if (winner != null){
+            return true;
+        }
+        return false;
+    }
+
     public boolean backupMove() {
         int size1 = getActiveSnapshots().size();
         int size2 = getTempSnapshots().size();

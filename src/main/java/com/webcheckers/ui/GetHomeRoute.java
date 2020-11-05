@@ -15,6 +15,7 @@ import static spark.Spark.halt;
 
 import com.webcheckers.appl.GameCenter;
 import com.webcheckers.appl.PlayerLobby;
+import com.webcheckers.model.Game;
 import com.webcheckers.model.Player;
 import com.webcheckers.util.Message;
 
@@ -104,6 +105,7 @@ public class GetHomeRoute implements Route {
     // makes it so that player does not see their own name in a list of potential opponents
     HashMap<String, Player> processedHashMap = new HashMap<String, Player> (playerLobby.getPlayers());
     processedHashMap.remove(userName);
+    HashMap<Integer, Game> archivedGames = gameCenter.getArchivedGames();
 
       if (userName != null) {   // if username is valid
         vm.put("currentUser", player);
@@ -111,7 +113,8 @@ public class GetHomeRoute implements Route {
       }
         
       vm.put("lobbySize", playerLobby.getPlayers().size());
-      
+      vm.put("archivedGames", archivedGames);
+      vm.put("archiveSize", archivedGames.size());
 
       // once entering opponents name, both players will be sent to the game if both are available
       if (gameCenter.getGameLobby().containsKey(userName)) {

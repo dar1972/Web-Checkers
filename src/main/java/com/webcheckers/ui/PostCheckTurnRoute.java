@@ -47,6 +47,10 @@ public class PostCheckTurnRoute implements Route{
                 message = Message.info("false");
     
             }
+
+            if (gameCenter.getGame(userName).isWinner()){
+                message = Message.info("true");
+            }
         }
         else {
             message = Message.info("true"); //Not actually true, but triggers page refresh when this route is invoked after server restart.

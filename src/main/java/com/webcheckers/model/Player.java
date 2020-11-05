@@ -5,6 +5,7 @@ package com.webcheckers.model;
 public class Player {
 
     private String userName;
+    public boolean spectating;
 
     /**
      * Creates a new instance of a Player class
@@ -22,6 +23,14 @@ public class Player {
         return userName;
     }
 
+    public boolean isSpectating() {
+        return spectating;
+    }
+    
+    public void setSpectating(boolean spectating) {
+        this.spectating = spectating;
+    }
+    
     /**
      * Checks and sees if the provided Object is equal to
      * this instance of a Player class
