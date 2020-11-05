@@ -59,6 +59,20 @@
       </#if>
     </#if>
 
+
+    <h2> Game Archive</h2>
+        <#list archivedGames?keys as key>
+          <input type = "radio" id = ${key} name="gameID" value = ${key} />
+          <label for=${key}>${key}</label>
+          <br/>
+          
+          </#list>
+
+          <#if archiveSize gt 0>
+            <br/>
+            <button type="submit">View Active or Archived Games</button>
+          </#if>
+        </form>
   </div>
 
 </div>

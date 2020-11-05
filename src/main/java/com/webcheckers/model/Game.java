@@ -5,13 +5,15 @@ import java.io.ByteArrayOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Game {
     
     private Player red;
     private Player white;
     private Player Spectator;
-    private int id = 0;
+    private int id;
+    private static AtomicInteger atomicInteger = new AtomicInteger(0); //thread safe.
     private BoardView gameBoardWhite;
     private BoardView gameBoardRed; 
     private ArrayList<BoardView> snapshotsRed;
@@ -36,7 +38,7 @@ public class Game {
         gameBoardRed = new BoardView("red", true);
         this.white = white;
         gameBoardWhite = new BoardView("white", true);
-        id = id++;
+        this.id = atomicInteger.incrementAndGet();
         playerWhoResigned = "";
         moves = new ArrayList<Move>();
         snapshotsRed = new ArrayList<BoardView>();
