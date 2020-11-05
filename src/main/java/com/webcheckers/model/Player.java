@@ -23,6 +23,10 @@ public class Player {
         return userName;
     }
 
+    public boolean isSpectating() {
+        return spectating;
+    }
+
     /**
      * Checks and sees if the provided Object is equal to
      * this instance of a Player class
