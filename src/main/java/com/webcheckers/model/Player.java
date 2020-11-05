@@ -23,7 +23,7 @@ public class Player {
         return userName;
     }
 
-    public boolean isSpectating() {
+    public boolean isSpectating(boolean spectating) {
         return spectating;
     }
 
