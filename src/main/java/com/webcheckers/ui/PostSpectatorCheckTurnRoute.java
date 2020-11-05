@@ -31,17 +31,37 @@ public class PostSpectatorCheckTurnRoute implements Route {
             LOG.finer("PostSpectateCheckTurnRoute is invoked.");
             final Session httpSession = request.session();
 
-            Player player = httpSession.attribute("currentPlayer");
-            Game currGame = gameCenter.getGame(request.queryParams("gameID"));
+            String userName = httpSession.attribute("userName");
+            Game game = gameCenter.getArchivedGames().get(httpSession.attribute("viewedGameID"));
 
-            String json;
-            if (currGame.isWinner()){
-                player.isSpectating(false);
-                json = gson.toJson(Message.info("true"));
+            Message message;
+            if (userName != null) {
+                int spectateIndex;
+                if (httpSession.attribute("spectateIndex") == null) {
+                    spectateIndex = 0;
+                    httpSession.attribute("spectateIndex", 0);
+                }
+                else {
+                    spectateIndex = httpSession.attribute("spectateIndex");
+                }
+
+                if (game.getInactiveSnapshots().size()-1 > spectateIndex) {
+                    message = Message.info("true");
+                    spectateIndex = game.getInactiveSnapshots().size()-1;
+                    httpSession.attribute("spectateIndex", spectateIndex);
+
+                }
+                else {
+                    message = Message.info("false");
+                }
             }
             else {
-                json = gson.toJson(Message.info("false"));
+                message = Message.info("true"); //not actually, but triggers page refresh to exit. 
             }
+
+
+            String json;
+            json = gson.toJson(message);
             return json;
         }
-}
+    }

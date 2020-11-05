@@ -16,8 +16,8 @@ import static spark.Spark.halt;
 
 
 
-public class GetSpectatorGame implements Route {
-    private static final Logger LOG = Logger.getLogger(GetSpectatorGame.class.getName());
+public class GetReplayGameRoute implements Route {
+    private static final Logger LOG = Logger.getLogger(GetReplayGameRoute.class.getName());
 
     static final String TITLE = "Game Spectate";
     private final GameCenter gameCenter;
@@ -25,25 +25,24 @@ public class GetSpectatorGame implements Route {
     private final TemplateEngine templateEngine;
     private final Gson gson;
 
+    private enum ViewMode {
+        PLAY, SPECTATOR, REPLAY
+    }
 
-    private enum ViewMode{
-        PLAY,
-        SPECTATOR,
-        REPLAY}
-
-    public GetSpectatorGame(final GameCenter gameCenter, final TemplateEngine templateEngine, final Gson gson, final PlayerLobby playerLobby) {
+    public GetReplayGameRoute(final GameCenter gameCenter, final TemplateEngine templateEngine, final Gson gson,
+            final PlayerLobby playerLobby) {
         this.gameCenter = gameCenter;
         this.playerLobby = playerLobby;
         this.templateEngine = Objects.requireNonNull(templateEngine, "templateEngine is required");
         this.gson = gson;
-        LOG.config("GetSpectateGameRoute is initialized.");
+        LOG.config("GetReplayGameRoute is initialized.");
     }
 
 
     @Override
     public Object handle(Request request, Response response) {
         final Session httpSession = request.session();
-        LOG.finer("GetSpectateGameRoute is invoked.");
+        LOG.finer("GetReplayGameRoute is invoked.");
         Map<String, Object> vm = new HashMap<>();
         vm.put(GetHomeRoute.TITLE_ATTR, TITLE);
         
@@ -55,6 +54,15 @@ public class GetSpectatorGame implements Route {
 
         currentUser.setSpectating(true);
         Game game = gameCenter.getArchivedGames().get(httpSession.attribute("viewedGameID"));
+        int replayIndex;
+        if (httpSession.attribute("replayIndex") == null) {
+            replayIndex = 0;
+            httpSession.attribute("replayIndex", 0);
+        }
+        else {
+            replayIndex = httpSession.attribute("replayIndex");
+        }
+
 
         vm.put("title", "Game Time!");
         vm.put("currentUser", currentUser);
@@ -62,19 +70,28 @@ public class GetSpectatorGame implements Route {
         vm.put("redPlayer", game.getRed());
         vm.put("whitePlayer", game.getWhite());
         vm.put("activeColor", game.getActiveColor());
-        vm.put("viewMode", ViewMode.SPECTATOR);
-        vm.put("board", game.getRedSnapshots().get(game.getRedSnapshots().size()-1));
+        vm.put("viewMode", ViewMode.REPLAY);
+        vm.put("board", game.getRedSnapshots().get(replayIndex));
 
-        int spectateIndex;
-        if (httpSession.attribute("spectateIndex") == null) {
-            spectateIndex = 0;
-            httpSession.attribute("spectateIndex", 0);
+        final Map<String, Object> modeOptions = new HashMap<>();
+
+
+        if (replayIndex <= 0) {
+            modeOptions.put("hasPrevious", false);
         }
         else {
-            spectateIndex = httpSession.attribute("spectateIndex");
+            modeOptions.put("hasPrevious", true);
         }
+        if (replayIndex >= game.getRedSnapshots().size()-1) {
+            modeOptions.put("hasNext", false);
+            
+        }
+        else {
+            modeOptions.put("hasNext", true);
 
-        
+        }
+        vm.put("modeOptionsAsJSON", gson.toJson(modeOptions));  
+
         return templateEngine.render(new ModelAndView(vm , "game.ftl"));
 
     }

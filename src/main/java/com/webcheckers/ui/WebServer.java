@@ -66,8 +66,11 @@ public class WebServer {
   public static final String SPECTATING_GAME_URL ="/spectator/game";
   public static final String SPECTATOR_STOP_WATCHING_URL = "/spectator/stopWatching";
   public static final String SPECTATOR_CHECK_TURN_URL = "/spectator/checkTurn";
-
-
+  public static final String ENHANCEMENT_ROUTES_URL = "/spectatorreplaychooser";
+  public static final String REPLAY_GAME_URL = "/replay/game";
+  public static final String REPLAY_NEXT_TURN_URL = "/replay/nextTurn";
+  public static final String REPLAY_PREVIOUS_TURN_URL = "/replay/previousTurn";
+  public static final String EXIT_REPLAY_URL = "/replay/stopWatching";
 
   //
   // Attributes
@@ -167,7 +170,7 @@ public class WebServer {
 
     post(SIGNIN_URL, new PostSignInRoute(templateEngine, playerLobby)); 
 
-    post(HOME_URL, new PostHomeRoute(templateEngine, gameCenter));
+    post(HOME_URL, new PostHomeRoute(templateEngine, gameCenter, playerLobby));
 
     post(VALIDATE_MOVE_URL, new PostValidateMoveRoute(gameCenter, gson));
 
@@ -179,11 +182,22 @@ public class WebServer {
 
     post(CHECK_TURN_URL, new PostCheckTurnRoute(gameCenter,gson));
 
-    get(SPECTATING_GAME_URL, new GetSpectatorGame(gameCenter, templateEngine, gson));
+    get(SPECTATING_GAME_URL, new GetSpectatorGame(gameCenter, templateEngine, gson, playerLobby));
 
-    get(SPECTATOR_STOP_WATCHING_URL, new GetSpectatorStopWatching(gameCenter, templateEngine));
+    get(SPECTATOR_STOP_WATCHING_URL, new GetSpectatorStopWatching(gameCenter, templateEngine, playerLobby));
 
     post(SPECTATOR_CHECK_TURN_URL, new PostSpectatorCheckTurnRoute(gameCenter, gson));
+
+    get(ENHANCEMENT_ROUTES_URL, new GetSpectateReplayChooserRoute(gameCenter, templateEngine));
+
+    get(REPLAY_GAME_URL, new GetReplayGameRoute(gameCenter, templateEngine, gson, playerLobby));
+
+    post(REPLAY_NEXT_TURN_URL, new PostReplayNextTurnRoute(gameCenter, templateEngine, gson, playerLobby));
+
+    post(REPLAY_PREVIOUS_TURN_URL, new PostReplayPreviousTurnRoute(gameCenter, templateEngine, gson, playerLobby));
+
+    get(EXIT_REPLAY_URL, new GetReplayStopWatching(gameCenter, templateEngine, playerLobby));
+
 
     LOG.config("WebServer is initialized.");
 

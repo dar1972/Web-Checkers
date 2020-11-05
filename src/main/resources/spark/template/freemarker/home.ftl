@@ -60,19 +60,34 @@
     </#if>
 
 
-    <h2> Game Archive</h2>
-        <#list archivedGames?keys as key>
-          <input type = "radio" id = ${key} name="gameID" value = ${key} />
-          <label for=${key}>${key}</label>
-          <br/>
-          
-          </#list>
+    <h2> View Active or Archived Games</h2>
+      <#if currentUser??>
+        <form action="./spectatorreplaychooser" method="GET">
+          <#list archivedGames as key, value>
+            <input type = "radio" id = ${key} name="viewedGameID" value = ${key} />
 
-          <#if archiveSize gt 0>
+            <#if value.isOver>
+              <label for=${key}><b>Game ${key}:</b> ${value.red} vs ${value.white} </label>
+            <#else>
+              <label for=${key}><b>Game ${key}:</b> ${value.red} vs ${value.white} [ACTIVE]</label>
+            </#if>
+
             <br/>
-            <button type="submit">View Active or Archived Games</button>
-          </#if>
+            
+            </#list>
+
+            <#if archiveSize gt 0>
+              <br/>
+              <button type="submit">View Game</button>
+            </#if>
         </form>
+      <#else>
+        <#if (archiveSize gt 0)>
+          There are ${archiveSize} viewable games. Please sign in to see them. 
+        <#else>
+          There are ${archiveSize} viewable games. 
+        </#if>
+      </#if>
   </div>
 
 </div>

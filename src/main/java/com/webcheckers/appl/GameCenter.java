@@ -14,7 +14,6 @@ public class GameCenter {
     private final PlayerLobby playerLobby;
     private HashMap<String, Game> gameLobby;
     private HashMap<Integer, Game> gameArchive;
-    //private static Map<Player, Integer> gameIDMap;
 
     public GameCenter(PlayerLobby playerLobby) {
         this.playerLobby = playerLobby;
@@ -43,6 +42,9 @@ public class GameCenter {
         return gameLobby.get(playerName);
     }
 
+    public Game getGame(int gameID) {
+        return gameArchive.get(gameID);
+    }
     public Player getOpponent(Player user) {
         String userName = user.getName();
         Game game = gameLobby.get(userName);
@@ -105,6 +107,5 @@ public class GameCenter {
 
 	public HashMap<Integer, Game> getArchivedGames() {
 		return gameArchive;
-	}
-
+    }
 }

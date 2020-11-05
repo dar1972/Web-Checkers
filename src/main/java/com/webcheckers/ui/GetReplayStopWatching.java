@@ -12,25 +12,25 @@ import java.util.logging.Logger;
 import static spark.Spark.halt;
 
 //created by Dhruv
-public class GetSpectatorStopWatching implements Route {
-    private static final Logger LOG = Logger.getLogger(GetSpectatorStopWatching.class.getName());
+public class GetReplayStopWatching implements Route {
+    private static final Logger LOG = Logger.getLogger(GetReplayStopWatching.class.getName());
 
-    static final String TITLE = "Spectate Exit";
+    static final String TITLE = "Replay Exit";
     private final TemplateEngine templateEngine;
     private final GameCenter gameCenter;
     private final PlayerLobby playerLobby;
 
-    public GetSpectatorStopWatching(GameCenter gameCenter, TemplateEngine templateEngine, PlayerLobby playerLobby) {
+    public GetReplayStopWatching(GameCenter gameCenter, TemplateEngine templateEngine, PlayerLobby playerLobby) {
         this.templateEngine = Objects.requireNonNull(templateEngine, "templateEngine is required");
         this.gameCenter = gameCenter;
         this.playerLobby = playerLobby;
-        LOG.config("GetSpectatorStopWatching is initialized.");
+        LOG.config("GetReplayStopWatching is initialized.");
     }
 
     @Override
     public Object handle(Request request, Response response) {
         final Session httpSession = request.session();
-        LOG.finer("GetSpectateStopWatching is invoked.");
+        LOG.finer("GetReplayStopWatching is invoked.");
         Map<String, Object> vm = new HashMap<>();
         vm.put(GetHomeRoute.TITLE_ATTR, TITLE);
 
