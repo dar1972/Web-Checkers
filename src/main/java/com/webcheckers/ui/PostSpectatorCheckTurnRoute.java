@@ -1,6 +1,7 @@
 package com.webcheckers.ui;
 
 import com.google.gson.Gson;
+import com.webcheckers.appl.GameCenter;
 import com.webcheckers.model.BoardView;
 import com.webcheckers.model.Game;
 import com.webcheckers.model.Player;
@@ -11,45 +12,36 @@ import java.util.Objects;
 import java.util.logging.Logger;
 
 //Created By Dhruv
-public class PostSpectatorCheckTurnRoute {
-    private TemplateEngine templateEngine;
-    private static final Logger LOG=Logger.getLogger(PostCheckTurnRoute.class.getName());
-    private Gson gson;
-    private boolean gameOver = true;
-    private Game spectateGame;
+public class PostSpectatorCheckTurnRoute implements Route {
 
-    public PostSpectatorCheckTurnRoute(TemplateEngine templateEngine){
-        this.templateEngine = Objects.requireNonNull(templateEngine, "templateEngine is required");
-        LOG.config("SpectateCheckTurnRoute is initialized");
-        gson = new Gson();
-    }
+        private static final Logger LOG = Logger.getLogger(PostCheckTurnRoute.class.getName());
+        private GameCenter gameCenter;
+        private Gson gson;
 
-    @Override
-    public Object handle(Request request, Response response) throws Exception {
-        LOG.finer("SpectateCheckTurnRoute has been invoked");
-        Message message;
-        Session session = request.session();
-
-        String gameID = session.attribute("spectateGameID");
-
-        Player self = session.attribute("currentUser");
-
-        Game game = new Game(gameID);
-        if (session.attribute("Turn submitted!") != null) {
-            session.removeAttribute("Turn submitted!");
-            message = Message.info("false");
-            //update Board Here
+        public PostSpectatorCheckTurnRoute(GameCenter gameCenter, Gson gson){
+            LOG.config("PostSpectateSpectateCheckTurnRoute is initialized.");
+            this.gameCenter = gameCenter;
+            this.gson = gson;
         }
-        else if(BoardView.BoardUpdate) {
-            message = Message.info("true");
-            //update Board Here
+
+        @Override
+        public Object handle(Request request, Response response) {
+
+
+            LOG.finer("PostSpectateCheckTurnRoute is invoked.");
+            final Session httpSession = request.session();
+
+            Player player = httpSession.attribute("currentPlayer");
+            Game currGame = gameCenter.getGame(request.queryParams("gameID"));
+
+            String json;
+            if (currGame.isWinner()){
+                player.isSpectating();
+                json = gson.toJson(Message.info("true"));
+            }
+            else {
+                json = gson.toJson(Message.info("false"));
+            }
+            return json;
         }
-        else if (game != null ){
-            message = Message.info("true");
-            gameIsOver = false;
-        }
-        else
-            message = Message.info("false");
-        return gson.toJson(message);
 }
-

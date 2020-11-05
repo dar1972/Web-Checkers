@@ -109,6 +109,14 @@ public class Game {
     public void setWinner(Player player) {
         this.winner = player;
     }
+
+    public boolean isWinner(){
+        if (winner != null){
+            return true;
+        }
+        return false;
+    }
+
     public boolean backupMove() {
         int size1 = getActiveSnapshots().size();
         int size2 = getTempSnapshots().size();
