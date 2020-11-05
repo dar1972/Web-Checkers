@@ -36,7 +36,7 @@ public class PostSpectatorCheckTurnRoute implements Route {
 
             String json;
             if (currGame.isWinner()){
-                player.isSpectating();
+                player.isSpectating(false);
                 json = gson.toJson(Message.info("true"));
             }
             else {

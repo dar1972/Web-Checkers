@@ -23,7 +23,7 @@ public class GetSpectatorGame implements Route {
 
 
 
-    public GetSpectatorGame(final GameCenter gameCenter, final TemplateEngine templateEngine, final Gson gson, Player player) {
+    public GetSpectatorGame(final GameCenter gameCenter, final TemplateEngine templateEngine, final Gson gson) {
         this.gameCenter = gameCenter;
         this.templateEngine = Objects.requireNonNull(templateEngine, "templateEngine is required");
         this.gson = gson;
@@ -37,15 +37,13 @@ public class GetSpectatorGame implements Route {
         LOG.finer("GetSpectateGameRoute is invoked.");
         Map<String, Object> vm = new HashMap<>();
         vm.put(GetHomeRoute.TITLE_ATTR, TITLE);
-        // display a user message in the Home page
 
-        // show active players
         if(httpSession.attribute("currentUser") != null){
             final Player player = httpSession.attribute("currentUser");
             final String gameID = request.queryParams("gameId");
             vm.put("currentUser", player);
             vm.put("viewMode", mode.isSpectator); // set mode as spectator
-            Game game = gameCenter.getGame(gameID); //gets the saved game
+            Game game = gameCenter.getGame(gameID);
 
             vm.put(game.getActivePlayer().toString(),game.getActiveColor());
             vm.put("boardView", game);
@@ -63,7 +61,6 @@ public class GetSpectatorGame implements Route {
             response.redirect(WebServer.HOME_URL);
             return null;
         }
-        // render the View
         return templateEngine.render(new ModelAndView(vm , "game.ftl"));
     }
 }
