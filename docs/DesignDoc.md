@@ -54,8 +54,12 @@ is able to run successfully and we can reflect on it to see if there is anything
     - Game Win
 
 ### Roadmap of Enhancements
-> _Provide a list of top-level features in the order you plan to consider them._
-
+- Epic: Spectate 
+    - Game Share  
+    - Live View 
+- Epic: Replay 
+    - Select a Game 
+    - Watch a Game 
 
 ## Application Domain
 
