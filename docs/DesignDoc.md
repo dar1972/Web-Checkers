@@ -29,17 +29,29 @@ The purpose of this project is create a web based application which follows the 
 
 ## Requirements
 
-This section describes the features of the application.
-
-> _In this section you do not need to be exhaustive and list every
-> story.  Focus on top-level features from the Vision document and
-> maybe Epics and critical Stories._
+In the Minimum Viable Product (MVP), the player is able to sign in with a 
+valid username. Once doing so, the player has the option to start a game 
+or spectate an occurring one. During gameplay and it is a player’s turn, 
+the player is able to move their piece forward, reverse its previous action,
+ and then submit their turn. The player is given the ability to resign as well. 
 
 ### Definition of MVP
-> _Provide a simple description of the Minimum Viable Product._
+Minimum Viable Product (MVP) is where we have a version of the product with at 
+least its minimum functionality. It is “enough” in the sense that the product 
+is able to run successfully and we can reflect on it to see if there is anything
+ else we add to it. Through having a MVP, this can also lead to less time on other
+  unnecessary features at the moment. _
 
 ### MVP Features
-> _Provide a list of top-level Epics and/or Stories of the MVP._
+- Stories: 
+    -  Sign in 
+    -  Start a Game 
+- Epic: Gameplay
+    - Piece Forward Movement 
+    - Piece Capture 
+    - King-ify Piece 
+    - Piece Reverse Movement 
+    - Game Win
 
 ### Roadmap of Enhancements
 > _Provide a list of top-level features in the order you plan to consider them._
