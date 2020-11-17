@@ -166,16 +166,21 @@ comments along the way. When commenting, we can work through what the code is do
 then maybe we can find possible bugs and other areas to improve that way. 
 
 ## Testing
-> _This section will provide information about the testing performed
-> and the results of the testing._
+In this process, we repeatedly used our program with the intention of finding ways to 
+break it. A few examples of this would be when we attempted to give invalid usernames, 
+made invalid game moves, pushed all of the buttons, and continuously refreshed the page 
+to see if there are any time where the player would be stuck in between states. By doing 
+this, we made sure we had a MVP and beyond. 
 
 ### Acceptance Testing
 ![Code Metric (1/2)](metric1.PNG)
 ![Code Metric (2/2)](metric2.PNG)
+For the most part, we are doing well in terms of code metrics. A part we can work on more 
+is BoardView. A lot is going on with this aspect of the program. This can be extended to 
+GetGameRoute and PostSubmitTurnRoute.  
 
 ### Unit Testing and Code Coverage
-> _Discuss your unit testing strategy. Report on the code coverage
-> achieved from unit testing of the code base. Discuss the team's
-> coverage targets, why you selected those values, and how well your
-> code coverage met your targets. If there are any anomalies, discuss
-> those._
+As mentioned in the “Testing” section above, we have covered a wide range of errors that 
+can happen. Some of them being invalid usernames, game moves, buttons being pressed, and etc. 
+For invalid usernames, we used symbols, left it blank, used another player’s username, and more. 
+For game moves, we tried going on an occupied space and wrong space.
