@@ -170,8 +170,8 @@ then maybe we can find possible bugs and other areas to improve that way.
 > and the results of the testing._
 
 ### Acceptance Testing
-![Code Metric (1/2)](metric snap 1.PNG)
-![Code Metric (2/2)](metri snap 2.PNG)
+![Code Metric (1/2)](metric1.PNG)
+![Code Metric (2/2)](metric2.PNG)
 
 ### Unit Testing and Code Coverage
 > _Discuss your unit testing strategy. Report on the code coverage
