@@ -4,11 +4,11 @@ import java.io.Serializable;
 
 @SuppressWarnings("serial")
 public class Space implements Serializable {
-    //Created by Beck Anderson
+
+    //Created, commented, and cleaned by Beck
 
     private final int cellIdx;
     private final String color;
-    private boolean validity;
     private Piece piece;
 
     /**
@@ -22,7 +22,7 @@ public class Space implements Serializable {
         //create a new piece on black spaces for the start of the game
         if(color.equals("Black")){
             if(!(pieceColor.equals("q"))){
-                piece = new Piece("s", pieceColor, cellIdx);
+                piece = new Piece("s", pieceColor);
             }
         }
         // if not a black space, no piece exists
@@ -47,13 +47,6 @@ public class Space implements Serializable {
         return color.equals("Black");
     }
 
-    public void setValid(boolean valid){
-        this.validity = valid;
-    }
-
-    public boolean getValidity() {
-        return this.validity;
-    }
     /**
      * Checks to see if a piece is on the space
      * @return the piece is there is one, null if not
@@ -62,14 +55,26 @@ public class Space implements Serializable {
         return piece;
     }
 
+    /**
+     * This will set a piece on the space
+     * @param newPiece the piece to be on 
+     */
     public void setPiece(Piece newPiece){
         this.piece = newPiece;
     }
 
+    /**
+     * This function will create a new piece on the space
+     * @param type the type of piece
+     * @param color the color of the piece
+     */
     public void createPiece(String type, String color){
-        piece = new Piece(type,color,cellIdx);
+        piece = new Piece(type,color);
     }
 
+    /**
+     * This function will delete the piece on the space
+     */
     public void deletePiece(){
         if(piece!=null){
             piece=null;

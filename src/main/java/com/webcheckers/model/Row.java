@@ -6,7 +6,8 @@ import java.util.NoSuchElementException;
 
 @SuppressWarnings("serial")
 public class Row implements Iterable<Space>, Serializable {
-    //Created by Beck Anderson
+
+    //Created, commented, and cleaned by Beck
 
     private final int index;
     public Space[] row;
@@ -22,7 +23,7 @@ public class Row implements Iterable<Space>, Serializable {
         this.row = new Space[8];  //create a new array for th column
         //create spaces for each spot in the board
         for (int i=0;i<8;i++) {
-            int colorSet = 0;
+            int colorSet;
             //create a white space if color is white
             if (color.equals("White")) {
                 space = new Space(i,"White",pieceColor);
@@ -47,59 +48,45 @@ public class Row implements Iterable<Space>, Serializable {
     }
 
     /**
-     *
-     */
-    public void validateRow(){
-        for( Space space : row){
-            if( index%2 == 0){
-                if( space.getCellIdx()%2 == 1){
-                    space.setValid(true);
-                }
-            }
-            else{
-                if( space.getCellIdx()%2 == 0){
-                    space.setValid(true);
-                }
-            }
-        }
-    }
-
-    /**
-     *
+     * This function will create red pieces on spaces for a row
      */
     public synchronized void RedRow(){
         for( Space space : row){
             if( index%2 == 0){
                 if( space.getCellIdx()%2 == 1){
-                    space.setPiece( new Piece("s", "r", space.getCellIdx()));
+                    space.setPiece( new Piece("s", "r"));
                 }
             }
             else {
                 if( space.getCellIdx()%2 == 0){
-                    space.setPiece( new Piece("s", "r", space.getCellIdx()));
+                    space.setPiece( new Piece("s", "r"));
                 }
             }
         }
     }
 
     /**
-     *
+     * This function will create white pieces on spaces for a row
      */
     public synchronized void WhiteRow(){
         for( Space space : row){
             if( index%2 == 0){
                 if( space.getCellIdx()%2 == 1){
-                    space.setPiece( new Piece("s", "w", space.getCellIdx()));
+                    space.setPiece( new Piece("s", "w"));
                 }
             }
             else {
                 if( space.getCellIdx()%2 == 0){
-                    space.setPiece( new Piece("s", "w", space.getCellIdx()));
+                    space.setPiece( new Piece("s", "w"));
                 }
             }
         }
     }
 
+    /**
+     * This function will get the index
+     * @return the index
+     */
     public int getIndex(){
         return index;
     }
@@ -110,7 +97,7 @@ public class Row implements Iterable<Space>, Serializable {
      */
     @Override
     public Iterator<Space> iterator() {
-        return new Iterator<Space>() {
+        return new Iterator<>() {
 
             private int currentIndex = 0;
 

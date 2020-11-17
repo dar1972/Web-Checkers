@@ -1,9 +1,11 @@
 package com.webcheckers.model;
 
-// Created by Dhruv
+@SuppressWarnings("serial")
+// Created by Dhruv, commented and finalized by Beck
 public class Position {
 
-    private int row, cell;
+    private final int row;
+    private final int cell;
 
     public Position(int row, int cell) {
         this.row = row;
