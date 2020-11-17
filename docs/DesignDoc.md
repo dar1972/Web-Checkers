@@ -5,27 +5,24 @@ geometry: margin=1in
 
 ## Team Information
 * Team name: Waffles
-* Team members
+* Team members:
   * Beck Anderson
   * Dhruv Rajpurohit
   * Kelly Xiong Chen
   * Marcus Kapoor
 
 ## Executive Summary
-This Project is creating a web based application called Webcheckers. Webcheckers is modeling a game of checkers on the web. To play the game the user must sign in with unique id. The user can compete in the game of checkers with other online players, in addition to that the user can spectate another game, help the player while spectating. Playing the game involves both players to move their piece one by one. The game governs by the American rules of checkers. 
+This project is creating a web based application called Webcheckers. Webcheckers is modeling a game of checkers on the web. To play the game the user must sign in with unique id. The user can compete in the game of checkers with other online players, in addition to that the user can spectate another game, help the player while spectating. Playing the game involves both players to move their piece one by one. The game governs by the American rules of checkers. 
  
 ### Purpose
 The purpose of this project is create a web based application which follows the software development principles. The user goals of this project to provide a very efficient and exciting experience of the web based checkers game. The most important user groups of this project are the ones who have a similat interest towards the game of checkers.
 
 ### Glossary and Acronyms
-> _Provide a table of terms and acronyms._
 
 | Term | Definition |
 |------|------------|
 | VO | Value Object |
 | MVP | Minimum Viable Product |
-
-
 
 ## Requirements
 
@@ -120,7 +117,6 @@ to the home page where they can see the players online. The user can then
  has not made any kind of actions in a while, their session has timed out 
  and they are automatically redirected to the home page. 
 
-
 ### UI Tier
 This sequence chart displays the components that take place and their progression
  throughout the application. It starts off with the component at the upper left of
@@ -133,24 +129,6 @@ This sequence chart displays the components that take place and their progressio
     rules of a checkers game. Red player goes first and then the white player. 
 
 ![The UI Tier Sequence Diagram](ui-tier-seqDiagram.png)
-
-> _At appropriate places as part of this narrative provide one or more
-> static models (UML class structure or object diagrams) with some
-> details such as critical attributes and methods._
-
-> _You must also provide any dynamic models, such as statechart and
-> sequence diagrams, as is relevant to a particular aspect of the design
-> that you are describing.  For example, in WebCheckers you might create
-> a sequence diagram of the `POST /validateMove` HTTP request processing
-> or you might show a statechart diagram if the Game component uses a
-> state machine to manage the game._
-
-> _If a dynamic model, such as a statechart describes a feature that is
-> not mostly in this tier and cuts across multiple tiers, you can
-> consider placing the narrative description of that feature in a
-> separate section for describing significant features. Place this after
-> you describe the design of the three tiers._
-
 
 ### Application Tier
 These classes are where the user/player is being directed into a lobby filled 
@@ -179,25 +157,21 @@ pieces move from one valid box to another. This repeats until there is a winner.
 ![The Model Tier UML Diagram](ModelTierStateChart.jpg)
 
 ### Design Improvements
-> _Discuss design improvements that you would make if the project were
-> to continue. These improvement should be based on your direct
-> analysis of where there are problems in the code base which could be
-> addressed with design changes, and describe those suggested design
-> improvements. After completion of the Code metrics exercise, you
-> will also discuss the resutling metric measurements.  Indicate the
-> hot spots the metrics identified in your code base, and your
-> suggested design improvements to address those hot spots._
+During Sprint 4, we are going to be “cleaning up” our code. This means we are seeing 
+how else we can improve the code in terms of its efficiency. It can be as simple as 
+making sure every part of the code is being used, otherwise, it is discarded. On the 
+other hand, this can be a greater task where we are reorganizing our code if we found 
+a better method of programming the product. In addition, we are going to add purposeful 
+comments along the way. When commenting, we can work through what the code is doing and 
+then maybe we can find possible bugs and other areas to improve that way. 
 
 ## Testing
 > _This section will provide information about the testing performed
 > and the results of the testing._
 
 ### Acceptance Testing
-> _Report on the number of user stories that have passed all their
-> acceptance criteria tests, the number that have some acceptance
-> criteria tests failing, and the number of user stories that
-> have not had any testing yet. Highlight the issues found during
-> acceptance testing and if there are any concerns._
+![Code Metric (1/2)](metric1.PNG)
+![Code Metric (2/2)](metric2.PNG)
 
 ### Unit Testing and Code Coverage
 > _Discuss your unit testing strategy. Report on the code coverage
