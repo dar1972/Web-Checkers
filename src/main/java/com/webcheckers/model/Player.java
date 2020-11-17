@@ -1,10 +1,10 @@
 package com.webcheckers.model;
 
-//created by Marcus
+//created by Marcus, commented, and cleaned by Beck
 
 public class Player {
 
-    private String userName;
+    private final String userName;
     public boolean spectating;
 
     /**
@@ -16,17 +16,25 @@ public class Player {
     }
 
     /**
-     * This will get and return the name of the player
+     * This function will get and return the name of the player
      * @return the name of the player
      */
     public synchronized String getName() {
         return userName;
     }
 
+    /**
+     * This function will return if someone is a spectator
+     * @return true if spectator, false if not
+     */
     public boolean isSpectating() {
         return spectating;
     }
-    
+
+    /**
+     * This will set a player to be a spectator or not
+     * @param spectating is a player a spectator?
+     */
     public void setSpectating(boolean spectating) {
         this.spectating = spectating;
     }

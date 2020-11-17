@@ -62,7 +62,6 @@ public class WebServer {
   public static final String BACKUP_MOVE_URL = "/backupMove"; //added by Marcus
   public static final String RESIGN_GAME_URL = "/resignGame"; //added by Marcus
   public static final String CHECK_TURN_URL = "/checkTurn"; //added by Marcus
-  public static final String SPECTATING_MODE_URL = "/spectator";
   public static final String SPECTATING_GAME_URL ="/spectator/game";
   public static final String SPECTATOR_STOP_WATCHING_URL = "/spectator/stopWatching";
   public static final String SPECTATOR_CHECK_TURN_URL = "/spectator/checkTurn";
@@ -182,9 +181,9 @@ public class WebServer {
 
     post(CHECK_TURN_URL, new PostCheckTurnRoute(gameCenter,gson));
 
-    get(SPECTATING_GAME_URL, new GetSpectatorGame(gameCenter, templateEngine, gson, playerLobby));
+    get(SPECTATING_GAME_URL, new GetSpectatorGame(gameCenter, templateEngine, playerLobby));
 
-    get(SPECTATOR_STOP_WATCHING_URL, new GetSpectatorStopWatching(gameCenter, templateEngine, playerLobby));
+    get(SPECTATOR_STOP_WATCHING_URL, new GetSpectatorStopWatching(templateEngine, playerLobby));
 
     post(SPECTATOR_CHECK_TURN_URL, new PostSpectatorCheckTurnRoute(gameCenter, gson));
 
@@ -192,11 +191,11 @@ public class WebServer {
 
     get(REPLAY_GAME_URL, new GetReplayGameRoute(gameCenter, templateEngine, gson, playerLobby));
 
-    post(REPLAY_NEXT_TURN_URL, new PostReplayNextTurnRoute(gameCenter, templateEngine, gson, playerLobby));
+    post(REPLAY_NEXT_TURN_URL, new PostReplayNextTurnRoute(templateEngine, gson));
 
-    post(REPLAY_PREVIOUS_TURN_URL, new PostReplayPreviousTurnRoute(gameCenter, templateEngine, gson, playerLobby));
+    post(REPLAY_PREVIOUS_TURN_URL, new PostReplayPreviousTurnRoute(templateEngine, gson));
 
-    get(EXIT_REPLAY_URL, new GetReplayStopWatching(gameCenter, templateEngine, playerLobby));
+    get(EXIT_REPLAY_URL, new GetReplayStopWatching(templateEngine, playerLobby));
 
 
     LOG.config("WebServer is initialized.");

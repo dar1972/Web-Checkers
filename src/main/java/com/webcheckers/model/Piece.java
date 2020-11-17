@@ -2,9 +2,8 @@ package com.webcheckers.model;
 
 import java.io.Serializable;
 
-@SuppressWarnings("serial")
 public class Piece implements Serializable {
-    //Created by Beck Anderson
+    //Created, commented, and cleaned by Beck
 
     //Types of pieces
     enum Type{
@@ -23,9 +22,8 @@ public class Piece implements Serializable {
      * Constructor for a new piece
      * @param type the type of piece (KING/SINGLE)
      * @param color the color of the piece (RED/WHITE)
-     * @param cellIdx the location of the piece
      */
-    public Piece(String type,String color, int cellIdx){
+    public Piece(String type, String color){
         if(type.equals("s")||type.equals("SINGLE")){
             this.type = Type.SINGLE;
         }else{

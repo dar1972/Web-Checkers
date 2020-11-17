@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 
 import static spark.Spark.halt;
 
-// File created by Beck Anderson, code by Marcus, code adjusted by Kelly
+// File created by Beck Anderson, code by Marcus, code adjusted by Kelly, commented, and cleaned by Beck
 
 public class PostHomeRoute implements Route {
     private static final Logger LOG = Logger.getLogger(PostSignInRoute.class.getName());
@@ -28,6 +28,7 @@ public class PostHomeRoute implements Route {
     private final TemplateEngine templateEngine;
     private final GameCenter gameCenter;
     private final PlayerLobby playerLobby;
+
     /**
      * Create the Spark Route (UI controller) to handle all {@code GET /} HTTP
      * requests.
@@ -41,24 +42,31 @@ public class PostHomeRoute implements Route {
         LOG.config("PostHomeRoute is initialized.");
     }
 
+    /**
+     * This function will render the WebCheckers Home page.
+     * @param request the HTTP request
+     * @param response the HTTP response
+     * @return the rendered HTML for the Home page
+     */
     @Override
-    public Object handle(Request request, Response response) throws Exception {
+    public Object handle(Request request, Response response) {
             // process after giving username
             LOG.finer("PostHomeRoute is invoked.");
             String userName = request.session().attribute( USER_PARAM );
             Player user = playerLobby.getPlayers().get(userName);
             String opponentName = request.queryParams(OPPONENT_PARAM);
 
-            if (opponentName == null) { //if a person wasn't chosen, redirect to gethomeroute and indicate to tell the player they haven't selected. 
+            //if a person wasn't chosen, redirect to gethomeroute and indicate to tell the player they haven't selected.
+            if (opponentName == null) {
                 request.session().attribute( NOT_SELECTED, "yes" );
                 response.redirect(WebServer.HOME_URL); 
                 halt();
             }
-            
-            if (!gameCenter.getGameLobby().containsKey(opponentName) && !user.isSpectating()) { // if the person is not in the game lobby, create a game.
-                gameCenter.createGame(userName, opponentName);
-                response.redirect(WebServer.GAME_URL);
-                halt();
+            // if the person is not in the game lobby, create a game.
+             if (!gameCenter.getGameLobby().containsKey(opponentName) && !user.isSpectating()) {
+                 gameCenter.createGame(userName, opponentName);
+                 response.redirect(WebServer.GAME_URL);
+                 halt();
             }
             // used to put in title name, this varies depending on which page it is
             Map<String, Object> vm = new HashMap<>();
@@ -69,8 +77,6 @@ public class PostHomeRoute implements Route {
             response.redirect(WebServer.HOME_URL);  
             halt();
 
-            return templateEngine.render(new ModelAndView(vm, "home.ftl")); // created by Marcus, adjusted by Kelly
-        
-
+            return templateEngine.render(new ModelAndView(vm, "home.ftl"));
     }
 }
