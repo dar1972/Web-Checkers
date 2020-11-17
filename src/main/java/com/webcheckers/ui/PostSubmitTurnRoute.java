@@ -10,7 +10,7 @@ import spark.*;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
-//Made and worked on by Beck Anderson
+//Made by Beck, worked on by Marcus, commented, and cleaned by Beck
 
 public class PostSubmitTurnRoute implements Route{
     private static final Logger LOG = Logger.getLogger(PostSignInRoute.class.getName());
@@ -34,66 +34,68 @@ public class PostSubmitTurnRoute implements Route{
         LOG.config("PostSubmitTurnRoute is initialized.");
     }
 
+    /**
+     * This function will render the WebCheckers Game page
+     * after a turn is submitted
+     * @param request the HTTP request
+     * @param response the HTTP response
+     * @return json
+     */
     @Override
-    public Object handle(Request request, Response response) throws Exception {
+    public Object handle(Request request, Response response) {
         LOG.config("PostSubmitTurnRoute is invoked.");
 
         Message message;
         String userName = request.session().attribute( USER_PARAM );
 
+        // if player is in the game
         if(gameCenter.isPlayerInGame(userName)){
             boolean outcome = gameCenter.finishTurn(userName);
 
+            // if turn not over
             if(!outcome){
                 message = Message.error("Fix something, this ain't right!");
             }
+            // if active player is username
             else if(gameCenter.isPlayerActive(userName)){
                 Game game = gameCenter.getGame(userName);
                 message = Message.info(SUBMIT_TURN_INFO);
 
+                // get the move snaps
                 ArrayList<BoardView> activeSnapshots = game.getActiveSnapshots();
                 ArrayList<BoardView> inactiveSnapshots = game.getInactiveSnapshots();
                 ArrayList<BoardView> tempSnapshots = game.getTempSnapshots();
 
                 BoardView activeBoard = activeSnapshots.get(activeSnapshots.size()-1);
 
-
-                for (int i = 0; i < tempSnapshots.size(); i++) { 
-                    inactiveSnapshots.add(game.copyBoard(tempSnapshots.get(i)));
+                // for each snap in tempSnapshots
+                for (BoardView tempSnapshot : tempSnapshots) {
+                    inactiveSnapshots.add(game.copyBoard(tempSnapshot));
                 }
-        
+
+                // remove a move from opponents board
                 BoardView inactiveBoard = inactiveSnapshots.get(inactiveSnapshots.size()-1);
 
-                if (game.getActiveColor() == Game.ActiveColor.RED){
+                // set the boards
+                game.setGameBoardRed(activeBoard);
+                game.setGameBoardWhite(inactiveBoard);
 
-                    game.setGameBoardRed(activeBoard);
-                    game.setGameBoardWhite(inactiveBoard);
-
-                }
-                else {
-
-                    game.setGameBoardRed(activeBoard);
-                    game.setGameBoardWhite(inactiveBoard);
-
-                }
-
+                // flip moves allowed
                 game.resetMoveAllowed();
 
                 tempSnapshots.clear();
-                if (game.colorCleared()) { //check if a color has been fully wiped from the board. 
+                //check if a color has been fully wiped from the board.
+                if (game.colorCleared()) {
                     game.setWinner(game.getActivePlayer()); 
                 }
                 game.updateActivePlayer();
-
-
-            }
-            else{
+            } else{
                 message = Message.info(SWAP_TURN_ERROR);
             }
-        }
-        else {
+        } else {
             message = Message.info(GAME_OVER_INFO);
         }
+        // get ready to send message
         String json;
         json = gson.toJson(message);
         return json;

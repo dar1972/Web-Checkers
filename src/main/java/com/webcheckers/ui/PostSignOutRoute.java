@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 
 import static spark.Spark.halt;
 
-// File created by Beck Anderson, code by Marcus, code adjusted by Kelly
+// File created by Beck, code by Marcus, code adjusted by Kelly, commented, and cleaned by Beck
 
 public class PostSignOutRoute implements Route {
     private static final Logger LOG = Logger.getLogger(PostSignInRoute.class.getName());
@@ -33,11 +33,9 @@ public class PostSignOutRoute implements Route {
     }
 
     @Override
-    public Object handle(Request request, Response response) throws Exception {
+    public Object handle(Request request, Response response) {
         
         LOG.finer("PostSignOutRoute is invoked.");
-        //final Session session = request.session();
-        //session.attribute( USER_PARAM, userName );
 
         String userName = request.session().attribute(USER_PARAM);
 

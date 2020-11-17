@@ -8,13 +8,10 @@ import spark.*;
 import java.util.Objects;
 import java.util.logging.Logger;
 
-//Made and worked on my Beck Anderson
+//Made, worked on, commented, and cleaned by Beck
 
 public class PostCheckTurnRoute implements Route{
 
-
-
-    static final String USER_PARAM = "userName";
 
     private static final Logger LOG = Logger.getLogger(PostSignInRoute.class.getName());
 
@@ -33,31 +30,38 @@ public class PostCheckTurnRoute implements Route{
         LOG.config("PostCheckTurnRoute is initialized.");
     }
 
+    /**
+     * This function will render the WebCheckers Game page after a turn check.
+     * @param request the HTTP request
+     * @param response the HTTP response
+     * @return the json
+     */
     @Override
-    public Object handle(Request request, Response response) throws Exception {
+    public Object handle(Request request, Response response) {
+
         LOG.finer("PostCheckTurnRoute is invoked.");
         String userName = request.session().attribute("userName");
         Message message;
 
+        // does player exist?
         if (userName != null) {
-            if (gameCenter.getGame(userName).getActivePlayer().getName() == userName) {
+            // if player is active
+            if (gameCenter.getGame(userName).getActivePlayer().getName().equals(userName)) {
                 message = Message.info("true");
             }
             else {
                 message = Message.info("false");
-    
             }
-
+            // if player is the winner
             if (gameCenter.getGame(userName).isWinner()){
                 message = Message.info("true");
             }
         }
         else {
-            message = Message.info("true"); //Not actually true, but triggers page refresh when this route is invoked after server restart.
+            message = Message.info("true"); //Not actually true, but triggers page refresh
+                                            // when this route is invoked after server restart.
         }
-
-
-        
+        // get ready to send message
         String json;
         json = gson.toJson(message);
         return json;

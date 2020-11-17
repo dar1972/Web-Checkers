@@ -9,9 +9,8 @@ import spark.*;
 
 public class PostBackupMoveRoute implements Route {
 
-    private Game game;
-    private GameCenter gameCenter;
-    private Gson gson;
+    private final GameCenter gameCenter;
+    private final Gson gson;
 
     /**
      * Create the Spark Route (UI controller) to handle all {@code GET /} HTTP
@@ -22,10 +21,18 @@ public class PostBackupMoveRoute implements Route {
         this.gson = gson;
     }
 
+    /**
+     * This function will render the WebCheckers Game page after a back up.
+     * @param request the HTTP request
+     * @param response the HTTP response
+     * @return the json
+     */
     @Override
-    public Object handle(Request request, Response response) throws Exception {
+    public Object handle(Request request, Response response) {
+        // set up game and user
         String userName = request.session().attribute("userName");
-        game = gameCenter.getGame(userName);
+        Game game = gameCenter.getGame(userName);
+        // is back up possible
         boolean success = game.backupMove();
         Message msg;
         if (success) {
@@ -34,6 +41,7 @@ public class PostBackupMoveRoute implements Route {
         else {
             msg = Message.error("Backup failed.");
         }
+        // get ready to send message
         String json;
         json = gson.toJson(msg);
 
